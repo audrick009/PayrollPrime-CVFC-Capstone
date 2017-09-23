@@ -1,0 +1,271 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="MasterPages_Admin" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content=""> 
+
+    <title>Home</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../bootstrap/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bootstrap/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-university"></i> Central Visayas Financial Corporation</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar"></i> <b class="caret"></b></a>
+                        <ul class="dropdown-menu alert-dropdown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Leave</h4>
+                </div>
+     
+                <div class="modal-body"></div>
+                    <table class="table table-hover">
+                        <thead> 
+                            <th>Application</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                               <asp:ListView ID="lvLeave" runat="server" >
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><%# Eval("LeaveType") %></td>
+                                        <td><%# Eval("Status") %></td>
+                                    </tr>
+                                </ItemTemplate>
+                                   <EmptyDataTemplate>
+                                        No Records Found.
+                                    </EmptyDataTemplate>
+                            </asp:ListView>
+                        </tbody>
+                    </table>
+                    </ul>
+                    </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-inbox"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Overtime</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <asp:ListView ID="lvOvertime" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><%# Eval("Date") %></td>
+                                        <td><%# Eval("Status") %></td>
+                                    </tr>
+                                </ItemTemplate>
+                                <EmptyDataTemplate>
+                                        No Records Found.
+                                </EmptyDataTemplate>
+                            </asp:ListView>
+                        </tbody>
+                    </table>
+                    </div>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Payslip</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    <asp:ListView ID="lvPayslip" runat="server" >
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Eval("Date") %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                    <EmptyDataTemplate>
+                                        No Records Found.
+                                    </EmptyDataTemplate>
+                                    </asp:ListView>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><asp:Literal ID="ltFN" runat="server" /> 
+                        <asp:Literal ID="ltLN" runat="server"/>
+                        <strong>
+                            (
+                        <asp:Literal ID="ltUser" runat="server" />
+                            )
+                        </strong><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="ChangePasswordAdmin.aspx"><i class="fa fa-key"></i> Change Password</a>
+                        </li>
+                        <li>
+                            <a href="EmpUpdate.aspx"><i class="fa fa-info"></i> Update Information</a>
+                        </li>
+                        <li>
+                            <a href="ViewContRecords.aspx"><i class="fa fa-files-o"></i> Contribution Records</a>
+                        </li>
+                        <li>
+                            <a href="ViewLoanRecords.aspx"><i class="fa fa-list" ></i> Loan Records </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../Logout.aspx"><i class="fa fa-sign-out"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#UserMan"><i class="fa fa-user"></i> User Management<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="UserMan" class="collapse">
+                            <li>
+                                <a href="AddUserAccount.aspx">Add User Account</a>
+                            </li>
+                            <li>
+                                <a href="ViewUserAccount.aspx">View User Account</a>
+                            </li>
+                        </ul>
+                    </li>                 
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#AO"><i class="fa fa-list-ol"></i> Attendance<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="AO" class="collapse">
+                            <li>
+                                <a href="AttendanceOverride.aspx">Attendance Override</a>
+                            </li>
+                            <li>
+                                <a href="ViewAttendance.aspx">View Employee Attendance Record</a>
+                            </li>
+                        </ul>
+                    </li>                 
+
+
+                     <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#gpay"><i class="fa fa-file-text-o"></i> Generate Payslip<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="gpay" class="collapse">
+                            <li>
+                                <a href="ViewPayslip.aspx">View Payslip</a>
+                            </li>
+                        </ul>
+                    </li>
+                      <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#AL"><i class="fa fa-file"></i> Audit Log<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="AL" class="collapse">
+                            <li>
+                                <a href="ViewAuditLog.aspx">View Audit Logs</a>
+                            </li>
+                        </ul>
+                    </li>
+                   <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#OT"><i class="fa fa-clock-o"></i> Overtime and Leave<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="OT" class="collapse">
+                            <li>
+                                <a href="addOvertime.aspx">Apply Overtime</a>
+                            </li>
+                            <li>
+                                <a href="AddLeave.aspx">Apply Leave</a>
+                            </li>
+                        </ul>
+                    </li>    
+                    
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+         <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="clearfix">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                 <h1>
+                                    <asp:ContentPlaceHolder ID="title" runat="server" />
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <asp:ContentPlaceHolder ID="content" runat="server" />
+                    </div>
+               </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+     
+ 
+   
+
+
+    <!-- jQuery -->
+    <script src="../bootstrap/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bootstrap/js/bootstrap.js"></script>
+
+</body>
+
+</html>
