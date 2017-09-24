@@ -22,6 +22,20 @@
     <!-- Custom Fonts -->
     <link href="bootstrap/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
 
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="bootstrap/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bootstrap/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bootstrap/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="bootstrap/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="bootstrap/plugins/iCheck/square/blue.css">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,56 +45,12 @@
 
 </head>
 
-<body>
+<body class="hold-transition login-page">
 
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-university"></i> Central Visayas Financial Corporation</a>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-         <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="clearfix">
-                    <div class="page-header">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                 <h1 class="text-center">
-                                    <asp:ContentPlaceHolder ID="title" runat="server" />
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <asp:ContentPlaceHolder ID="content" runat="server" />
-                    </div>
-               </div>
-                <!-- /.row -->
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    
-    <!-- /#wrapper -->
-     
- 
-   
-
+    <!-- Navigation -->
+    <asp:ContentPlaceHolder ID="content" runat="server" />
+    <!-- /#page-wrapper -->
 
     <!-- jQuery -->
     <script src="bootstrap/js/jquery.js"></script>
