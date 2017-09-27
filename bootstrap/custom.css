@@ -1,0 +1,13 @@
+﻿      #username{
+          color:white;
+          text-align: center;
+          font-size: 25px;
+      }
+      #username > #desc {
+          color:white;
+          text-align: center;
+          font-size: 12px;
+      }
+      #logout-hov:hover{
+          color: white;
+      }

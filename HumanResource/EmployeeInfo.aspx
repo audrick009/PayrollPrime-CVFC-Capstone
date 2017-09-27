@@ -52,22 +52,22 @@
                                 <td> <%# Eval("DateEmployed", "{0: MM/dd/yyyy }") %></td>
                                 <td> <%# Eval("Position") %></td>
                                 <td>
-                                    <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-info">View</i></a>
+                                    <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-info"></i>View</a>
                                 </td>
                                 <td>
-                                    <a href='EmpUpdate.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-pencil">Update</i></a>
+                                    <a href='EmpUpdate.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-pencil"></i>Update</a>
                                 </td>
                                 <td>
-                                    <a href='EmpArchive.aspx?ID=<%# Eval("EmployeeID") %>' onclick='return confirm("Are you sure? This Cannot be Undone.")'><i class="fa fa-archive">Archive</i></a>
+                                    <a href='EmpArchive.aspx?ID=<%# Eval("EmployeeID") %>' onclick='return confirm("Are you sure? This Cannot be Undone.")'><i class="fa fa-archive"></i>Archive</a>
                                 </td>
                                 <td>
-                                    <a href='EmpDependents.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-plus">Dependents</i></a>
+                                    <a href='EmpDependents.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-plus"></i>Dependents</a>
                                 </td>
                                 <td>
-                                    <a href='EmpLoanRecords.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-plus">Loan</i></a>
+                                    <a href='EmpLoanRecords.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-plus"></i>Loan</a>
                                 </td>
                                 <td>
-                                    <a href='EmpOffense.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-exclamation">Offense</i></a>
+                                    <a href='EmpOffense.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-exclamation"></i>Offense</a>
                                 </td>
                             </tr>
                         </ItemTemplate>
