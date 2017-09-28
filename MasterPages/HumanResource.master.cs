@@ -14,8 +14,8 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
     {
         if (Session["userid"] != null)
         {
-            ltFN.Text = Session["LastName"].ToString();
-            ltLN.Text = Session["FirstName"].ToString();
+            ltFN.Text = Session["FirstName"].ToString();
+            ltLN.Text = Session["LastName"].ToString();
             ltUser.Text = Session["Position"].ToString();
         }
         else

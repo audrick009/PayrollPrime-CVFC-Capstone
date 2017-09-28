@@ -4,33 +4,13 @@
     Employee Information
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-    <form runat="server" class="form-horizontal">
-        <div class ="col-lg-12">
-            <div class="form-group">
-                <div class="col-lg-2">
-                    <asp:DropDownList ID="ddlCat" runat="server" class="form-control" >
-                                <asp:ListItem Text="FirstName" ></asp:ListItem>
-                                <asp:ListItem Text="LastName" ></asp:ListItem>
-                                <asp:ListItem Text="Sex" ></asp:ListItem>
-                                <asp:ListItem Text="Position" ></asp:ListItem>
-                                <asp:ListItem Text="DateEmployed" ></asp:ListItem>
-                    </asp:DropDownList>
+            <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Employee Information</h3>
                 </div>
-                <div class="col-lg-2">
-                    <asp:RadioButton runat="server" ID="rbAsc" GroupName="rdSearch" text="ASC" OnCheckedChanged="rbAsc_CheckedChanged" AutoPostBack="true" />
-                    <asp:RadioButton runat="server" ID="rbDsc" GroupName="rdSearch" text="DSC" OnCheckedChanged="rbDsc_CheckedChanged" AutoPostBack="true" />
-                </div>
-                <div class="col-lg-6">
-                    <asp:TextBox ID="txtSearch" runat="server" class="form-control" />
-                    <div id="validatealert" runat="server" class="alert alert-danger col-lg-12" visible="false">
-                        Insert a Valid Input!!
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <asp:Button ID="btnSearch" runat="server" class="btn btn-info" Text="Search" OnClick="btnSearch_Click" />
-                </div>
-            </div>
-            <table class="table table-hover">
+                <div class="box-body">
+                <table id="table" class="table table-hover table-bordered">
                 <thead>
                     <th>#</th>
                     <th>Full Name</th>
@@ -49,7 +29,7 @@
                             <tr>
                                 <td> <%# Eval("EmployeeID") %></td>
                                 <td> <%# Eval("LastName") %>, <%# Eval("FirstName") %> <%# Eval("MiddleName") %></td>
-                                <td> <%# Eval("DateEmployed", "{0: MM/dd/yyyy }") %></td>
+                                <td> <%# Eval("DateEmployed", "{0: MMMM/dd/yyyy }") %></td>
                                 <td> <%# Eval("Position") %></td>
                                 <td>
                                     <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-info"></i>View</a>
@@ -74,7 +54,8 @@
                     </asp:ListView>
                 </tbody>
             </table>
-        </div>
-    </form>
+                </div>
+            </div>
+            </div>
 </asp:Content>
 
