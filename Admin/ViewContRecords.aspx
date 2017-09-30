@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
     <form runat="server" class="form-horizontal">
         <div class="col-lg-12">
-            <div class="form-group">
+            <div class="form-group container"> <!-- paki tanggal ung container PAG nag bug ung listview. Naka gilid kasi masyado kaya tinry ko lagay container-->
                 <table class="table table-hover">
                     <thead>
                         <th>Contribution Type</th>

@@ -77,17 +77,17 @@ public partial class AddUserAccount : System.Web.UI.Page
 
                 aud.AuditLog("Added a User Account", int.Parse(Session["empid"].ToString()), "Added: " + ddlEmployees.SelectedItem.Text);
                 Response.Redirect("ViewUserAccount.aspx");
-                validatealert2.Visible = false;
+                //validatealert2.Visible = false;
             }
-            else
-            {
-                validatealert2.Visible = true;
-            }
+        //    else
+        //    {
+        //        validatealert2.Visible = true;
+        //    }
         }
-        else
-        {
-            validatealert.Visible = true;
-        }
+        //else
+        //{
+        //    validatealert.Visible = true;
+        //}
     }
 
 }

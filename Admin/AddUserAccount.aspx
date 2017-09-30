@@ -4,7 +4,7 @@
    <i class="fa fa-plus"></i> Add User Account
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-    <form runat="server" class="form-horizontal">
+   <%-- <form runat="server" class="form-horizontal">
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="control-label col-lg-4">Employees</label>
@@ -40,6 +40,37 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form>--%>
+    <div class="row container">
+        <form runat="server">
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Employees:</label>
+                    <asp:DropDownList ID="ddlEmployees" runat="server"
+                       class="form-control"  />
+                </div>
+                <div class="form-group">
+                    <label>Username:</label>
+                    <asp:TextBox ID="txtUname" runat="server"
+                        class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <asp:TextBox ID="txtPword" runat="server"
+                        class="form-control" type="password" required />
+                </div>
+                <div class="form-group pull-right">
+                     <asp:Button ID="btnAdd" runat="server"
+                        class="btn btn-success" Text="Add User Account" OnClick="btnAdd_Click" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+        </form>
+    </div>
 </asp:Content>
 
