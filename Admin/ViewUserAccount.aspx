@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Admin.master" AutoEventWireup="true" CodeFile="ViewUserAccount.aspx.cs" Inherits="ViewUserAccount" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
-    <i class="fa fa-users"></i> View User Accounts
+<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="Server">
+    View User Accounts&nbsp<i class="fa fa-users"></i>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-    <form runat="server" class="form-horizontal">
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
+    <%--<form runat="server" class="form-horizontal">
         <div class="col-lg-12">
             <div class="form-group"">
                 <div class="col-lg-2">
@@ -69,6 +69,51 @@
                 </tbody>
             </table>
         </div>
-    </form>
+    </form>--%>
+
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">User Accounts</h3>
+            </div>
+            <div class="box-body">
+                <table id="table" class="table table-hover table-bordered">
+                    <thead>
+                        <th>User ID#</th>
+                        <th>Name</th>
+                        <th>Usermame</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Date Added</th>
+                        <th>Date Modified</th>
+                        <th>Modified By</th>
+
+                    </thead>
+                    <tbody>
+                        <asp:ListView ID="lvAccounts" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("UserID") %></td>
+                                    <td><%# Eval("FullName") %></td>
+                                    <td><%# Eval("Username") %></td>
+                                    <td><%# Eval("Position") %></td>
+                                    <td><%# Eval("Status") %></td>
+                                    <td><%# Eval("DateAdded", "{0: MMMM dd, yyyy}") %></td>
+                                    <td><%# Eval("DateModified", "{0: MMMM dd, yyyy}") %></td>
+                                    <td><%# Eval("ModifiedBy") %></td>
+                                    <td>
+                                        <a href='ViewUserAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-eye" title="View Details"></i></a>&nbsp;
+                                    <a href='UpdateAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-pencil" title="Update"></i></a>&nbsp;
+                                    <a href='ArchiveAccount.aspx?ID=<%# Eval("UserID") %> ' onclick='return confirm("Archive record?")'>
+                                        <i class="fa fa-trash" title="Archive"></i></a>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 

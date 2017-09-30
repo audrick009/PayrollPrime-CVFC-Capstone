@@ -15,7 +15,7 @@ public partial class addOvertime : System.Web.UI.Page
     {
         if (Session["userid"] != null)
         {
-            if (Session["position"].ToString() == "Employee")
+            if (Session["position"].ToString() == "Admin")
             {
 
             }

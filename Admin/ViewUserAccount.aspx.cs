@@ -52,25 +52,25 @@ public partial class ViewUserAccount : System.Web.UI.Page
 
 
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
      
-        con.Open();
-        SqlCommand com = new SqlCommand();
-        com.Connection = con;
-        com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, " +
-                "u.Password, e.Status, e.Position, u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN " +
-                "Employee e ON u.EmployeeID=e.EmployeeID WHERE Status = 'Employed' AND " + ddlCat.SelectedItem.Text + " ='" + txtSearch.Text + "'";
-        SqlDataAdapter da = new SqlDataAdapter(com);
-        DataSet ds = new DataSet();
-        da.Fill(ds, "Users");
-        lvAccounts.DataSource = ds;
-        lvAccounts.DataBind();
-        con.Close();
+    //    con.Open();
+    //    SqlCommand com = new SqlCommand();
+    //    com.Connection = con;
+    //    com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, " +
+    //            "u.Password, e.Status, e.Position, u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN " +
+    //            "Employee e ON u.EmployeeID=e.EmployeeID WHERE Status = 'Employed' AND " + ddlCat.SelectedItem.Text + " ='" + txtSearch.Text + "'";
+    //    SqlDataAdapter da = new SqlDataAdapter(com);
+    //    DataSet ds = new DataSet();
+    //    da.Fill(ds, "Users");
+    //    lvAccounts.DataSource = ds;
+    //    lvAccounts.DataBind();
+    //    con.Close();
 
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Search Users", int.Parse(Session["empid"].ToString()), name + "searched for users using " + ddlCat.SelectedItem.Text + " : " + txtSearch.Text);
+    //    String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+    //    aud.AuditLog("Search Users", int.Parse(Session["empid"].ToString()), name + "searched for users using " + ddlCat.SelectedItem.Text + " : " + txtSearch.Text);
 
 
-    }
+    //}
 }
