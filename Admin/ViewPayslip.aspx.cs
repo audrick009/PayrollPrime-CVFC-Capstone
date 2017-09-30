@@ -46,7 +46,7 @@ public partial class Employee_ViewPayslip : System.Web.UI.Page
     {
         ReportDocument rpt = new ReportDocument();
         rpt.Load(Server.MapPath("~/Reports/payslipReport.rpt"));
-        rpt.SetDatabaseLogon("sa", "lazaro009", "DESKTOP-JQC0U4J", "CVFCPayroll");
+        rpt.SetDatabaseLogon("sa", "dbpass", "DESKTOP-JQC0U4J", "CVFCPayroll");
         rpt.SetParameterValue("EmployeeID", Session["empid"].ToString());
         rpt.SetParameterValue("PaytermID", ddlPayTerm.SelectedValue);
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Payslip Report");
