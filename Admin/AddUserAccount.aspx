@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Admin.master" AutoEventWireup="true" CodeFile="AddUserAccount.aspx.cs" Inherits="AddUserAccount" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="Server">
-    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
     <%-- <form runat="server" class="form-horizontal">
@@ -63,6 +62,9 @@
                             <label>Username:</label>
                             <asp:TextBox ID="txtUname" runat="server"
                                 class="form-control" required />
+                            <div id="validatealert" runat="server" class="alert alert-danger col-lg-12" visible="false">
+                                This username already exists!
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Password:</label>

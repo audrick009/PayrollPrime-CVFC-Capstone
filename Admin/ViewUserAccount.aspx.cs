@@ -39,7 +39,8 @@ public partial class ViewUserAccount : System.Web.UI.Page
         SqlCommand com = new SqlCommand();
         com.Connection = con;
         com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, e.Position, e.Status," +
-            "u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE Status = 'Employed'";
+            "u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE Status = 'Employed'" +
+            "AND Position NOT IN('Admin')";
         SqlDataAdapter da = new SqlDataAdapter(com);
         DataSet ds = new DataSet();
         da.Fill(ds, "Accounts");

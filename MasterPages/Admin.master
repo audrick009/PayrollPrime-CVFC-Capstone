@@ -1,5 +1,4 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="MasterPages_Admin" %>
-
 <!DOCTYPE html>
 <html>
 
@@ -42,7 +41,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="../../index2.html" class="logo">
+            <a href="ViewUserAccount.aspx" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>CVFC</b></span>
                 <!-- logo for regular state and mobile devices -->

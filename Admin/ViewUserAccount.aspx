@@ -103,8 +103,8 @@
                                     <td><%# Eval("ModifiedBy") %></td>
                                     <td>
                                         <a href='ViewUserAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-eye" title="View Details"></i></a>&nbsp;
-                                    <a href='UpdateAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-pencil" title="Update"></i></a>&nbsp;
-                                    <a href='ArchiveAccount.aspx?ID=<%# Eval("UserID") %> ' onclick='return confirm("Archive record?")'>
+                                        <a href='UpdateAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-pencil" title="Update"></i></a>&nbsp;
+                                        <a href='ArchiveAccount.aspx?ID=<%# Eval("UserID") %> ' onclick='return confirm("Archive record?")'>
                                         <i class="fa fa-trash" title="Archive"></i></a>
                                     </td>
                                 </tr>

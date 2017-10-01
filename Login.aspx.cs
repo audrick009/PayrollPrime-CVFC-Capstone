@@ -49,7 +49,7 @@ public partial class Login : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
 
-        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password ";
+        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password AND Status='Employed'"; //nag dagdag ako ng status para pag na archived di na accessible ung account
         mirai.Parameters.AddWithValue("@username", txtUsername.Text);
         mirai.Parameters.AddWithValue("@password", Helper.CreateSHAHash(txtPassword.Text));
         SqlDataReader aki = mirai.ExecuteReader();
