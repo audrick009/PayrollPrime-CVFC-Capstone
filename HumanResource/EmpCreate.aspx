@@ -4,6 +4,7 @@
     Insert New Employee
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+<div class="row">
     <form runat="server" class="form-horizontal">
         <!-- Employee Basic Info --> 
         <div class="col-lg-12">
@@ -29,7 +30,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Birthdate</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBDate" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtBDate" type="Date" runat="server" class="form-control" />
                         </div>
                 </div>
                 <div class="form-group">
@@ -57,12 +58,6 @@
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="control-label col-lg-4">BIRno</label>
-                        <div class="col-lg-8">
-                            <asp:TextBox ID="txtBIR" runat="server" type="number" min="0" class="form-control" />
-                        </div>
-                </div>
-                <div class="form-group">
                     <label class="control-label col-lg-4">HDMFno</label>
                         <div class="col-lg-8">
                             <asp:TextBox ID="txtHDMF" runat="server" type="number" min="0" class="form-control" />
@@ -83,7 +78,11 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">CivilStatus</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtCivStat" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlCivStat" runat="server" class="form-control" >
+                                <asp:ListItem Text="Single" ></asp:ListItem>
+                                <asp:ListItem Text="Married" ></asp:ListItem>
+                                <asp:ListItem Text="Widow" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
@@ -99,9 +98,9 @@
                         </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4">BaseSalary</label>
+                    <label class="control-label col-lg-4">BaseSalary  ₱:</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="0.00" step="0.01" class="form-control" />
                         </div>
                 </div>
             </div>
@@ -164,5 +163,6 @@
             <asp:Button ID="btnInsertNewEmp" runat="server" class="btn btn-success pull-right" Text="Insert" OnClick="btnInsertNewEmp_Click"/>
         </div>
         </form>
+</div>
 </asp:Content>
 

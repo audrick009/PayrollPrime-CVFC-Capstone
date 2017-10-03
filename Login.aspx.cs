@@ -48,8 +48,9 @@ public partial class Login : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-
-        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password AND Status='Employed'"; //nag dagdag ako ng status para pag na archived di na accessible ung account
+        //nag dagdag ako ng status para pag na archived di na accessible ung account
+        //lagay mo to dyan sa taas kasi di sia kita sa gilid mga 1 hr nako nagtataka bat di ako maka login pota haha
+        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password AND Status='Employed'"; 
         mirai.Parameters.AddWithValue("@username", txtUsername.Text);
         mirai.Parameters.AddWithValue("@password", Helper.CreateSHAHash(txtPassword.Text));
         SqlDataReader aki = mirai.ExecuteReader();
