@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Admin.master" AutoEventWireup="true" CodeFile="ViewPayslip.aspx.cs" Inherits="Employee_ViewPayslip" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/HumanResource.master" AutoEventWireup="true" CodeFile="ViewPayslip.aspx.cs" Inherits="Employee_ViewPayslip" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     View Payslip
