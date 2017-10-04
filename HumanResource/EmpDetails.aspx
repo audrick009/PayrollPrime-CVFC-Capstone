@@ -21,6 +21,9 @@
             <label class="control-label">TINno: </label>
                     <asp:Literal ID="ltTINno" runat="server" />
             <br />
+            <label class="control-label">BIRno: </label>
+                    <asp:Literal ID="ltBIRno" runat="server" />
+            <br />
             <label class="control-label">HDMFno: </label>
                     <asp:Literal ID="ltHDMFno" runat="server" />
         <br />

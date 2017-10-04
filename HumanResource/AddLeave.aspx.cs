@@ -15,7 +15,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
     {
         if(Session["userid"] != null)
         {
-            if(Session["position"].ToString() == "Human Resource")
+            if(Session["position"].ToString() == "Employee")
             {
 
             }

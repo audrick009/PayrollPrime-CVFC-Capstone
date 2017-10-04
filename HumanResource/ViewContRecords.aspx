@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/HumanResource.master" AutoEventWireup="true" CodeFile="ViewContRecords.aspx.cs" Inherits="HumanResource_EmpContRecords" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Employee.master" AutoEventWireup="true" CodeFile="ViewContRecords.aspx.cs" Inherits="HumanResource_EmpContRecords" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     Contribution Records

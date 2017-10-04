@@ -111,11 +111,11 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@PermAddressID", PermID.ToString());
         mirai.Parameters.AddWithValue("@SSSno", txtSSS.Text);
         mirai.Parameters.AddWithValue("@TINno", txtTin.Text);
-        mirai.Parameters.AddWithValue("@BIRno", ddlCivStat.SelectedItem.Text);
+        mirai.Parameters.AddWithValue("@BIRno", txtBIR.Text);
         mirai.Parameters.AddWithValue("@HDMFno", txtHDMF.Text);
         mirai.Parameters.AddWithValue("@PhoneNo", txtPhoneNo.Text);
         mirai.Parameters.AddWithValue("@MobileNo", txtMobileNo.Text);
-        mirai.Parameters.AddWithValue("@CivilStatus", ddlCivStat.SelectedItem.Text);
+        mirai.Parameters.AddWithValue("@CivilStatus", txtCivStat.Text);
         mirai.Parameters.AddWithValue("@Status", "Employed");
         mirai.Parameters.AddWithValue("@Position", ddlPosition.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@DateEmployed", DateTime.Now);

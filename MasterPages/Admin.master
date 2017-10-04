@@ -257,16 +257,14 @@
                     <li class="header">Report Generation and Monitoring</li>
                     <li>
                         <a href="ViewPayslip.aspx">
-                            <i class="fa fa-dollar"></i><span>View Payslip</span>
+                            <i class="fa fa-dollar"></i><span>View Payslip</span></a>
                         </a>
                     </li>
                     <li>
                         <a href="ViewAuditLog.aspx">
-                            <i class="fa fa-list"></i><span>View Audit Logs</span>
-
+                            <i class="fa fa-list"></i><span>View Audit Logs</span></a>
                         </a>
                     </li>
-                    </ul>
             </section>
             <!-- /.sidebar -->
         </aside>

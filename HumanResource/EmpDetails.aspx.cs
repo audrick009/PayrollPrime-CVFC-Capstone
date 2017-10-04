@@ -41,7 +41,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
         mirai.CommandText = "SELECT e.LastName + ',' + e.FirstName + ' ' + e.MiddleName AS Name, convert(date,e.BirthDate) AS Bdate," + 
-            " e.Sex, e.SSSno, e.TINno, e.HDMFno, e.PhoneNo, e.MobileNo, e.CivilStatus, e.Status, e.Position, e.DateEmployed, " + 
+            " e.Sex, e.SSSno, e.TINno, e.BIRno, e.HDMFno, e.PhoneNo, e.MobileNo, e.CivilStatus, e.Status, e.Position, e.DateEmployed, " + 
             " e.DateCreated, pv.Street + ',' + pv.Municipality + ',' + pv.City As ProvAddress, pm.Street + ',' + pm.Municipality + ',' + pm.City AS " + 
             "PermAddress  FROM Employee AS e INNER JOIN EmployeePermanentAddress AS pm ON e.PermAddressID = pm.PermAddressID INNER JOIN " + 
             "EmployeeProvAddress as pv ON e.ProvAddressID = pv.ProvAddressID where e.EmployeeID=@EmployeeID";
@@ -56,6 +56,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
                 ltSex.Text = aki["Sex"].ToString();
                 ltSSSno.Text = aki["SSSno"].ToString();
                 ltTINno.Text = aki["TINno"].ToString();
+                ltBIRno.Text = aki["BIRno"].ToString();
                 ltHDMFno.Text = aki["HDMFno"].ToString();
                 ltPhoneNo.Text = aki["PhoneNo"].ToString();
                 ltMobileNo.Text = aki["MobileNo"].ToString();
