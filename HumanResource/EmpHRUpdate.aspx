@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Employee.master" AutoEventWireup="true" CodeFile="EmpPUpdate.aspx.cs" Inherits="HumanResource_EmpUpdate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/HumanResource.master" AutoEventWireup="true" CodeFile="EmpHRUpdate.aspx.cs" Inherits="HumanResource_EmpUpdate" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     Update Basic Information
@@ -38,7 +38,10 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Sex</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtSex" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlSex" runat="server" class="form-control" >
+                                <asp:ListItem Text="Female" ></asp:ListItem>
+                                <asp:ListItem Text="Male" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
@@ -55,12 +58,6 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-lg-4">BIRno</label>
-                        <div class="col-lg-8">
-                            <asp:TextBox ID="txtBIR" runat="server" type="number" min="0" class="form-control" />
-                        </div>
-                </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">HDMFno</label>
                         <div class="col-lg-8">
@@ -82,13 +79,23 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">CivilStatus</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtCivStat" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlCivStat" runat="server" class="form-control" >
+                                <asp:ListItem Text="Single" ></asp:ListItem>
+                                <asp:ListItem Text="Married" ></asp:ListItem>
+                                <asp:ListItem Text="Widow" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Position</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPosition" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlPosition" runat="server" class="form-control" >
+                                <asp:ListItem Text="Admin" ></asp:ListItem>
+                                <asp:ListItem Text="Department Head" ></asp:ListItem>
+                                <asp:ListItem Text="Employee" ></asp:ListItem>
+                                <asp:ListItem Text="Human Resource" ></asp:ListItem>
+                                <asp:ListItem Text="Payroll Officer" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">

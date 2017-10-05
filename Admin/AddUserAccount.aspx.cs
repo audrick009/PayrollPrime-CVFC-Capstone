@@ -23,7 +23,7 @@ public partial class AddUserAccount : System.Web.UI.Page
                 if (!IsPostBack)
                 {
                     GetEmployeeNames();
-                    //checkIfExisting();
+
                 }
             }
             else
@@ -36,12 +36,12 @@ public partial class AddUserAccount : System.Web.UI.Page
 
     void GetEmployeeNames() // this method is a function for the btnAdd to insert the selected names as Employee ID in the database (for add user account)
     {
-
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT EmployeeID, FirstName +' '+ MiddleName +' '+ LastName AS FullName FROM Employee WHERE Status = 'Employed'" +
-            "AND EmployeeID NOT IN(SELECT UserID FROM Users)";
+        com.CommandText = "SELECT e.EmployeeID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName FROM Employee e WHERE Status = 'Employed'" +
+            "AND not exists(select null from Users u where u.EmployeeID = e.EmployeeID)";
+
         SqlDataReader dr = com.ExecuteReader();
         ddlEmployees.DataSource = dr;
         ddlEmployees.DataTextField = "FullName";

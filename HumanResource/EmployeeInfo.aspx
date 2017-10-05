@@ -12,7 +12,7 @@
                 <div class="box-body">
                 <table id="table" class="table table-hover table-bordered">
                 <thead>
-                    <th>#</th>
+                    <th>ID no.</th>
                     <th>Full Name</th>
                     <th>Date Started</th>
                     <th>Position</th>
@@ -35,7 +35,7 @@
                                     <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-info"></i>View</a>
                                 </td>
                                 <td>
-                                    <a href='EmpUpdate.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-pencil"></i>Update</a>
+                                    <a href='EmpHRUpdate.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-pencil"></i>Update</a>
                                 </td>
                                 <td>
                                     <a href='EmpArchive.aspx?ID=<%# Eval("EmployeeID") %>' onclick='return confirm("Are you sure? This Cannot be Undone.")'><i class="fa fa-archive"></i>Archive</a>
