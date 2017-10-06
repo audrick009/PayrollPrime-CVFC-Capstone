@@ -225,7 +225,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="../Admin/AttendanceOverride.aspx">Attendance Override</a>
+                                <a href="AttendanceOverride.aspx">Attendance Override</a>
                             </li>
                         </ul>
                     </li>
