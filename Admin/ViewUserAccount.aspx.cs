@@ -15,11 +15,22 @@ public partial class ViewUserAccount : System.Web.UI.Page
     {
         if(Session["position"] != null)
         {
-            if(Session["position"].ToString() == "Admin"){
-                if (!IsPostBack)
-                {
-                    GetAccounts();
-                }
+            if(Session["position"].ToString() == "Admin")
+            {
+               
+                    con.Open();
+                    SqlCommand com = new SqlCommand();
+                    com.Connection = con;
+                    com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, e.Position, e.Status," +
+                        "u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE Status = 'Employed'" +
+                        "AND Position NOT IN('Admin')";
+                    SqlDataAdapter da = new SqlDataAdapter(com);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "Accounts");
+                    lvAccounts.DataSource = ds;
+                    lvAccounts.DataBind();
+                    con.Close();
+                
             }
             else
             {
@@ -33,21 +44,21 @@ public partial class ViewUserAccount : System.Web.UI.Page
         
     }
 
-    void GetAccounts() // This method is for displaying the data to the table.
-    {
-        con.Open();
-        SqlCommand com = new SqlCommand();
-        com.Connection = con;
-        com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, e.Position, e.Status," +
-            "u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE Status = 'Employed'" +
-            "AND Position NOT IN('Admin')";
-        SqlDataAdapter da = new SqlDataAdapter(com);
-        DataSet ds = new DataSet();
-        da.Fill(ds, "Accounts");
-        lvAccounts.DataSource = ds;
-        lvAccounts.DataBind();
-        con.Close();
-    }
+    //void GetAccounts() // This method is for displaying the data to the table.
+    //{
+    //    con.Open();
+    //    SqlCommand com = new SqlCommand();
+    //    com.Connection = con;
+    //    com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName, u.Username, e.Position, e.Status," +
+    //        "u.DateAdded, u.DateModified, u.ModifiedBy FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE Status = 'Employed'" +
+    //        "AND Position NOT IN('Admin')";
+    //    SqlDataAdapter da = new SqlDataAdapter(com);
+    //    DataSet ds = new DataSet();
+    //    da.Fill(ds, "Accounts");
+    //    lvAccounts.DataSource = ds;
+    //    lvAccounts.DataBind();
+    //    con.Close();
+    //}
 
 
 

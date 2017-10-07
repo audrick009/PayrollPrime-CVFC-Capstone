@@ -11,8 +11,6 @@ public partial class AddUserAccount : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetCon());
     Helper aud = new Helper();
-
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["position"].ToString() != null)
@@ -23,7 +21,7 @@ public partial class AddUserAccount : System.Web.UI.Page
                 if (!IsPostBack)
                 {
                     GetEmployeeNames();
-
+                    
                 }
             }
             else
@@ -40,7 +38,7 @@ public partial class AddUserAccount : System.Web.UI.Page
         SqlCommand com = new SqlCommand();
         com.Connection = con;
         com.CommandText = "SELECT e.EmployeeID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName FROM Employee e WHERE Status = 'Employed'" +
-            "AND not exists(select null from Users u where u.EmployeeID = e.EmployeeID)";
+            "AND NOT EXISTS(SELECT NULL FROM Users u where u.EmployeeID = e.EmployeeID)";
 
         SqlDataReader dr = com.ExecuteReader();
         ddlEmployees.DataSource = dr;
@@ -59,6 +57,7 @@ public partial class AddUserAccount : System.Web.UI.Page
         //    con.Open();
         //    SqlCommand com = new SqlCommand();
         //    com.Connection = con;
+        string cpass = Helper.CreateSHAHash(txtPword.Text);
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
@@ -67,33 +66,43 @@ public partial class AddUserAccount : System.Web.UI.Page
         com.Parameters.AddWithValue("@Username", txtUname.Text);
         int uname = (int)com.ExecuteScalar();
 
-        if (uname == 0)
+        if (txtPword.Text == txtRPword.Text)
         {
-            com.CommandText = "INSERT INTO Users VALUES(@EmployeeID, @Username, @Password, @DateAdded, @DateModified, @ModifiedBy)";
-            com.Parameters.AddWithValue("@EmployeeID", ddlEmployees.SelectedValue);
-            com.Parameters.AddWithValue("@Username2", txtUname.Text);
-            com.Parameters.AddWithValue("@Password", Helper.CreateSHAHash(txtPword.Text));
-            com.Parameters.AddWithValue("@DateAdded", DateTime.Now);
-            com.Parameters.AddWithValue("@DateModified", DBNull.Value);
-            com.Parameters.AddWithValue("@ModifiedBy", DBNull.Value);
-            com.ExecuteNonQuery();
-            con.Close();
+            if (uname == 0)
+            {
+                com.CommandText = "INSERT INTO Users VALUES(@EmployeeID, @Username, @Password, @DateAdded, @DateModified, @ModifiedBy)";
+                com.Parameters.AddWithValue("@EmployeeID", ddlEmployees.SelectedValue);
+                com.Parameters.AddWithValue("@Username2", txtUname.Text);
+                com.Parameters.AddWithValue("@Password", Helper.CreateSHAHash(txtRPword.Text));
+                com.Parameters.AddWithValue("@DateAdded", DateTime.Now);
+                com.Parameters.AddWithValue("@DateModified", DBNull.Value);
+                com.Parameters.AddWithValue("@ModifiedBy", DBNull.Value);
+                com.ExecuteNonQuery();
+                con.Close();
 
-            aud.AuditLog("Added a User Account", int.Parse(Session["empid"].ToString()), "Added: " + ddlEmployees.SelectedItem.Text);
-            Response.Redirect("ViewUserAccount.aspx");
-            validatealert.Visible = false;
+                aud.AuditLog("Added a User Account", int.Parse(Session["empid"].ToString()), "Added: " + ddlEmployees.SelectedItem.Text);
+                Response.Redirect("ViewUserAccount.aspx");
+                validatealert.Visible = false;
+                validatealert2.Visible = false;
+            }
+            else
+            {
+                validatealert.Visible = true;
+                validatealert2.Visible = false;
+            }
         }
         else
         {
-            validatealert.Visible = true;
-        }
+            validatealert.Visible = false;
+            validatealert2.Visible = true;
+        }         
         //else
         //{
         //    validatealert.Visible = true;
         //}
     }
 
-
+   
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         txtUname.Text = String.Empty;

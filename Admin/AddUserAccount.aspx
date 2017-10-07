@@ -71,7 +71,14 @@
                             <asp:TextBox ID="txtPword" runat="server"
                                 class="form-control" type="password" required />
                         </div>
-
+                        <div class="form-group">
+                            <label>Confirm Password:</label>
+                            <asp:TextBox ID="txtRPword" runat="server"
+                                class="form-control" type="password" required />
+                            <div id="validatealert2" runat="server" class="alert alert-danger col-lg-12" visible="false">
+                                Password does not match!
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
 
