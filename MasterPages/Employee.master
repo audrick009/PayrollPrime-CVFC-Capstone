@@ -173,7 +173,7 @@
                                 </strong><b class="caret"></b></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="HRChangePassword.aspx">Change Password</a>
+                                    <a href="EmployeeChangePassword.aspx">Change Password</a>
                                 </li>
                                 <li>
                                     <a href="EmpUpdate.aspx">Update Information</a>
