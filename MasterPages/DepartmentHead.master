@@ -251,10 +251,10 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="getOvertimeApplication.aspx">View Overtime Records</a>
+                                <a href="getOvertimeApplication.aspx">View Pending Overtime Records</a>
                             </li>
                             <li>
-                                <a href="getLeaveApplication.aspx">View Leave Records</a>
+                                <a href="getLeaveApplication.aspx">View Pending Leave Records</a>
                             </li>
                         </ul>
                     </li>

@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     <i class="fa fa-inbox"></i> View Pending Overtime Application Forms
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+<%--<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
     <form id="form1" runat="server">
         <div class="col-lg-9">
             <table class="table table-hover">
@@ -80,5 +80,55 @@
             </table>
         </div>
     </form>
+</asp:Content>--%>
+<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+            <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Overtime Pending Applications</h3>
+                </div>
+                <div class="box-body">
+                <table id="table" class="table table-hover table-bordered">
+                <thead>
+                    <th>Overtime ID</th>
+                    <th>Employee ID</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </thead>
+                <tbody>
+                    <asp:ListView ID="lvOvertimeApp" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td> <%# Eval("OTRID") %></td>
+                                <td> <%# Eval("EmployeeID") %></td>
+                                <td> <%# Eval("Date") %></td>
+                                <td> <%# Eval("Hours") %></td>
+                                <td> <%# Eval("StartTime") %></td>
+                                <td> <%# Eval("EndTime") %></td>
+                                <td> <%# Eval("Reason") %></td>
+                                <td> <%# Eval("Status") %></td> 
+                                <td>
+                                <a href='ApproveOT.aspx?OTRID=<%# Eval("OTRID") %>' onclick='return confirm("Are you sure?")';
+                                    <button type="button" class="btn btn-success" title="Accept">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                            </td>
+                             <td>
+                             <a href='RejectOT.aspx?OTRID=<%# Eval("OTRID") %>' onclick='return confirm("Are you sure?")';
+                                    <button type="button" class="btn btn-danger" title="Reject">
+                                        <i class="fa fa-times" />
+                                    </button>
+                            </td>    
+                            </tr>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </tbody>
+            </table>
+                </div>
+            </div>
+            </div>
 </asp:Content>
-

@@ -4,9 +4,13 @@
     <i class="fa fa-user"></i> View Leave Application History
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-    <form id="leaveFormHistory" runat="server" class="form-horizontal">
-        <div class="col-lg-9">
-            <table class="table table-hover">
+            <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Leave Application History</h3>
+                </div>
+                <div class="box-body">
+                <table id="table" class="table table-hover table-bordered">
                 <thead>
                     <th>LeaveRID</th>
                     <th>EmployeeID</th>
@@ -19,53 +23,24 @@
                 <tbody>
                     <asp:ListView ID="lvLeaveApp" runat="server">
                         <ItemTemplate>
-                       
                             <tr>
-                                <td>
-                                    <asp:Label ID="lbLeaveRID" runat="server"
-                                        Text= '<%# Eval("LeaveRID") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbEmployeeID" runat="server"
-                                        Text= '<%# Eval("EmployeeID") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbStatus" runat="server"
-                                        Text= '<%# Eval("Status") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbLeaveType" runat="server"
-                                        Text= '<%# Eval("LeaveType") %>' />
-                                </td>
-                                 <td>
-                                    <asp:Label ID="lbDays" runat="server"
-                                        Text= '<%# Eval("Days") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbStart" runat="server"
-                                        Text= '<%# Eval("StartingDate") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbEnd" runat="server"
-                                        Text= '<%# Eval("EndingDate") %>' />
-                                </td>
-                               
-                               
-                                    <%--<asp:DataPager ID="datapager1" runat="server">
-                                        <Fields>
-                                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="true" />
-                                        </Fields>
-                                    </asp:DataPager>
-                                </td>--%>
-                               
+                                <td> <%# Eval("LeaveRID") %></td>
+                                <td> <%# Eval("EmployeeID") %></td>
+                                <td> <%# Eval("Status") %></td>
+                                <td> <%# Eval("LeaveType") %></td>
+                                <td> <%# Eval("Days") %></td>
+                                <td> <%# Eval("StartingDate") %></td>
+                                <td> <%# Eval("EndingDate") %></td>
+                           
                             </tr>
                         </ItemTemplate>
-
                     </asp:ListView>
                 </tbody>
             </table>
-        </div>
-    </form>
-
+                </div>
+            </div>
+            </div>
 </asp:Content>
+
+
 

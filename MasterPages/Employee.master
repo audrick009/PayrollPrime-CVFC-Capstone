@@ -241,10 +241,10 @@
                                 <a href="AddLeave.aspx">Apply Leave</a>
                             </li>
                             <li>
-                                <a href="getLeaveApplicationHistory.aspx">Apply Leave</a>
+                                <a href="getLeaveApplicationHistory.aspx">View Leave Application History</a>
                             </li>
                             <li>
-                                <a href="ViewOvertimeHistory.aspx">Apply Leave</a>
+                                <a href="getOvertimeHistory.aspx">View Overtime History</a>
                             </li>
                         </ul>
                     </li>

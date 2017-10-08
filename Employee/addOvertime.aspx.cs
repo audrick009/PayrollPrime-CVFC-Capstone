@@ -52,6 +52,6 @@ public partial class addOvertime : System.Web.UI.Page
         String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
         aud.AuditLog("Applied Overtime", int.Parse(Session["empid"].ToString()), name + " Applied Overtime");
 
-        Response.Redirect("ThanksOvertime.aspx");
+        Response.Redirect("getOvertimeHistory.aspx");
     }
 }

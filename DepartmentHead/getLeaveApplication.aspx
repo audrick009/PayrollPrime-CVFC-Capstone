@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     <i class="fa fa-inbox"></i> View Pending Leave Application Forms
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+<%--<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
     <form id="Form1" runat="server" class="form-horizontal">
         <div class="col-lg-9">
             <table class="table table-hover">
@@ -63,7 +63,7 @@
                                             <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="true" />
                                         </Fields>
                                     </asp:DataPager>
-                                </td>--%>
+                                </td>
                                
                             </tr>
                         </ItemTemplate>
@@ -73,5 +73,54 @@
             </table>
         </div>
     </form>
+</asp:Content>--%>
+<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+            <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Leave Pending Applications</h3>
+                </div>
+                <div class="box-body">
+                <table id="table" class="table table-hover table-bordered">
+                <thead>
+                    <th>LeaveRID</th>
+                    <th>EmployeeID</th>
+                    <th>Status</th>
+                    <th>Leave Type</th>
+                    <th>Days</th>
+                    <th>Staring Date</th>
+                    <th>Ending Date</th>
+                </thead>
+                <tbody>
+                    <asp:ListView ID="lvLeaveApp" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td> <%# Eval("LeaveRID") %></td>
+                                <td> <%# Eval("EmployeeID") %></td>
+                                <td> <%# Eval("Status") %></td>
+                                <td> <%# Eval("LeaveType") %></td>
+                                <td> <%# Eval("Days") %></td>
+                                <td> <%# Eval("StartingDate") %></td>
+                                <td> <%# Eval("EndingDate") %></td> 
+                                <td>
+                                <a href='ApproveLeave.aspx?LeaveRID=<%# Eval("LeaveRID") %>' onclick='return confirm("Are you sure do you want to APPROVE?")';
+                                    <button type="button" class="btn btn-success" title="Accept">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                            </td>
+                             <td>
+                             <a href='RejectLeave.aspx?LeaveRID=<%# Eval("LeaveRID") %>' onclick='return confirm("Are you sure? do you want to REJECT?")';
+                                    <button type="button" class="btn btn-danger" title="Reject">
+                                        <i class="fa fa-times" />
+                                    </button>
+                            </td>    
+                            </tr>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </tbody>
+            </table>
+                </div>
+            </div>
+            </div>
 </asp:Content>
 
