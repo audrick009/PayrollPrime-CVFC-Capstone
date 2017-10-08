@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-4 col-lg-8">
-                        <asp:Button ID="btnChangePassword" runat="server" class="btn btn-success" Text="Change Password" 
+                        <asp:Button ID="btnChangePassword" runat="server" class="btn btn-success pull-right" Text="Change Password" 
                         OnClick="btnChangePassword_Click"/>
                     </div>
                 </div>

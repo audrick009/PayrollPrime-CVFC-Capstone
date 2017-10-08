@@ -254,6 +254,7 @@
                             </li>
                         </ul>
                     </li>
+                    <li><a href="AddAttendanceData.aspx">Manual Attendance</a></li>
                     <li class="header">Report Generation and Monitoring</li>
                     <li>
                         <a href="ViewPayslip.aspx">
