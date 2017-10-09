@@ -23,4 +23,50 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
             Response.Redirect("~/Login.aspx");
         }
     }
+    //LEAVE
+    void GetLeave()
+    {
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT LeaveRID, LeaveType, Status FROM LeaveRecords";
+        SqlDataAdapter da = new SqlDataAdapter(com);
+        SqlDataReader dr = com.ExecuteReader();
+        lvLeave.DataSource = dr;
+        lvLeave.DataBind();
+        con.Close();
+    }
+
+    //OVERTIME
+    void GetOvertime()
+    {
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT OTRID, Date, Status FROM OvertimeRecords";
+        SqlDataAdapter da = new SqlDataAdapter(com);
+        SqlDataReader dr = com.ExecuteReader();
+        lvOvertime.DataSource = dr;
+        lvOvertime.DataBind();
+        con.Close();
+    }
+    void GetPayslip()
+    {
+        var DateToday = DateTime.Today;
+        var DateTom = DateToday.AddDays(1).AddMinutes(-1);
+
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT pr.PayslipID FROM PayrollRecords pr INNER JOIN PayTerm pt ON pr.PayTermID = pt.PayTermID INNER JOIN Employee e ON pr.EmployeeID = e.EmployeeID where pt.EndingDate > @DateToday AND pt.EndingDate < @DateTom";
+        com.Parameters.AddWithValue("@DateToday", DateToday.ToString("MM-dd-yyyy HH:mm:ss"));
+        com.Parameters.AddWithValue("@DateTom", DateTom.ToString("MM-dd-yyyy HH:mm:ss"));
+        SqlDataAdapter da = new SqlDataAdapter(com);
+        SqlDataReader dr = com.ExecuteReader();
+        lvPayslip.DataSource = dr;
+        lvPayslip.DataBind();
+        con.Close();
+    }
+
+
 }

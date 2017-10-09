@@ -67,25 +67,17 @@
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="">
                                         <!-- class="menu" ung original class neto from adminlte-->
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <th>Application</th>
-                                                <th>Status</th>
-                                            </thead>
-                                            <tbody>
-                                                <asp:ListView ID="lvLeave" runat="server">
+                                        <!--LISTVIEW LEAVE-->
+                                              <asp:ListView ID="lvLeave" runat="server">
                                                     <ItemTemplate>
-                                                        <tr>
-                                                            <td><%# Eval("LeaveType") %></td>
-                                                            <td><%# Eval("Status") %></td>
-                                                        </tr>
+                                                        <div class="list-group-item">
+                                                        Leave: <%# Eval("LeaveType") %></strong> Status: <%# Eval("Status") %>
+                                                        </div>
                                                     </ItemTemplate>
                                                     <EmptyDataTemplate>
                                                         No Records Found.
                                                     </EmptyDataTemplate>
                                                 </asp:ListView>
-                                            </tbody>
-                                        </table>
                                     </ul>
                                 </li>
                                 <li class="footer"><a href="#">See All Messages</a></li>
@@ -101,26 +93,18 @@
                                 <li class="header">You have 10 notifications</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
+                                    <!--LISTVIEW OVERTIME-->
                                     <ul class="">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                            </thead>
-                                            <tbody>
                                                 <asp:ListView ID="lvOvertime" runat="server">
                                                     <ItemTemplate>
-                                                        <tr>
-                                                            <td><%# Eval("Date") %></td>
-                                                            <td><%# Eval("Status") %></td>
-                                                        </tr>
+                                                       <div class="list-group-item">
+                                                        Date: <strong><%# Eval("Date") %></strong> Status: <strong> <%# Eval("Status") %> </strong>
+                                                        </div>  
                                                     </ItemTemplate>
                                                     <EmptyDataTemplate>
                                                         No Records Found.
                                                     </EmptyDataTemplate>
                                                 </asp:ListView>
-                                            </tbody>
-                                        </table>
                                     </ul>
                                 </li>
                                 <li class="footer"><a href="#">View all</a></li>
@@ -135,24 +119,18 @@
                                 <li class="header">You have 9 tasks</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
+                                    <!-- LISTVIEW PAYSLIP -->
                                     <ul class="">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <th>Date</th>
-                                            </thead>
-                                            <tbody>
-                                                <asp:ListView ID="lvPayslip" runat="server">
+                                        <asp:ListView ID="lvPayslip" runat="server">
                                                     <ItemTemplate>
-                                                        <tr>
-                                                            <td><%# Eval("Date") %></td>
-                                                        </tr>
+                                                       <div class="list-group-item">
+                                                        Date: <strong><%# Eval("Date") %></strong> 
+                                                       </div>
                                                     </ItemTemplate>
                                                     <EmptyDataTemplate>
                                                         No Records Found.
                                                     </EmptyDataTemplate>
                                                 </asp:ListView>
-                                            </tbody>
-                                        </table>
                                         <!-- end task item -->
                                     </ul>
                                 </li>
