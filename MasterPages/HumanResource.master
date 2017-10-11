@@ -56,89 +56,83 @@
 
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">4</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="">
-                                        <!-- class="menu" ung original class neto from adminlte-->
-                                        <!--LISTVIEW LEAVE-->
-                                              <asp:ListView ID="lvLeave" runat="server">
-                                                    <ItemTemplate>
-                                                        <div class="list-group-item">
-                                                        Leave: <%# Eval("LeaveType") %></strong> Status: <%# Eval("Status") %>
-                                                        </div>
-                                                    </ItemTemplate>
-                                                    <EmptyDataTemplate>
-                                                        No Records Found.
-                                                    </EmptyDataTemplate>
-                                                </asp:ListView>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
-                            </ul>
-                        </li>
-                        <!-- Notifications: style can be found in dropdown.less -->
+
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="label label-danger"><asp:Label ID="ltLeave" runat="server" /></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
+                                <li class="header">You have a notifications</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
-                                    <!--LISTVIEW OVERTIME-->
-                                    <ul class="">
-                                                <asp:ListView ID="lvOvertime" runat="server">
+                                   <asp:ListView ID="lvLeave" runat="server">
                                                     <ItemTemplate>
                                                        <div class="list-group-item">
-                                                        Date: <strong><%# Eval("Date") %></strong> Status: <strong> <%# Eval("Status") %> </strong>
+                                                        Leave: <strong><%# Eval("LeaveType") %></strong> Status: <strong><%# Eval("Status") %> </strong>
+                                                        </div>  
+                                                    </ItemTemplate>
+                                                     <EmptyDataTemplate>
+                                                         <div class="list-group-item">
+                                                        No Records Found.
+                                                         </div>
+                                                    </EmptyDataTemplate>
+                                                </asp:ListView>
+                                <li class="footer"><a href="getLeaveApplicationHistory.aspx">See Leaves History</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Notifications: style can be found in dropdown.less -->
+                       <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning"><asp:Label ID="ltOvertime" runat="server" /></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have a notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <asp:ListView ID="lvOvertime" runat="server">
+                                                    <ItemTemplate>
+                                                       <div class="list-group-item">
+                                                        Date: <strong><%# Eval("Date", "{0:MMM dd, yyyy}") %></strong> Status: <strong> <%# Eval("Status") %> </strong>
+                                                        </div>  
+                                                    </ItemTemplate>
+                                                     <EmptyDataTemplate>
+                                                         <div class="list-group-item">
+                                                        No Records Found.
+                                                         </div>
+                                                    </EmptyDataTemplate>
+                                                </asp:ListView>
+                                <li class="footer"><a href="GetOvertimeHistory.aspx">See Overtime History</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-money"></i>
+                                <span class="label label-success"><asp:Label ID="ltPayslip" runat="server"/></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have a notification</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <asp:ListView ID="lvPayslip" runat="server">
+                                                    <ItemTemplate>
+                                                       <div class="list-group-item">
+                                                         Date: <strong><%# Eval("Date") %></strong>
                                                         </div>  
                                                     </ItemTemplate>
                                                     <EmptyDataTemplate>
+                                                         <div class="list-group-item">
                                                         No Records Found.
+                                                         </div>
                                                     </EmptyDataTemplate>
                                                 </asp:ListView>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">View all</a></li>
+                                <li class="footer"><a href="ViewPayslip.aspx">See Payslip History </a></li>
                             </ul>
                         </li>
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-flag-o"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <!-- LISTVIEW PAYSLIP -->
-                                    <ul class="">
-                                        <asp:ListView ID="lvPayslip" runat="server">
-                                                    <ItemTemplate>
-                                                       <div class="list-group-item">
-                                                        Date: <strong><%# Eval("Date") %></strong> 
-                                                       </div>
-                                                    </ItemTemplate>
-                                                    <EmptyDataTemplate>
-                                                        No Records Found.
-                                                    </EmptyDataTemplate>
-                                                </asp:ListView>
-                                        <!-- end task item -->
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li>
+
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp

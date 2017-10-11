@@ -12,8 +12,16 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
     SqlConnection con = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
+
         if (Session["userid"] != null)
         {
+            GetLeave();
+            GetOvertime();
+            GetPayslip();
+            getLeaveNo();
+            getOvertimeNo();
+            getPayslipNo();
+
             ltFN.Text = Session["FirstName"].ToString();
             ltLN.Text = Session["LastName"].ToString();
             ltUser.Text = Session["Position"].ToString();
@@ -23,6 +31,7 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
             Response.Redirect("~/Login.aspx");
         }
     }
+
     //LEAVE
     void GetLeave()
     {
@@ -35,6 +44,23 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
         lvLeave.DataSource = dr;
         lvLeave.DataBind();
         con.Close();
+    }
+
+    void getLeaveNo()
+    {
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT COUNT (*) AS LeaveCount FROM LeaveRecords";
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                ltLeave.Text = dr["LeaveCount"].ToString();
+            }
+            con.Close();
+        }
     }
 
     //OVERTIME
@@ -50,6 +76,25 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
         lvOvertime.DataBind();
         con.Close();
     }
+
+    void getOvertimeNo()
+    {
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT COUNT (*) AS OvertimeCount FROM OvertimeRecords";
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                ltOvertime.Text = dr["OvertimeCount"].ToString();
+            }
+            con.Close();
+        }
+    }
+
+    //PAYSLIP
     void GetPayslip()
     {
         var DateToday = DateTime.Today;
@@ -67,6 +112,25 @@ public partial class MasterPages_HumanResource : System.Web.UI.MasterPage
         lvPayslip.DataBind();
         con.Close();
     }
+    void getPayslipNo()
+    {
+        var DateToday = DateTime.Today;
 
-
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "SELECT COUNT (PayTermID) AS PayslipCount FROM PayTerm WHERE StartingDate = @DateToday";
+        com.Parameters.AddWithValue("@DateToday", DateToday.ToString("MM-dd-yyyy HH:mm:ss"));
+        SqlDataAdapter da = new SqlDataAdapter(com);
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                ltPayslip.Text = dr["PayslipCount"].ToString();
+            }
+            con.Close();
+        }
+    }
 }
+
