@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="control-label col-lg-4">Days:</label>
                 <div class="col-lg-8">
-                    <asp:TextBox ID="daysTxt" TextMode="Number" runat="server" class="form-control" required />
+                    <asp:TextBox ID="daysTxt" TextMode="Number" runat="server" class="form-control" readOnly />
                     <%--<asp:RegularExpressionValidator id="daysVal" runat ="server" ErrorMessage="Number Only"
                                         ControlToValidate="daysTxt" ValidationExpression="^[0-9]*$" ForeColor="Red" />--%>
                 </div>
