@@ -120,7 +120,7 @@
                                     <asp:ListView ID="lvPayslip" runat="server">
                                                     <ItemTemplate>
                                                        <div class="list-group-item">
-                                                         Date: <strong><%# Eval("Date") %></strong>
+                                                         Date: <strong><%# Eval("PayslipID") %></strong>
                                                         </div>  
                                                     </ItemTemplate>
                                                     <EmptyDataTemplate>
