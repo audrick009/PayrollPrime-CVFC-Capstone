@@ -186,7 +186,7 @@
                                                     <td><%# Eval("Name") %></td>
                                                     <td><%# Eval("Address") %></td>
                                                     <td><%# Eval("Relationship") %></td>
-                                                    <td><%# Eval("DateAdded") %></td>
+                                                    <td><%# Eval("DateAdded " , "{0: MM/dd/yyyy }") %></td>
                                                     <td><%# (DateTime.Now.Year - Convert.ToDateTime(Eval("BirthDate")).Year)%></td>                                                  
                                                 </tr>
                                             </ItemTemplate>
