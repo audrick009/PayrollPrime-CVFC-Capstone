@@ -26,6 +26,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
                         GetEmpDetails(employeeID);
                         GetEmpOffense(employeeID);
                         GetEmpLoanRec(employeeID);
+                        GetEmpDependents(employeeID);
                     }
                 }
                 else Response.Redirect("EmployeeInfo.aspx");
@@ -40,10 +41,10 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "SELECT e.LastName + ',' + e.FirstName + ' ' + e.MiddleName AS Name, convert(date,e.BirthDate) AS Bdate," + 
-            " e.Sex, e.SSSno, e.TINno, e.HDMFno, e.PhoneNo, e.MobileNo, e.CivilStatus, e.Status, e.Position, e.DateEmployed, " + 
-            " e.DateCreated, pv.Street + ',' + pv.Municipality + ',' + pv.City As ProvAddress, pm.Street + ',' + pm.Municipality + ',' + pm.City AS " + 
-            "PermAddress  FROM Employee AS e INNER JOIN EmployeePermanentAddress AS pm ON e.PermAddressID = pm.PermAddressID INNER JOIN " + 
+        mirai.CommandText = "SELECT e.LastName + ',' + e.FirstName + ' ' + e.MiddleName AS Name, convert(date,e.BirthDate) AS Bdate," +
+            " e.Sex, e.SSSno, e.TINno, e.HDMFno, e.PhoneNo, e.MobileNo, e.CivilStatus, e.Status, e.Position, e.DateEmployed, " +
+            " e.DateCreated, pv.Street + ',' + pv.Municipality + ',' + pv.City As ProvAddress, pm.Street + ',' + pm.Municipality + ',' + pm.City AS " +
+            "PermAddress  FROM Employee AS e INNER JOIN EmployeePermanentAddress AS pm ON e.PermAddressID = pm.PermAddressID INNER JOIN " +
             "EmployeeProvAddress as pv ON e.ProvAddressID = pv.ProvAddressID where e.EmployeeID=@EmployeeID";
         mirai.Parameters.AddWithValue("@EmployeeID", ID);
         SqlDataReader aki = mirai.ExecuteReader();
@@ -69,7 +70,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
             }
             mio.Close();
         }
-    } 
+    }
     void GetEmpOffense(int ID)
     {
         mio.Open();
@@ -83,7 +84,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         lvOffenseRecord.DataSource = ds;
         lvOffenseRecord.DataBind();
         mio.Close();
-        
+
     }
     void GetEmpLoanRec(int ID)
     {
@@ -97,6 +98,21 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         da.Fill(ds, "LoanRecord");
         lvLoanRec.DataSource = ds;
         lvLoanRec.DataBind();
+        mio.Close();
+    }
+
+    void GetEmpDependents(int ID)
+    {
+        mio.Open();
+        SqlCommand mirai = new SqlCommand();
+        mirai.Connection = mio;
+        mirai.CommandText = "SELECT Name, Address, Relationship, DateAdded, Birthdate FROM EmployeeDependents WHERE EmployeeID = @EmployeeID";
+        mirai.Parameters.AddWithValue("@EmployeeID", ID);
+        SqlDataAdapter da = new SqlDataAdapter(mirai);
+        DataSet ds = new DataSet();
+        da.Fill(ds, "Dependents");
+        lvdependents.DataSource = ds;
+        lvdependents.DataBind();
         mio.Close();
     }
 }

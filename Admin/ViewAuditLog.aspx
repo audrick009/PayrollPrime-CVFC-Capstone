@@ -37,44 +37,48 @@
                 </tbody>
             </table>
         </div>--%>
-    <div class="row">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Logs</h3>
-            </div>
-            <div class="box-body">
-                <table id="table" class="table table-hover table-bordered">
-                    <thead>
-                        <th>#</th>
-                        <th>Employee ID</th>
-                        <th>Employee Name</th>
-                        <th>Date&Time</th>
-                        <th>Event</th>
-                        <th>Description</th>
-                    </thead>
-                    <tbody>
-                        <asp:listview id="lvAudit" runat="server">
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("AuditRID") %></td>
-                                    <td><%# Eval("EmployeeID") %></td>
-                                    <td><%# Eval("LastName") %>, <%# Eval("FirstName") %></td>
-                                    <td><%# Eval("TimeStamp") %></td>
-                                    <td><%# Eval("Event") %></td>
-                                    <td><%# Eval("Description") %></td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:listview>
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Logs</h3>
+                </div>
+                <div class="box-body">
+                    <table id="table" class="table table-hover table-bordered">
+                        <thead>
+                            <th>#</th>
+                            <th>Employee ID</th>
+                            <th>Employee Name</th>
+                            <th>Date&Time</th>
+                            <th>Event</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <asp:ListView ID="lvAudit" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><%# Eval("AuditRID") %></td>
+                                        <td><%# Eval("EmployeeID") %></td>
+                                        <td><%# Eval("LastName") %>, <%# Eval("FirstName") %></td>
+                                        <td><%# Eval("TimeStamp") %></td>
+                                        <td><%# Eval("Event") %></td>
+                                        <td><%# Eval("Description") %></td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">
+                Generate Reports
+            </button>
+        </div>
     </div>
-    <div class="row">
-        <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">
-            Generate Reports
-        </button>
-    </div>
+
+
 
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
@@ -91,36 +95,36 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Start Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:textbox id="txtStart" runat="server" class="form-control" textmode="Date" />
+                                        <asp:TextBox ID="txtStart" runat="server" class="form-control" TextMode="Date" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label  col-lg-4">End Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:textbox id="txtEnd" runat="server" class="form-control col-lg-4" textmode="Date" />
+                                        <asp:TextBox ID="txtEnd" runat="server" class="form-control col-lg-4" TextMode="Date" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-6 pull-right">
-                                        <asp:button id="btnGenRep" runat="server" class="btn btn-success pull-right" text="Generate Report" onclick="btnGenRep_Click" />
+                                        <asp:Button ID="btnGenRep" runat="server" class="btn btn-success pull-right" Text="Generate Report" OnClick="btnGenRep_Click" />
                                     </div>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
                         <div class="col-lg-12">
                             <hr />
-                            <div class="row col-lg-8">                              
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Employees:</label>
-                                        <div class="col-lg-8">
-                                            <asp:dropdownlist id="ddlEmployees" runat="server" class="form-control" />
-                                        </div>                                        
+                            <div class="row col-lg-8">
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Employees:</label>
+                                    <div class="col-lg-8">
+                                        <asp:DropDownList ID="ddlEmployees" runat="server" class="form-control" />
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-lg-6 pull-right">
-                                            <asp:button id="btnGenRepEmp" runat="server" cssclass="btn btn-success pull-right" text="Generate Report" onclick="btnGenRepEmp_Click" />
-                                        </div>
-                                    </div>                               
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-6 pull-right">
+                                        <asp:Button ID="btnGenRepEmp" runat="server" CssClass="btn btn-success pull-right" Text="Generate Report" OnClick="btnGenRepEmp_Click" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>

@@ -30,7 +30,7 @@ public partial class ViewUserAccount : System.Web.UI.Page
                     lvAccounts.DataSource = ds;
                     lvAccounts.DataBind();
                     con.Close();
-                
+              
             }
             else
             {

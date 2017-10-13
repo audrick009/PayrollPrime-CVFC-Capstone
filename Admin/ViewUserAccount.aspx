@@ -70,8 +70,8 @@
             </table>
         </div>
     </form>--%>
-
-    <div class="row">
+    <div class="container-fluid">
+        <div class="row">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">User Accounts</h3>
@@ -115,5 +115,7 @@
             </div>
         </div>
     </div>
+    </div>
+    
 </asp:Content>
 
