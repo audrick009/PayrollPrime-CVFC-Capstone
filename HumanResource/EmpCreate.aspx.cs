@@ -100,7 +100,7 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
         mirai.CommandText = "INSERT INTO Employee VALUES (@FirstName, @LastName, @MiddleName, @BirthDate, @Sex, @ProvAddressID," +
-            "@PermAddressID, @SSSno, @TINno, @BIRno, @HDMFno, @PhoneNo,@MobileNo, @CivilStatus, @Status, @Position, @DateEmployed, " +
+            "@PermAddressID, @SSSno, @TINno, @HDMFno, @PhoneNo,@MobileNo, @CivilStatus, @Status, @Position, @DateEmployed, " +
             "@DateCreated, @DateModified, @ModifiedBy, @DateResigned, @RVacLeave, @RSickLeave, @BaseSalary, @FingerPrint) ";
         mirai.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
         mirai.Parameters.AddWithValue("@LastName", txtLastName.Text);
@@ -111,7 +111,6 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@PermAddressID", PermID.ToString());
         mirai.Parameters.AddWithValue("@SSSno", txtSSS.Text);
         mirai.Parameters.AddWithValue("@TINno", txtTin.Text);
-        mirai.Parameters.AddWithValue("@BIRno", ddlCivStat.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@HDMFno", txtHDMF.Text);
         mirai.Parameters.AddWithValue("@PhoneNo", txtPhoneNo.Text);
         mirai.Parameters.AddWithValue("@MobileNo", txtMobileNo.Text);
