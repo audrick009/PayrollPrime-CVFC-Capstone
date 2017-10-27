@@ -23,7 +23,7 @@ public partial class Admin_ViewUserAccountDetails : System.Web.UI.Page
                     bool validuserID = int.TryParse(Request.QueryString["ID"].ToString(), out userid);
                     if (validuserID)
                     {
-                        aud.AuditLog("View Account Details", int.Parse(Session["empid"].ToString()), "Viewed: " + EmployeeName());
+                        aud.AuditLog("View Account Details", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Viewed: " + EmployeeName(),Helper.GetSalt()));
                         getUserAccountDetails(userid);
                     }
                     else

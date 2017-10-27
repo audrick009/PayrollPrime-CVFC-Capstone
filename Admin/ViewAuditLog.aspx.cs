@@ -91,4 +91,22 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
     {
         getReportEmp();
     }
+    protected void lvAudit_ItemDataBound(object sender, ListViewItemEventArgs e)
+    {
+        //foreach (ListViewItem item in lvAudit.Items)
+        //{
+        //    Literal hash = (Literal)item.FindControl("rating");
+        //    hash.ToString();
+        //}
+        if (e.Item.ItemType == ListViewItemType.DataItem)
+        {
+            // Display the e-mail address in italics.
+            Label EmailAddressLabel = (Label)e.Item.FindControl("Description");
+            String decrypt = EncryptHelper.Decrypt( EmailAddressLabel.Text, Helper.GetSalt());
+            EmailAddressLabel.Text = decrypt;
+           
+        }
+
+    }
+
 }

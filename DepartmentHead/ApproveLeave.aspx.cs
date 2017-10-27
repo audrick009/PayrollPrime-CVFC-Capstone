@@ -57,7 +57,7 @@ public partial class DepartmentHead_ApproveLeave : System.Web.UI.Page
         com.ExecuteNonQuery();
         con.Close();
         String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Approved Leave", int.Parse(Session["empid"].ToString()), name + "Approved Leave for LeaveRID" + Request.QueryString["LeaveRID"].ToString());
+        aud.AuditLog("Approved Leave", int.Parse(Session["empid"].ToString()),EncryptHelper.Encrypt( name + "Approved Leave for LeaveRID" + Request.QueryString["LeaveRID"].ToString(),Helper.GetSalt()));
         Response.Redirect("getLeaveApplication.aspx");
     }
     

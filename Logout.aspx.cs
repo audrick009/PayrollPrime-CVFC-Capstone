@@ -18,7 +18,7 @@ public partial class Logout : System.Web.UI.Page
         Session.Abandon();
         Session.Clear();
 
-        aud.AuditLog("Logged Out", EmpID, name + " logged out");
+        aud.AuditLog("Logged Out", EmpID, EncryptHelper.Encrypt(name + " logged out", Helper.GetSalt()));
         Response.Redirect("Login.aspx");
     }
 }

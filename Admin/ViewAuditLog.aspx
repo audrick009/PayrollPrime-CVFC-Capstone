@@ -54,7 +54,7 @@
                             <th>Description</th>
                         </thead>
                         <tbody>
-                            <asp:ListView ID="lvAudit" runat="server">
+                            <asp:listview id="lvAudit" runat="server" onitemdatabound="lvAudit_ItemDataBound">
                                 <ItemTemplate>
                                     <tr>
                                         <td><%# Eval("AuditRID") %></td>
@@ -62,10 +62,12 @@
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %></td>
                                         <td><%# Eval("TimeStamp") %></td>
                                         <td><%# Eval("Event") %></td>
-                                        <td><%# Eval("Description") %></td>
+                                        <td>
+                                            <asp:Label id="Description" runat="server" Text='<%# Eval("Description") %>' />
+                                        </td>
                                     </tr>
                                 </ItemTemplate>
-                            </asp:ListView>
+                            </asp:listview>
                         </tbody>
                     </table>
                 </div>
@@ -95,18 +97,18 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Start Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:TextBox ID="txtStart" runat="server" class="form-control" TextMode="Date" />
+                                        <asp:textbox id="txtStart" runat="server" class="form-control" textmode="Date" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label  col-lg-4">End Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:TextBox ID="txtEnd" runat="server" class="form-control col-lg-4" TextMode="Date" />
+                                        <asp:textbox id="txtEnd" runat="server" class="form-control col-lg-4" textmode="Date" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-6 pull-right">
-                                        <asp:Button ID="btnGenRep" runat="server" class="btn btn-success pull-right" Text="Generate Report" OnClick="btnGenRep_Click" />
+                                        <asp:button id="btnGenRep" runat="server" class="btn btn-success pull-right" text="Generate Report" onclick="btnGenRep_Click" />
                                     </div>
                                 </div>
                             </div>
@@ -117,12 +119,12 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label">Employees:</label>
                                     <div class="col-lg-8">
-                                        <asp:DropDownList ID="ddlEmployees" runat="server" class="form-control" />
+                                        <asp:dropdownlist id="ddlEmployees" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-6 pull-right">
-                                        <asp:Button ID="btnGenRepEmp" runat="server" CssClass="btn btn-success pull-right" Text="Generate Report" OnClick="btnGenRepEmp_Click" />
+                                        <asp:button id="btnGenRepEmp" runat="server" cssclass="btn btn-success pull-right" text="Generate Report" onclick="btnGenRepEmp_Click" />
                                     </div>
                                 </div>
                             </div>

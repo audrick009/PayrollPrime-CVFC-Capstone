@@ -38,7 +38,7 @@ public partial class DepartmentHead_DPChangePassword : System.Web.UI.Page
                 com.Parameters.AddWithValue("@UserID", Session["userid"].ToString());
                 com.ExecuteNonQuery();
                 con.Close();
-                aud.AuditLog("Change Password", int.Parse(Session["empid"].ToString()), "Updated: " + name + "'s" + " Password");
+                aud.AuditLog("Change Password", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Updated his/her password",Helper.GetSalt()));
                 validatealert.Visible = false;
                 validatealert2.Visible = false;
             }

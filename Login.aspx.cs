@@ -65,33 +65,38 @@ public partial class Login : System.Web.UI.Page
                 Session["firstname"] = aki["FirstName"].ToString();
             }
             mio.Close();
+            name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
             if (Session["Position"].ToString() == "Admin")
             {
+                aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " logged in", Helper.GetSalt()));
                 Response.Redirect("Admin/ViewAuditLog.aspx");
             }
             else if (Session["Position"].ToString() == "Department Head")
             {
+                aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " logged in", Helper.GetSalt()));
                 Response.Redirect("DepartmentHead/getLeaveApplication.aspx");
             }
             else if (Session["Position"].ToString() == "Employee")
             {
+                aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " logged in", Helper.GetSalt()));
                 Response.Redirect("Employee/AddLeave.aspx");
             }
             else if (Session["Position"].ToString() == "Human Resource")
             {
+                aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " logged in", Helper.GetSalt()));
                 Response.Redirect("HumanResource/EmployeeInfo.aspx");
             }
             else if (Session["Position"].ToString() == "Payroll Officer")
             {
+                aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " logged in", Helper.GetSalt()));
                 Response.Redirect("PayrollOfficer/GenerateEmpPay.aspx");
             }
             else
             {
                 Response.Redirect("Errorpage.aspx");
             }
-            mio.Close();
-            name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-            aud.AuditLog("Log In", int.Parse(Session["empid"].ToString()), name + "logged in");
+
+            
 
         }
         else

@@ -23,6 +23,9 @@ public class Helper
         return ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
 
     }
+    public static string GetSalt() {
+        return "A Random Salt";
+    }
 
     public void AuditLog(string Event, int EmployeeID, string Desc)
     {

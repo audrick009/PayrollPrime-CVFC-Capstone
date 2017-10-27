@@ -45,9 +45,9 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
         com.ExecuteNonQuery();
         con.Close();
-
+        
         String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Applied Leave", int.Parse(Session["empid"].ToString()), name + " Applied Leave");
+        aud.AuditLog("Applied Leave", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt( name + " Applied Leave",Helper.GetSalt()));
 
         Response.Redirect("getLeaveApplicationHistory.aspx");
     }

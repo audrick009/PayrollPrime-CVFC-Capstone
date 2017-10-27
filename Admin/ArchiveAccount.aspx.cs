@@ -26,7 +26,7 @@ public partial class ArchiveAccount : System.Web.UI.Page
                     {
                         if (!IsPostBack)
                         {
-                            aud.AuditLog("Archive", int.Parse(Session["empid"].ToString()), "Account Archived: " + EmployeeName());
+                            aud.AuditLog("Archive", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Account Archived: " + EmployeeName(), Helper.GetSalt()));
                             ArchiveRecord(employeeID);
                         }
                     }

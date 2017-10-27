@@ -52,7 +52,7 @@ public partial class Employee_ViewPayslip : System.Web.UI.Page
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Payslip Report");
 
         String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Generate Payslip", int.Parse(Session["empid"].ToString()), name + "Generated his/her own Payslip");
+        aud.AuditLog("Generate Payslip", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Generated his/her own Payslip",Helper.GetCon()));
 
     }
     void getPayTerm()
