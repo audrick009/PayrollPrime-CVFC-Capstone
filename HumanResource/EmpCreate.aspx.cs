@@ -41,8 +41,8 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         if (ProvAddID() != 0 && PermAddID() != 0)
         {
             InsertEmpDetails(PermAddID(), ProvAddID());
-            String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-            aud.AuditLog("Added new Employee", int.Parse(Session["empid"].ToString()), "Added new employee data");
+            string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+            aud.AuditLog(EncryptHelper.Encrypt("Added new Employee", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Added a new employee data", Helper.GetSalt()));
             Response.Redirect("EmployeeInfo.aspx");
         }
         else

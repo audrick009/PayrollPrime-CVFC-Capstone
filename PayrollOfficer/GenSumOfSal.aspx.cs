@@ -11,6 +11,7 @@ using CrystalDecisions.Shared;
 
 public partial class PayrollOfficer_GenSumOfSal : System.Web.UI.Page
 {
+    Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -41,6 +42,7 @@ public partial class PayrollOfficer_GenSumOfSal : System.Web.UI.Page
 
     protected void btnGenRep_Click(object sender, EventArgs e)
     {
+        aud.AuditLog(EncryptHelper.Encrypt("Summart of Salary", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Generated summary of salary", Helper.GetSalt()));
         getReport();
     }
 }

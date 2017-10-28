@@ -23,6 +23,8 @@ public partial class DepartmentHead_ApproveLeave : System.Web.UI.Page
             {
                 if (!IsPostBack)
                 {
+                    string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                    aud.AuditLog(EncryptHelper.Encrypt("Approved Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Approved Leave for LeaveRID " + Request.QueryString["LeaveRID"].ToString(), Helper.GetSalt()));
                     Approve(LeaveRID);
                 }
             }
@@ -56,8 +58,7 @@ public partial class DepartmentHead_ApproveLeave : System.Web.UI.Page
         com.Parameters.AddWithValue("@LeaveRID", Request.QueryString["LeaveRID"].ToString());
         com.ExecuteNonQuery();
         con.Close();
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Approved Leave", int.Parse(Session["empid"].ToString()),EncryptHelper.Encrypt( name + "Approved Leave for LeaveRID" + Request.QueryString["LeaveRID"].ToString(),Helper.GetSalt()));
+        
         Response.Redirect("getLeaveApplication.aspx");
     }
     

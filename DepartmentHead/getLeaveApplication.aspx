@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/DepartmentHead.master" AutoEventWireup="true" CodeFile="getLeaveApplication.aspx.cs" Inherits="getLeaveApplication" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
-    <i class="fa fa-inbox"></i> View Pending Leave Application Forms
 </asp:Content>
 <%--<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
     <form id="Form1" runat="server" class="form-horizontal">
@@ -75,10 +74,10 @@
     </form>
 </asp:Content>--%>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-            <div class="row">
+            <div class="row container-fluid">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Leave Pending Applications</h3>
+                    <i class="fa fa-inbox"></i> <h3 class="box-title">Leave Pending Applications</h3>
                 </div>
                 <div class="box-body">
                 <table id="table" class="table table-hover table-bordered">
@@ -90,6 +89,8 @@
                     <th>Days</th>
                     <th>Staring Date</th>
                     <th>Ending Date</th>
+                    <th></th>
+                    <th></th>
                 </thead>
                 <tbody>
                     <asp:ListView ID="lvLeaveApp" runat="server">

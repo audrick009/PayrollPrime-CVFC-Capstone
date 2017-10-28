@@ -133,8 +133,8 @@ public partial class PayrollOfficer_GenerateLastPay : System.Web.UI.Page
                 mio.Open();
                 resignEmployee(EmployeeID);
                 mio.Close();
-                String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-                aud.AuditLog("Generate Last Pay", int.Parse(Session["empid"].ToString()), name + "Generated Last Pay for EmployeeID" + Request.QueryString["ID"].ToString());
+                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                aud.AuditLog(EncryptHelper.Encrypt("Generate Last Pay", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Generated Last Pay for EmployeeID" + Request.QueryString["ID"].ToString(), Helper.GetSalt()));
             }
         }
         mio2.Close();

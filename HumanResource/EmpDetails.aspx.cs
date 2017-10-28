@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 public partial class HumanResource_EmpDetails : System.Web.UI.Page
 {
+    Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon()); 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,10 +24,12 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
+                        aud.AuditLog(EncryptHelper.Encrypt("View Employee Details", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Viewed: " + EmployeeName(), Helper.GetSalt()));
                         GetEmpDetails(employeeID);
                         GetEmpOffense(employeeID);
                         GetEmpLoanRec(employeeID);
                         GetEmpDependents(employeeID);
+                        EmployeeName();
                     }
                 }
                 else Response.Redirect("EmployeeInfo.aspx");
@@ -114,5 +117,26 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         lvdependents.DataSource = ds;
         lvdependents.DataBind();
         mio.Close();
+    }
+
+    public string EmployeeName()
+    {
+        string fullname = null;
+        mio.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = mio;
+        com.CommandText = "SELECT u.UserID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName FROM Users u INNER JOIN Employee e ON u.EmployeeID = e.EmployeeID WHERE UserID=@UserID";
+        com.Parameters.AddWithValue("@UserID", Request.QueryString["ID"].ToString());
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                fullname = dr["FullName"].ToString();
+            }
+        }
+        mio.Close();
+        return fullname;
+
     }
 }

@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 public partial class HumanResource_EmpDependents : System.Web.UI.Page
 {
+    Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -61,6 +62,8 @@ public partial class HumanResource_EmpDependents : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@Status", ddlStatus.SelectedItem.Text);
         mirai.ExecuteNonQuery();
         mio.Close();
+        string name2 = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Added a dependent", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name2 + "Added a dependent", Helper.GetSalt()));
         Response.Redirect("EmployeeInfo.aspx");
     }
 }

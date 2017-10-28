@@ -80,7 +80,7 @@ public partial class AddUserAccount : System.Web.UI.Page
                 com.ExecuteNonQuery();
                 con.Close();
 
-                aud.AuditLog("Added a User Account", int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Added: " + ddlEmployees.SelectedItem.Text, Helper.GetSalt()));
+                aud.AuditLog(EncryptHelper.Encrypt("Added a User Account", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Added: " + ddlEmployees.SelectedItem.Text, Helper.GetSalt()));
                 Response.Redirect("ViewUserAccount.aspx");
                 validatealert.Visible = false;
                 validatealert2.Visible = false;

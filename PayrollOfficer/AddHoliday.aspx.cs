@@ -39,7 +39,7 @@ public partial class PayrollOfficer_AddHoliday : System.Web.UI.Page
 
         Response.Redirect("AddHoliday.aspx");
 
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Applied Holiday", int.Parse(Session["empid"].ToString()), name + " Apply Applied Holiday");
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Applied Holiday", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Apply Applied Holiday", Helper.GetSalt()));
     }
 }

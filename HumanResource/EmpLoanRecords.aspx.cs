@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 public partial class HumanResource_EmpLoanRecords : System.Web.UI.Page
 {
+    Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -56,6 +57,8 @@ public partial class HumanResource_EmpLoanRecords : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@AmountPayed", 0);
         mirai.ExecuteNonQuery();
         mio.Close();
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Insert Loan", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Inserted a loan record" + Session["empid"].ToString(), Helper.GetSalt()));
         Response.Redirect("EmployeeInfo.aspx");
     }
 }

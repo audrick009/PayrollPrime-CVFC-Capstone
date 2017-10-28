@@ -60,7 +60,7 @@ public partial class UpdateAccountDetails : System.Web.UI.Page
             com.Parameters.AddWithValue("@UserID", Request.QueryString["ID"].ToString());
             com.ExecuteNonQuery();
             con.Close();
-            aud.AuditLog("Update Password", int.Parse(Session["empid"].ToString()),EncryptHelper.Encrypt("Updated: " + EmployeeName(), Helper.GetSalt()));
+            aud.AuditLog(EncryptHelper.Encrypt("Update Password", Helper.GetSalt()), int.Parse(Session["empid"].ToString()),EncryptHelper.Encrypt("Updated: " + EmployeeName(), Helper.GetSalt()));
             Response.Redirect("ViewUserAccount.aspx");
             validatealert.Visible = false;
         }

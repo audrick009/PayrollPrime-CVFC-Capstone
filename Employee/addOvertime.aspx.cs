@@ -49,8 +49,8 @@ public partial class addOvertime : System.Web.UI.Page
         com.Parameters.AddWithValue("@ApprovedBy", DBNull.Value);
         com.ExecuteNonQuery();
         con.Close();
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Applied Overtime", int.Parse(Session["empid"].ToString()), name + " Applied Overtime");
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Applied Overtime", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Applied Overtime",Helper.GetSalt()));
 
         Response.Redirect("getOvertimeHistory.aspx");
     }

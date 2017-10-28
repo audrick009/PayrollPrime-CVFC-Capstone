@@ -51,8 +51,7 @@ public partial class Employee_ViewPayslip : System.Web.UI.Page
         rpt.SetParameterValue("PaytermID", ddlPayTerm.SelectedValue);
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Payslip Report");
 
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Generate Payslip", int.Parse(Session["empid"].ToString()), name + "Generated his/her own Payslip");
+        
 
     }
     void getPayTerm()
@@ -71,6 +70,8 @@ public partial class Employee_ViewPayslip : System.Web.UI.Page
 
     protected void btnGenRep_Click(object sender, EventArgs e)
     {
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Generate Payslip", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Generated his/her own Payslip", Helper.GetSalt()));
         getReport();
     }
 }

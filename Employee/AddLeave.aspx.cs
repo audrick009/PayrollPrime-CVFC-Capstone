@@ -50,8 +50,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         com.ExecuteNonQuery();
         con.Close();
 
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Applied Leave", int.Parse(Session["empid"].ToString()), name + " Applied Leave");
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Applied Leave", Helper.GetSalt()));
 
         Response.Redirect("getLeaveApplicationHistory.aspx");
 

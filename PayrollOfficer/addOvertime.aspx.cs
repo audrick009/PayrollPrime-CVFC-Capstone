@@ -15,7 +15,14 @@ public partial class addOvertime : System.Web.UI.Page
     {
         if (Session["userid"] != null)
         {
+            if (Session["position"].ToString() == "Employee")
+            {
 
+            }
+            else
+            {
+                Response.Redirect("../Login.aspx");
+            }
         }
         else
         {
@@ -27,7 +34,7 @@ public partial class addOvertime : System.Web.UI.Page
     protected void addOvertimeBTN_Click(object sender, EventArgs e)
     {
         string appby = Session["FirstName"].ToString() + ' ' + Session["LastName"].ToString();
-        var date = DateTime.Parse(dateTXT.Text);
+        string date = DateTime.Parse(dateTXT.Text).ToString("yyyy-MM-dd");
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
@@ -35,16 +42,16 @@ public partial class addOvertime : System.Web.UI.Page
         com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@Date", date);
         com.Parameters.AddWithValue("@Hours", hoursTXT.Text);
-        com.Parameters.AddWithValue("@StartTime", date.AddHours(17));
-        com.Parameters.AddWithValue("@EndTime", date.AddHours(17 + int.Parse(hoursTXT.Text)));
+        com.Parameters.AddWithValue("@StartTime", DateTime.Parse(dateTXT.Text).AddHours(17).ToString("yyyy-MM-dd HH:mm:ss"));
+        com.Parameters.AddWithValue("@EndTime", DateTime.Parse(dateTXT.Text).AddHours(17 + int.Parse(hoursTXT.Text)).ToString("yyyy-MM-dd HH:mm:ss"));
         com.Parameters.AddWithValue("@Reason", reasonTXT.Text);
         com.Parameters.AddWithValue("@Status", "Pending");
         com.Parameters.AddWithValue("@ApprovedBy", DBNull.Value);
         com.ExecuteNonQuery();
         con.Close();
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Applied Overtime", int.Parse(Session["empid"].ToString()), name + " Applied Overtime");
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Applied Overtime", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Applied Overtime",Helper.GetSalt()));
 
-        Response.Redirect("ThanksOvertime.aspx");
+        Response.Redirect("getOvertimeHistory.aspx");
     }
 }

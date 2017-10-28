@@ -207,8 +207,8 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         InsertPermAdd();
         InsertProvAdd();
         Session["update"] = "updated";
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog("Updated Employee Info", int.Parse(Session["empid"].ToString()), name + "Updated employee ID " + Session["empid"].ToString() + "'s details.");
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Updated Employee Info", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Updated employee ID " + Session["empid"].ToString() + "'s details.", Helper.GetSalt()));
         Response.Redirect("EmpUpdate.aspx");
     }
 }

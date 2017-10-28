@@ -42,7 +42,7 @@ public partial class Employee_EmployeeChangePassword : System.Web.UI.Page
                 com.Parameters.AddWithValue("@UserID", Session["userid"].ToString());
                 com.ExecuteNonQuery();
                 con.Close();
-                aud.AuditLog("Change Password", int.Parse(Session["empid"].ToString()), "Updated: " + name + "'s" + " Password");
+                aud.AuditLog(EncryptHelper.Encrypt("Change Password", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Updated: " + name + "'s" + " Password",Helper.GetSalt()));
                 validatealert.Visible = false;
                 validatealert2.Visible = false;
             }

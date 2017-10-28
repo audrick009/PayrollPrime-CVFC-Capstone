@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 public partial class DepartmentHead_Reject : System.Web.UI.Page
 {
+    Helper aud = new Helper();
     SqlConnection con = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -21,6 +22,8 @@ public partial class DepartmentHead_Reject : System.Web.UI.Page
             {
                 if (!IsPostBack)
                 {
+                    string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                    aud.AuditLog(EncryptHelper.Encrypt("Rejected OT", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Rejected OT for OTRID " + Request.QueryString["OTRID"].ToString(), Helper.GetSalt()));
                     Reject(OTRID);
                 }
             }

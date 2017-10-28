@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 public partial class Admin_AddAttendanceData : System.Web.UI.Page
 {
     SqlConnection mio = new SqlConnection(Helper.GetCon());
+    Helper aud = new Helper();
     protected void Page_Load(object sender, EventArgs e)
     {
         GetEmployeeNames();
@@ -37,12 +38,16 @@ public partial class Admin_AddAttendanceData : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "INSERT INTO AttendanceRecords VALUES (@EmployeeID,@TimeIn,@TimeOut,@Type,@Status)";
+        mirai.CommandText = "INSERT INTO AttendanceRecord VALUES (@EmployeeID,@TimeIn,@TimeOut,@Type,@Status)";
         mirai.Parameters.AddWithValue("@EmployeeID",ddlEmployees.SelectedValue);
         mirai.Parameters.AddWithValue("@TimeIn", TimeIn);
         mirai.Parameters.AddWithValue("@TimeOut", TimeOut);
         mirai.Parameters.AddWithValue("@Type","Manual");
         mirai.Parameters.AddWithValue("@Status", status);
+        mirai.ExecuteNonQuery();
+        mio.Close();
+        aud.AuditLog(EncryptHelper.Encrypt("Manual Attendance", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Added: " + ddlEmployees.SelectedItem.Text, Helper.GetSalt()));
+        Response.Redirect("ViewAttendance.aspx");
 
     }
     void GetEmployeeNames() // this method is a function for the btnAdd to insert the selected names as Employee ID in the database (for add user account)
