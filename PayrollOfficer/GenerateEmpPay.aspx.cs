@@ -65,39 +65,20 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
             while (aki.Read())
             {
                 EmployeeID = int.Parse(aki["EmployeeID"].ToString());
-                mio.Open();
                 BaseSalary = EmpBaseSalary(EmployeeID);
-                mio.Close();
-                mio.Open();
-                
+
                 //deductions
                 SSScont = EmpSSScont(BaseSalary);
-                mio.Close();
-                mio.Open();
                 PhilHCont = EmpPhilHCont(BaseSalary);
-                mio.Close();
-                mio.Open();
                 PagibigCont = EmpPagibigCont(BaseSalary);
-                mio.Close();
-                mio.Open();
                 SSSloan = getLoan(EmployeeID,"SSSLoan");
-                mio.Close();
-                mio.Open();
                 HDMFLoan = getLoan(EmployeeID, "HDMFLoan");
-                mio.Close();
-                mio.Open();
                 PLoan = getLoan(EmployeeID, "PersonalLoan");
-                mio.Close();
-                mio.Open();
                 //end 
 
 
                 HourlyRate = EmpHourlyRate(BaseSalary);
-                mio.Close();
-                mio.Open();
                 HCount = checkHolidays(PayTerm);
-                mio.Close();
-                mio.Open();
                 attendance = AttendanceCount(EmployeeID, PayTerm);
                 mio.Close();
                 mio.Open();
@@ -243,6 +224,8 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
     public decimal getLoan(int EmpID, string LoanType)
     {
         decimal lRate = 0.0m;
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
         SqlCommand yui = new SqlCommand();
         yui.Connection = mio;
         yui.CommandText = " SELECT EmployeeID, LoanRate from EmployeeLoanRecords where TotalLoan != AmountPayed AND EmployeeID =@EmployeeID AND LoanType=@LoanType";
@@ -256,6 +239,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 lRate = decimal.Parse(momo["LoanRate"].ToString());
             }
         }
+        prvcon.Open();
         return lRate;
     }
     public decimal OvertimePay(int EmpID, int PaytermID)
@@ -328,6 +312,9 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         DateTime holiday9 = DateTime.Parse(h9);
         DateTime holiday10 = DateTime.Parse(h10);
 
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
+
         SqlCommand aiztan = new SqlCommand();
         aiztan.Connection = mio;
         aiztan.CommandText = "Select StartingDate, EndingDate from PayTerm where PayTermID = @PaytermID";
@@ -359,10 +346,33 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                     count++;
                 if (start <= holiday10 && end >= holiday10)
                     count++;
-
             }
         }
+
+        prvcon.Close();
         return count;
+    }
+    public int checkDhols(int PaytermID) {
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
+
+        SqlCommand aiztan = new SqlCommand();
+        aiztan.Connection = mio;
+        aiztan.CommandText = "Select * from Holidays where Date > @YearNow AND Date < @YearNow ";
+        aiztan.Parameters.AddWithValue("@PaytermID", DateTime.Now.Year);
+        SqlDataReader nyan = aiztan.ExecuteReader();
+        if ()
+    }
+    public DateTime ptstart(int PaytermID) {
+        SqlConnection con = new SqlConnection(Helper.GetCon());
+        con.Open();
+
+        SqlCommand com = new SqlCommand();
+        com.CommandText = "Select StartingDate From PayTerm where PayTermID = @PayTermID";
+        com.Parameters.AddWithValue("@PayTerm", PaytermID);
+        SqlDataReader dr = com.ExecuteReader();
+    }
+    public DateTime ptend(int PaytermID) {
     }
     public decimal holidayAtt(int EmployeeID,int PayTermID)
     {
@@ -640,6 +650,8 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
     }
     public decimal EmpBaseSalary(int ID)
     {
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
         decimal BaseSalary = 0.0m;
         SqlCommand com = new SqlCommand();
         com.Connection = mio;
@@ -654,13 +666,15 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 
             }
         }
+        prvcon.Close();
         return BaseSalary;
     }
     public decimal EmpSSScont(decimal BasePay)
     {
         decimal empCont = 0.0m;
         decimal total = 0.0m;
-
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
         SqlCommand mirai3 = new SqlCommand();
         mirai3.Connection = mio;
         mirai3.CommandText = "select SSSBracketID, Total from SSSContribution where Minimum <= @BasePay AND Maximum > @BasePay";
@@ -676,13 +690,15 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         }
         empCont = total * 0.33m;
         decimal.Round(empCont, 1);
+        prvcon.Close();
         return empCont;
     }
     public decimal EmpPhilHCont(decimal BasePay)
     {
         decimal empCont = 0.0m;
         decimal total = 0.0m;
-
+        SqlConnection prvcon = new SqlConnection(Helper.GetCon());
+        prvcon.Open();
         SqlCommand mirai4 = new SqlCommand();
         mirai4.Connection = mio;
         mirai4.CommandText = "Select PHICBracketID, TotalPremium From PhilHealthContribution where Minimum <= @Basepay AND Maximum > @BasePay";
@@ -696,6 +712,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
             }
         }
         empCont = total * 0.50m;
+        prvcon.Close();
         return decimal.Round(empCont,1);
         
     }

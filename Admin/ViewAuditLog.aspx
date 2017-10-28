@@ -61,7 +61,7 @@
                                         <td><%# Eval("EmployeeID") %></td>
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %></td>
                                         <td><%# Eval("TimeStamp") %></td>
-                                        <td><%# Eval("Event") %></td>
+                                        <td> <asp:Label id="Event" runat="server" Text='<%# Eval("Event") %>' /></td>
                                         <td>
                                             <asp:Label id="Description" runat="server" Text='<%# Eval("Description") %>' />
                                         </td>

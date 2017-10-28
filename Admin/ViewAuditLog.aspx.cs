@@ -93,18 +93,17 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
     }
     protected void lvAudit_ItemDataBound(object sender, ListViewItemEventArgs e)
     {
-        //foreach (ListViewItem item in lvAudit.Items)
-        //{
-        //    Literal hash = (Literal)item.FindControl("rating");
-        //    hash.ToString();
-        //}
         if (e.Item.ItemType == ListViewItemType.DataItem)
         {
             // Display the e-mail address in italics.
-            Label EmailAddressLabel = (Label)e.Item.FindControl("Description");
-            String decrypt = EncryptHelper.Decrypt( EmailAddressLabel.Text, Helper.GetSalt());
-            EmailAddressLabel.Text = decrypt;
-           
+            Label Desc = (Label)e.Item.FindControl("Description");
+            Label Event = (Label)e.Item.FindControl("Event");
+            String dcydesc = EncryptHelper.Decrypt(Desc.Text, Helper.GetSalt());
+            String dcyevent = EncryptHelper.Decrypt(Event.Text, Helper.GetSalt());
+            Desc.Text = dcydesc;
+            Event.Text = dcyevent;
+
+
         }
 
     }
