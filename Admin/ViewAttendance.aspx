@@ -4,6 +4,7 @@
     View Attendance Record
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+    <div class="row">
     <form runat="server" class="form-horizontal">
     <div class ="col-lg-12">
         <div class="col-lg-4">
@@ -59,10 +60,10 @@
                             <tr>
                                 <td> <%# Eval("FirstName") %>, <%# Eval("LastName") %></td>
                                 <td> <%# Eval("Position") %></td>
-                                <td> <%# Eval("DateTimeIn") %> </td>
-                                <td> <%# Eval("TimeIn") %> </td>
-                                <td> <%# Eval("DateTimeOut") %> </td>
-                                <td> <%# Eval("TimeOut") %> </td>
+                                <td> <%# Eval("DateTimeIn",  "{0: MMMM dd, yyyy}") %> </td>
+                                <td> <%# Eval("TimeIn",  "{0:hh.mm tt}" ) %> </td>
+                                <td> <%# Eval("DateTimeOut",  "{0: MMMM dd, yyyy}") %> </td>
+                                <td> <%# Eval("TimeOut", "{0: HH:ii:ss }") %> </td>
                                 <td> <%# Eval("Type") %> </td>
                                 <td> <%# Eval("Status") %> </td>
                             </tr>
@@ -78,5 +79,6 @@
             <asp:Button ID="btnAttOverride" runat="server" class="btn btn-info pull-right" Text="Allow Attendance Override" OnClick="btnAttOverride_Click"/>
         </div>
         </form>
+        </div>
 </asp:Content>
 
