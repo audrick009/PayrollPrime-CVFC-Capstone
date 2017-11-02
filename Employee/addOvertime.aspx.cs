@@ -33,6 +33,10 @@ public partial class addOvertime : System.Web.UI.Page
 
     protected void addOvertimeBTN_Click(object sender, EventArgs e)
     {
+        if (DateTime.Parse(dateTXT.Text) > DateTime.Now)
+        {
+
+       
         string appby = Session["FirstName"].ToString() + ' ' + Session["LastName"].ToString();
         string date = DateTime.Parse(dateTXT.Text).ToString("yyyy-MM-dd");
         con.Open();
@@ -53,5 +57,8 @@ public partial class addOvertime : System.Web.UI.Page
         aud.AuditLog(EncryptHelper.Encrypt("Applied Overtime", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Applied for Overtime", Helper.GetSalt()));
 
         Response.Redirect("getOvertimeHistory.aspx");
+        }
+        else
+            Response.Write("<script>alert('Date of applying overtime should not be today or in the past.');</script>");
     }
 }
