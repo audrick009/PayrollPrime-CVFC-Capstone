@@ -24,8 +24,8 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("BaseSalary") %></td>
-                                <td><%# Eval("StartingDate","{0: MM/dd/yyyy }") %></td>
-                                <td><%# Eval("EndingDate","{0: MM/dd/yyyy }") %></td>
+                                <td><%# Eval("StartingDate","{0: MMM/dd/yyyy }") %></td>
+                                <td><%# Eval("EndingDate","{0: MMM/dd/yyyy }") %></td>
                                 <td><%# Eval("WithholdingTax") %></td>
                                 <td><%# Eval("TotalCont") %></td>
                                 <td><%# Eval("TotalLoan") %></td>

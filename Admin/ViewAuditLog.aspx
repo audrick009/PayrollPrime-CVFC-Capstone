@@ -58,9 +58,9 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td><%# Eval("AuditRID") %></td>
-                                        <td><%# Eval("EmployeeID") %></td>
+                                        <td> <%# Eval("EmployeeID") %></td>
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %></td>
-                                        <td><%# Eval("TimeStamp") %></td>
+                                        <td><%# Eval("TimeStamp","{0: MMMM/dd/yyyy h:mm tt}") %></td>
                                         <td> <asp:Label id="Event" runat="server" Text='<%# Eval("Event") %>' /></td>
                                         <td>
                                             <asp:Label id="Description" runat="server" Text='<%# Eval("Description") %>' />
@@ -97,13 +97,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Start Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:textbox id="txtStart" runat="server" class="form-control" textmode="Date" />
+                                        <asp:textbox id="txtStart" runat="server" class="form-control" textmode="Date" required />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label  col-lg-4">End Date:</label>
                                     <div class="col-lg-8">
-                                        <asp:textbox id="txtEnd" runat="server" class="form-control col-lg-4" textmode="Date" />
+                                        <asp:textbox id="txtEnd" runat="server" class="form-control col-lg-4" textmode="Date" required />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -119,7 +119,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label">Employees:</label>
                                     <div class="col-lg-8">
-                                        <asp:dropdownlist id="ddlEmployees" runat="server" class="form-control" />
+                                        <asp:dropdownlist id="ddlEmployees" runat="server" class="form-control" required />
                                     </div>
                                 </div>
                                 <div class="form-group">

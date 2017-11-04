@@ -126,7 +126,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 mio.Close();
 
                 String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-                aud.AuditLog("Generate Payroll", int.Parse(Session["empid"].ToString()), name + "Generated Payroll for PaytermID" + PayTerm);
+                aud.AuditLog(EncryptHelper.Encrypt("Generate Payroll", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Generated Payroll for PaytermID" + PayTerm, Helper.GetSalt()));
             }
         }
 
@@ -353,6 +353,9 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         return count;
     }
     public int checkDhols(int PaytermID) {
+        int count = 0;
+        DateTime dhol = new DateTime();
+
         SqlConnection prvcon = new SqlConnection(Helper.GetCon());
         prvcon.Open();
 
@@ -361,9 +364,21 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         aiztan.CommandText = "Select * from Holidays where Date > @YearNow AND Date < @YearNow ";
         aiztan.Parameters.AddWithValue("@PaytermID", DateTime.Now.Year);
         SqlDataReader nyan = aiztan.ExecuteReader();
-        if ()
+        if (nyan.HasRows) {
+            while (nyan.Read()) {
+                DateTime.TryParse(nyan["Date"].ToString(), out dhol);
+                if (ptstart(PaytermID) <= dhol && ptend(PaytermID) >= dhol) {
+                    count++;
+                }
+                
+            }
+        }
+        prvcon.Close();
+        return count;
     }
     public DateTime ptstart(int PaytermID) {
+
+        DateTime pstart = new DateTime();
         SqlConnection con = new SqlConnection(Helper.GetCon());
         con.Open();
 
@@ -371,9 +386,34 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         com.CommandText = "Select StartingDate From PayTerm where PayTermID = @PayTermID";
         com.Parameters.AddWithValue("@PayTerm", PaytermID);
         SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows) {
+            while (dr.Read()) {
+                DateTime.TryParse(dr["StartingDate"].ToString(), out pstart);
+            }
+        }
+        con.Close();
+        return pstart;
     }
     public DateTime ptend(int PaytermID) {
+        DateTime ptend = new DateTime();
+        SqlConnection con = new SqlConnection(Helper.GetCon());
+        con.Open();
+
+        SqlCommand com = new SqlCommand();
+        com.CommandText = "Select EndingDate From PayTerm where PayTermID = @PayTermID";
+        com.Parameters.AddWithValue("@PayTerm", PaytermID);
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                DateTime.TryParse(dr["EndingDate"].ToString(), out ptend);
+            }
+        }
+        con.Close();
+        return ptend;
     }
+    //double pay holiday - check attendance
     public decimal holidayAtt(int EmployeeID,int PayTermID)
     {
         var start = DateTime.Today;
@@ -406,8 +446,11 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         DateTime holiday9 = DateTime.Parse(h9);
         DateTime holiday10 = DateTime.Parse(h10);
 
+
+        SqlConnection con = new SqlConnection(Helper.GetCon());
+        con.Open();
         SqlCommand amichan = new SqlCommand();
-        amichan.Connection = mio;
+        amichan.Connection = con;
         amichan.CommandText = "Select StartingDate, EndingDate from PayTerm where PayTermID = @PaytermID";
         amichan.Parameters.AddWithValue("@PaytermID", PayTermID);
         SqlDataReader megumi = amichan.ExecuteReader();
@@ -419,10 +462,10 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 DateTime.TryParse(megumi["EndingDate"].ToString(), out end);
             }
         }
-        mio.Close();
-        mio.Open();
+        con.Close();
+        con.Open();
         SqlCommand taiga = new SqlCommand();
-        taiga.Connection = mio;
+        taiga.Connection = con;
         taiga.CommandText = "Select TimeIn, TimeOut, Status From AttendanceRecord where "+
             "(EmployeeID = @EmployeeID AND Type='Biometrics' AND TimeIn > @StartDate AND TimeIn < @EndDate) OR"+
             " (EmployeeID = @EmployeeID AND Type='Manual' AND TimeIn > @StartDate AND TimeIn < @EndDate)";
@@ -448,8 +491,14 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 }
             }
         }
+        con.Close();
         return holidayC;
     }
+
+    //STOPED HERE ||||||||||||||||||||
+    //STOPED HERE ||||||||||||||||||||
+    //STOPED HERE ||||||||||||||||||||
+    //STOPED HERE ||||||||||||||||||||
     public decimal AttendanceCount(int EmpID, int PaytermID)
     {
         int FDayCount = 0;

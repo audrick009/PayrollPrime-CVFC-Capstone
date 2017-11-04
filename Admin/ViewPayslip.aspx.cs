@@ -59,7 +59,7 @@ public partial class Employee_ViewPayslip : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "  Select PayTermID, CAST(StartingDate as nvarchar(max)) + ' - ' + CAST(EndingDate as nvarchar(max)) as PeriodCovered From PayTerm Where PayTermID IN(Select PayTermID From PayrollRecords)";
+        mirai.CommandText = "Select PayTermID, CAST(StartingDate as nvarchar(max)) + ' - ' + CAST(EndingDate as nvarchar(max)) as PeriodCovered From PayTerm Where PayTermID IN(Select PayTermID From PayrollRecords)";
         SqlDataReader dr = mirai.ExecuteReader();
         ddlPayTerm.DataSource = dr;
         ddlPayTerm.DataTextField = "PeriodCovered";
