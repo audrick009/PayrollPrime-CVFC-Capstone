@@ -10,13 +10,19 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Loan Type</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtLType" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlType" runat="server" class="form-control">
+                                <asp:Listitem Text="SSS Loan" Value="SSSloan"></asp:Listitem>
+                                <asp:Listitem Text="HDMF Loan" Value="SSSloan"></asp:Listitem>
+                                <asp:Listitem Text="Personal Loan" Value="SSSloan"></asp:Listitem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Loan Rate</label>
                         <div class="col-lg-8">
                             <asp:TextBox ID="txtLRate" runat="server" class="form-control" />
+                            <asp:RegularExpressionValidator id="valtxtLRate" runat="server" ControlToValidate="txtLRate" 
+                                ValidationExpression="" Display="Dynamic" />
                         </div>
                 </div>
                 <div class="form-group">

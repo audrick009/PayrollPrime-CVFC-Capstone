@@ -13,6 +13,7 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
 {
     Helper aud = new Helper();
     SqlConnection con = new SqlConnection(Helper.GetCon());
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["position"] != null)
@@ -98,18 +99,18 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
     }
     protected void lvAudit_ItemDataBound(object sender, ListViewItemEventArgs e)
     {
+
+        
         if (e.Item.ItemType == ListViewItemType.DataItem)
         {
-            // Display the e-mail address in italics.
             Label Desc = (Label)e.Item.FindControl("Description");
             Label Event = (Label)e.Item.FindControl("Event");
             String dcydesc = EncryptHelper.Decrypt(Desc.Text, Helper.GetSalt());
             String dcyevent = EncryptHelper.Decrypt(Event.Text, Helper.GetSalt());
             Desc.Text = dcydesc;
             Event.Text = dcyevent;
-
-
         }
+
 
     }
 

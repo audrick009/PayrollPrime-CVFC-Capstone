@@ -50,7 +50,7 @@ public partial class HumanResource_EmpLoanRecords : System.Web.UI.Page
         mirai.Connection = mio;
         mirai.CommandText = "INSERT INTO EmployeeLoanRecords VALUES (@EmployeeID, @LoanType, @LoanRate, @TotalLoan, @NoOfTimesPayed, @AmountPayed)";
         mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
-        mirai.Parameters.AddWithValue("@LoanType", txtLType.Text);
+        mirai.Parameters.AddWithValue("@LoanType", ddlType.SelectedValue);
         mirai.Parameters.AddWithValue("@LoanRate", txtLRate.Text);
         mirai.Parameters.AddWithValue("@TotalLoan", txtLTotal.Text);
         mirai.Parameters.AddWithValue("@NoOfTimesPayed", 0);
