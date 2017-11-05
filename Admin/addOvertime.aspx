@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label class="control-label col-lg-4">Hours:</label>
                 <div class="col-lg-8">
-                    <asp:TextBox ID="hoursTXT" TextMode="number" class="form-control" runat="server" required ="required" />
+                    <asp:TextBox ID="hoursTXT" min="1" TextMode="number" class="form-control" runat="server" required ="required" />
                  
                 </div>
             </div>

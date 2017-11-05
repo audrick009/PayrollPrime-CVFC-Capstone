@@ -25,12 +25,22 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Hours:</label>
 
+<<<<<<< HEAD
                                 <div class="col-sm-10">
                                     <asp:TextBox ID="hoursTXT" TextMode="number" class="form-control" runat="server" required/>
                                 </div>
                             </div>
                             <div class="form-group">
                                  <label class="col-sm-2 control-label">Reason:</label>
+=======
+            <div class="form-group">
+                <label class="control-label col-lg-4">Hours:</label>
+                <div class="col-lg-8">
+                    <asp:TextBox ID="hoursTXT" min="1" TextMode="number" class="form-control" runat="server" required ="required" />
+                 
+                </div>
+            </div>
+>>>>>>> 350934e4dd9a54f09a20a6c822ba3ec94c8805a2
 
                                     <div class="col-sm-10">
                                        <asp:TextBox ID="reasonTXT" TextMode="MultiLine" class="form-control" runat="server" style="resize: none;" required/>

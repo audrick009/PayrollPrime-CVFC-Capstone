@@ -33,7 +33,7 @@ public partial class addOvertime : System.Web.UI.Page
 
     protected void addOvertimeBTN_Click(object sender, EventArgs e)
     {
-        if (DateTime.Parse(dateTXT.Text) > DateTime.Now)
+        if (DateTime.Parse(dateTXT.Text) >= DateTime.Today)
         {
 
        
@@ -59,6 +59,6 @@ public partial class addOvertime : System.Web.UI.Page
         Response.Redirect("getOvertimeHistory.aspx");
         }
         else
-            Response.Write("<script>alert('Date of applying overtime should not be today or in the past.');</script>");
+            Response.Write("<script>alert('Date of applying overtime should not be in the past.');</script>");
     }
 }
