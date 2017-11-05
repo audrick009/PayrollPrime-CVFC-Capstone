@@ -33,11 +33,11 @@ public partial class addOvertime : System.Web.UI.Page
 
     protected void addOvertimeBTN_Click(object sender, EventArgs e)
     {
-<<<<<<< HEAD
+
         if (DateTime.Parse(dateTXT.Text) >= DateTime.Now)
-=======
+
         if (DateTime.Parse(dateTXT.Text) >= DateTime.Today)
->>>>>>> 350934e4dd9a54f09a20a6c822ba3ec94c8805a2
+
         {
             string appby = Session["FirstName"].ToString() + ' ' + Session["LastName"].ToString();
             string date = DateTime.Parse(dateTXT.Text).ToString("yyyy-MM-dd");
