@@ -101,8 +101,8 @@
                                 <td> <%# Eval("Status") %></td>
                                 <td> <%# Eval("LeaveType") %></td>
                                 <td> <%# Eval("Days") %></td>
-                                <td> <%# Eval("StartingDate") %></td>
-                                <td> <%# Eval("EndingDate") %></td> 
+                                <td> <%# Eval("StartingDate", "{0: MMMM dd, yyyy}") %></td>
+                                <td> <%# Eval("EndingDate",  "{0: MMMM dd, yyyy}") %></td> 
                                 <td>
                                 <a href='ApproveLeave.aspx?LeaveRID=<%# Eval("LeaveRID") %>' onclick='return confirm("Are you sure do you want to APPROVE?")';
                                     <button type="button" class="btn btn-success" title="Accept">

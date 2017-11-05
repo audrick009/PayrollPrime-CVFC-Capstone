@@ -25,7 +25,7 @@ public partial class Employee_AttendanceOverride : System.Web.UI.Page
     protected void btnTimeIn_Click(object sender, EventArgs e)
     {
         checkOverride();
-        aud.AuditLog(EncryptHelper.Encrypt("Attendance Override", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Time-in", Helper.GetSalt()));
+        aud.AuditLog(EncryptHelper.Encrypt("Attendance Override", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Timed-in", Helper.GetSalt()));
     }
 
     protected void btnTimeOut_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ public partial class Employee_AttendanceOverride : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@TimeOut", DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss"));
         mirai.ExecuteNonQuery();
         mio.Close();
-        aud.AuditLog(EncryptHelper.Encrypt("Attendance Override", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Time-out", Helper.GetSalt()));
+        aud.AuditLog(EncryptHelper.Encrypt("Attendance Override", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Timed-out", Helper.GetSalt()));
     }
     void checkOverride()
     {

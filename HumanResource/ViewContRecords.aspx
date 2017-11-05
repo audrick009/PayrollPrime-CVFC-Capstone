@@ -23,7 +23,7 @@
                                 <td> <%# Eval("ContributionRate") %></td>
                                 <td> <%# Eval("NoOfCont") %></td>
                                 <td> <%# Eval("TotalContribution") %> </td>
-                                <td> <%# Eval("DateStarted", "{0: MM/dd/yyyy }") %></td>
+                                <td> <%# Eval("DateStarted", "{0: MMMM dd, yyyy}") %></td>
                             </tr>
                         </ItemTemplate>
                         </asp:ListView>

@@ -60,7 +60,7 @@ public partial class Admin_ViewUserAccountDetails : System.Web.UI.Page
                 ltName.Text = dr["FullName"].ToString();
                 ltUname.Text = dr["Username"].ToString();
                 ltStatus.Text = dr["Status"].ToString();
-               ltDateAdded.Text = dr["DateAdded"].ToString();
+               ltDateAdded.Text = DateTime.Parse(dr["DateAdded"].ToString()).ToString("MMMM dd, yyyy");
             }
             con.Close();
         }

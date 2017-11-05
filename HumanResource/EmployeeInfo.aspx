@@ -30,7 +30,7 @@
                                     <tr>
                                         <td><%# Eval("EmployeeID") %></td>
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %> <%# Eval("MiddleName") %></td>
-                                        <td><%# Eval("DateEmployed", "{0: MMMM/dd/yyyy }") %></td>
+                                        <td><%# Eval("DateEmployed", "{0: MMMM dd, yyyy}") %></td>
                                         <td><%# Eval("Position") %></td>
                                         <td>
                                             <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>' title="View Employee Details"><button class="btn btn-facebook"><i class="fa fa-info"></i></button></a>

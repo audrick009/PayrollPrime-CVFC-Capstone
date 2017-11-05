@@ -24,7 +24,7 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td><%# Eval("hName") %></td>
-                                                <td><%# Eval("Date", "{0: MM/dd/yyyy }") %></td>
+                                                <td><%# Eval("Date", "{0: MMMM dd, yyyy }") %></td>
                                                 <td><%# Eval("hDesc") %></td>
                                             </tr>
                                         </ItemTemplate>

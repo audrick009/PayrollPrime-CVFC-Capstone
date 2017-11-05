@@ -17,7 +17,7 @@ public partial class HumanResource_EmpLoanRecords : System.Web.UI.Page
             mio.Open();
             SqlCommand mirai = new SqlCommand();
             mirai.Connection = mio;
-            mirai.CommandText = "Select * from EmployeeLoanRecord where EmployeeID=@EmployeeID";
+            mirai.CommandText = "Select * from EmployeeLoanRecords where EmployeeID=@EmployeeID";
             mirai.Parameters.AddWithValue("EmployeeID", Session["empid"].ToString());
             SqlDataAdapter da = new SqlDataAdapter(mirai);
             DataSet ds = new DataSet();

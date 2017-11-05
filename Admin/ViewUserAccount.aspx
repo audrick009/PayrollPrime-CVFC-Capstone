@@ -102,10 +102,9 @@
                                     <td><%# Eval("DateModified", "{0: MMMM dd, yyyy}") %></td>
                                     <td><%# Eval("ModifiedBy") %></td>
                                     <td>
-                                        <a href='ViewUserAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-eye" title="View Details"></i></a>&nbsp;
-                                        <a href='UpdateAccountDetails.aspx?ID=<%# Eval("UserID") %>'><i class="fa fa-pencil" title="Update"></i></a>&nbsp;
-                                        <a href='ArchiveAccount.aspx?ID=<%# Eval("UserID") %> ' onclick='return confirm("Archive record?")'>
-                                        <i class="fa fa-trash" title="Archive"></i></a>
+                                        <a href='ViewUserAccountDetails.aspx?ID=<%# Eval("UserID") %>'><button class="btn btn-success"><i class="fa fa-eye" title="View Details"></i></button></a>&nbsp;
+                                        <a href='UpdateAccountDetails.aspx?ID=<%# Eval("UserID") %>'><button class="btn btn-info"><i class="fa fa-pencil" title="Update"></i></button></a>&nbsp;
+                                        <a href='ArchiveAccount.aspx?ID=<%# Eval("UserID") %> ' onclick='return confirm("Archive record?")'><button class="btn btn-danger"> <i class="fa fa-trash" title="Archive"></i></button> </a>                                   
                                     </td>
                                 </tr>
                             </ItemTemplate>

@@ -39,14 +39,14 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="EmployeeInfo.aspx" class="logo">
+            <a href="EmployeeInfo.aspx" class="logo" style="background-color: coral;">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>CVFC</b></span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">Payroll<b>Prime</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-static-top" style="background-color: coral;">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
@@ -230,6 +230,12 @@
                             </li>
                             <li>
                                 <a href="AddLeave.aspx">Apply Leave</a>
+                            </li>
+                            <li>
+                                <a href="getOvertimeHistory.aspx">View Overtime Application History</a>
+                            </li>
+                            <li>
+                                <a href="getLeaveApplicationHistory.aspx">View Leave Application History</a>
                             </li>
                         </ul>
                     </li>
