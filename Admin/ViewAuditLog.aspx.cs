@@ -23,6 +23,7 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
             {
                 if (!IsPostBack)
                 {
+                    dropTempDb();
                     getAudit();
                     GetEmployees();
 
@@ -52,6 +53,7 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
         rpt.SetParameterValue("starttext", start.ToString(" MMMM dd,yyyy "));
         rpt.SetParameterValue("endtext", end.ToString(" MMMM dd,yyyy "));
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Employee Audit Log Records as of " + DateTime.Now.ToString());
+
     }
     void getReportEmp()
     {
@@ -128,7 +130,7 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "CREATE TABLE [dbo].[EncAuditLogs]([EncAuditRID] [int] IDENTITY(1,1) NOT NULL,[EmployeeID] [int] NOT NULL,[TimeStamp] [datetime] NOT NULL,[Event] [nvarchar](max) NOT NULL,[Description] [nvarchar](max) NOT NULL,CONSTRAINT [PK_EncAuditLogs] PRIMARY KEY CLUSTERED ([EncAuditRID] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]";
+        com.CommandText = "if not exists(select name from sysobjects where name = 'EncAuditLogs')CREATE TABLE [dbo].[EncAuditLogs]([EncAuditRID] [int] IDENTITY(1,1) NOT NULL,[EmployeeID] [int] NOT NULL,[TimeStamp] [datetime] NOT NULL,[Event] [nvarchar](max) NOT NULL,[Description] [nvarchar](max) NOT NULL,CONSTRAINT [PK_EncAuditLogs] PRIMARY KEY CLUSTERED ([EncAuditRID] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]";
         com.ExecuteNonQuery();
         con.Close();
     }
@@ -169,5 +171,11 @@ public partial class Admin_ViewAuditLog : System.Web.UI.Page
         com.CommandText = "If exists (select name from sysobjects where name = 'EncAuditLogs') DROP TABLE [dbo].[EncAuditLogs]";
         com.ExecuteNonQuery();
         con.Close();
+    }
+
+    protected void btnGenRepModal_Click(object sender, EventArgs e)
+    {
+        //createTempDb();
+        //getTempDbData();
     }
 }
