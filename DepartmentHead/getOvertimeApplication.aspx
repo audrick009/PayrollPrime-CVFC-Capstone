@@ -107,10 +107,10 @@
                             <tr>
                                 <td> <%# Eval("OTRID") %></td>
                                 <td> <%# Eval("EmployeeID") %></td>
-                                <td> <%# Eval("Date") %></td>
+                                <td> <%# DateTime.Parse(Eval("Date").ToString()).ToString("MMMM dd, yyyy") %></td>
                                 <td> <%# Eval("Hours") %></td>
-                                <td> <%# Eval("StartTime") %></td>
-                                <td> <%# Eval("EndTime") %></td>
+                                <td> <%# DateTime.Parse(Eval("StartTime").ToString()).ToString("hh:mm tt") %></td>
+                                <td> <%# DateTime.Parse(Eval("EndTime").ToString()).ToString("hh:mm tt") %></td>
                                 <td> <%# Eval("Reason") %></td>
                                 <td> <%# Eval("Status") %></td> 
                                 <td>

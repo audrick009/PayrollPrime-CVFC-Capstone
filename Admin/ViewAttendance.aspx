@@ -107,10 +107,10 @@
                                     <tr>
                                         <td><%# Eval("FirstName") %>, <%# Eval("LastName") %></td>
                                         <td><%# Eval("Position") %></td>
-                                        <td><%# Eval("DateTimeIn",  "{0: MMMM dd, yyyy}") %> </td>
-                                        <td><%# Eval("TimeIn",  "{0:hh.mm tt}" ) %> </td>
+                                        <td><%# Eval("DateTimeIn",  "{0: MMMM dd, yyyy}") %></td>
+                                        <td><%# DateTime.Parse(Eval("TimeIn").ToString()).ToString("h:mm tt") %> </td>
                                         <td><%# Eval("DateTimeOut",  "{0: MMMM dd, yyyy}") %> </td>
-                                        <td><%# Eval("TimeOut", "{0: HH:ii:ss }") %> </td>
+                                        <td><%# Eval("TimeOut","{0: hh:mm }")%>  </td>
                                         <td><%# Eval("Type") %> </td>
                                         <td><%# Eval("Status") %> </td>
                                     </tr>

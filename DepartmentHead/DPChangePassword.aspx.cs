@@ -29,18 +29,20 @@ public partial class DepartmentHead_DPChangePassword : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
+
         if (cpass == cpassword.ToString())
         {
-            if(txtNPassword.Text == ReEnterNP.Text)
+            if (txtNPassword.Text == txtReEnterNP.Text)
             {
                 com.CommandText = "UPDATE Users SET Password=@Password WHERE UserID=@UserID";
                 com.Parameters.AddWithValue("@Password", Helper.CreateSHAHash(txtNPassword.Text));
                 com.Parameters.AddWithValue("@UserID", Session["userid"].ToString());
                 com.ExecuteNonQuery();
                 con.Close();
-                aud.AuditLog(EncryptHelper.Encrypt("Change Password", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Updated his/her password", Helper.GetSalt()));
+                aud.AuditLog(EncryptHelper.Encrypt("Change Password", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt("Updated: password", Helper.GetSalt()));
                 validatealert.Visible = false;
                 validatealert2.Visible = false;
+
             }
             else
             {
@@ -57,7 +59,6 @@ public partial class DepartmentHead_DPChangePassword : System.Web.UI.Page
 
     void GetCurrentPassword()
     {
-
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;

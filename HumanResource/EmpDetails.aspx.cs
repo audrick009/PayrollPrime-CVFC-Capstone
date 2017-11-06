@@ -56,7 +56,7 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
             while (aki.Read())
             {
                 ltName.Text = aki["Name"].ToString();
-                ltBirthDate.Text = aki["BDate"].ToString();
+                ltBirthDate.Text = DateTime.Parse(aki["BDate"].ToString()).ToString("MMMM dd, yyyy");
                 ltSex.Text = aki["Sex"].ToString();
                 ltSSSno.Text = aki["SSSno"].ToString();
                 ltTINno.Text = aki["TINno"].ToString();
@@ -66,8 +66,8 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
                 ltCivStatus.Text = aki["CivilStatus"].ToString();
                 ltStatus.Text = aki["Status"].ToString();
                 ltPosition.Text = aki["Position"].ToString();
-                ltDateEmp.Text = aki["DateEmployed"].ToString();
-                ltDateCrt.Text = aki["DateCreated"].ToString();
+                ltDateEmp.Text = DateTime.Parse(aki["DateEmployed"].ToString()).ToString("MMMM dd, yyyy");
+                ltDateCrt.Text = DateTime.Parse(aki["DateCreated"].ToString()).ToString("MMMM dd, yyyy");
                 ltProvAdd.Text = aki["ProvAddress"].ToString();
                 ltPermAdd.Text = aki["PermAddress"].ToString();
             }
