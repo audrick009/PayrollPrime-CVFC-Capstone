@@ -33,7 +33,7 @@ public partial class Login : System.Web.UI.Page
             }
             else if (Session["Position"].ToString() == "Payroll Officer")
             {
-                Response.Redirect("PayrollOfficer/GenerateEmpPay.aspx");
+                Response.Redirect("PayrollOfficer/AddLeave.aspx");
             }
             else
             {

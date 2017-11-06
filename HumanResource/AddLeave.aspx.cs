@@ -32,6 +32,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        if (DateTime.Parse(startDateTxt.Text) < DateTime.Parse(endDateTxt.Text))
+        {
         DateTime dt1 = DateTime.Parse(startDateTxt.Text);
         DateTime dt2 = DateTime.Parse(endDateTxt.Text);
         TimeSpan ts = dt2 - dt1;
@@ -54,6 +56,9 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
 
         Response.Redirect("getLeaveApplicationHistory.aspx");
+    }
+        else
+            Response.Write("<script>alert('The end date of the leave should always be after the start date');</script>");
 
         
     }
