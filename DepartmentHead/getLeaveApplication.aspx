@@ -2,77 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
 </asp:Content>
-<%--<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
-    <form id="Form1" runat="server" class="form-horizontal">
-        <div class="col-lg-9">
-            <table class="table table-hover">
-                <thead>
-                    <th>LeaveRID</th>
-                    <th>EmployeeID</th>
-                    <th>Status</th>
-                    <th>Leave Type</th>
-                    <th>Days</th>
-                    <th>Staring Date</th>
-                    <th>Ending Date</th>
-                </thead>
-                <tbody>
-                    <asp:ListView ID="lvLeaveApp" runat="server">
-                        <ItemTemplate>
-                       
-                            <tr>
-                                <td>
-                                    <asp:Label ID="lbLeaveRID" runat="server"
-                                        Text= '<%# Eval("LeaveRID") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbEmployeeID" runat="server"
-                                        Text= '<%# Eval("EmployeeID") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbStatus" runat="server"
-                                        Text= '<%# Eval("Status") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbLeaveType" runat="server"
-                                        Text= '<%# Eval("LeaveType") %>' />
-                                </td>
-                                 <td>
-                                    <asp:Label ID="lbDays" runat="server"
-                                        Text= '<%# Eval("Days") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbStart" runat="server"
-                                        Text= '<%# Eval("StartingDate") %>' />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbEnd" runat="server"
-                                        Text= '<%# Eval("EndingDate") %>' />
-                                </td>
-
-                                <td>
-                                    <a href='updateLeaveForm.aspx?LeaveRID=<%# Eval("LeaveRID") %>' onclick='return confirm("Are you sure?")';
-                                        <button type="button" class="btn btn-success" title="Approval">
-                                            <i class="fa fa-pencil" />
-                                        </button>
-                                </td>
-                               
-                               
-                                    <%--<asp:DataPager ID="datapager1" runat="server">
-                                        <Fields>
-                                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="true" />
-                                        </Fields>
-                                    </asp:DataPager>
-                                </td>
-                               
-                            </tr>
-                        </ItemTemplate>
-
-                    </asp:ListView>
-                </tbody>
-            </table>
-        </div>
-    </form>
-</asp:Content>--%>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
             <div class="row container-fluid">
             <div class="box">
@@ -84,6 +13,7 @@
                 <thead>
                     <th>LeaveRID</th>
                     <th>EmployeeID</th>
+                    <th>Name</th>
                     <th>Status</th>
                     <th>Leave Type</th>
                     <th>Days</th>
@@ -98,6 +28,7 @@
                             <tr>
                                 <td> <%# Eval("LeaveRID") %></td>
                                 <td> <%# Eval("EmployeeID") %></td>
+                                <td> <%# Eval("FirstName") %>   <%# Eval("MiddleName") %> <%# Eval("LastName") %></td>
                                 <td> <%# Eval("Status") %></td>
                                 <td> <%# Eval("LeaveType") %></td>
                                 <td> <%# Eval("Days") %></td>

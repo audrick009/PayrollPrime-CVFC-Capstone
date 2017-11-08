@@ -14,7 +14,6 @@
                     <table id="table" class="table table-hover table-bordered">
                         <thead>
                             <th>Overtime ID</th>
-                            <th>Employee ID</th>
                             <th>Date</th>
                             <th>Hours</th>
                             <th>Start Time</th>
@@ -27,7 +26,6 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td><%# Eval("OTRID") %></td>
-                                        <td><%# Eval("EmployeeID") %></td>
                                         <td><%# DateTime.Parse(Eval("Date").ToString()).ToString("MMMM dd, yyyy") %></td>
                                         <td><%# Eval("Hours") %></td>
                                         <td><%# Eval("StartTime", "{0:h:mm tt}") %></td>

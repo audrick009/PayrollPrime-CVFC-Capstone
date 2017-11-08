@@ -36,7 +36,8 @@ public partial class DepartmentHead_getOvertimeApplication : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT OTRID, EmployeeID, Date, Hours, StartTime, EndTime, Reason, Status, ApprovedBy FROM OvertimeRecords  WHERE Status = 'Pending'";
+        //com.CommandText = "SELECT OTRID, EmployeeID, Date, Hours, StartTime, EndTime, Reason, Status, ApprovedBy FROM OvertimeRecords  WHERE Status = 'Pending'";
+        com.CommandText = "SELECT OvertimeRecords.OTRID, OvertimeRecords.EmployeeID, Employee.FirstName, Employee.MiddleName, Employee.LastName, OvertimeRecords.Date, OvertimeRecords.Hours, OvertimeRecords.StartTime, OvertimeRecords.EndTime, OvertimeRecords.Reason, OvertimeRecords.Status, OvertimeRecords.ApprovedBy FROM OvertimeRecords INNER JOIN Employee ON Employee.EmployeeID = OvertimeRecords.EmployeeID WHERE OvertimeRecords.Status = 'Pending'";
         SqlDataReader dr = com.ExecuteReader();
         lvOvertimeApp.DataSource = dr;
         lvOvertimeApp.DataBind();

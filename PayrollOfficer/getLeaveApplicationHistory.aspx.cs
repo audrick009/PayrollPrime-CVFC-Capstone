@@ -30,7 +30,7 @@ public partial class Employee_getLeaveApplicationHistory : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT LeaveRID, EmployeeID, Status, LeaveType, Days, StartingDate, EndingDate FROM LeaveRecords WHERE EmployeeID = @empid";
+        com.CommandText = "SELECT LeaveRID, Status, LeaveType, Days, StartingDate, EndingDate FROM LeaveRecords WHERE EmployeeID = @empid";
         com.Parameters.AddWithValue("@empid", Session["empid"].ToString());
         SqlDataReader dr = com.ExecuteReader();
         lvLeaveApp.DataSource = dr;

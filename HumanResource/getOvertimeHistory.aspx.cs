@@ -26,7 +26,7 @@ public partial class Employee_getOvertimeHistory : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT OTRID, EmployeeID, Date, Hours, StartTime, EndTime, Reason, Status FROM OvertimeRecords WHERE EmployeeID = @empid";
+        com.CommandText = "SELECT OTRID, Date, Hours, StartTime, EndTime, Reason, Status FROM OvertimeRecords WHERE EmployeeID = @empid";
         com.Parameters.AddWithValue("@empid", Session["empid"].ToString());
         SqlDataReader dr = com.ExecuteReader();
         lvOvertimeHistory.DataSource = dr;

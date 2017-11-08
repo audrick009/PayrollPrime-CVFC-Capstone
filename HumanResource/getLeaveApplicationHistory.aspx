@@ -16,7 +16,6 @@
                     <table id="table" class="table table-hover table-bordered">
                         <thead>
                             <th>LeaveRID</th>
-                            <th>EmployeeID</th>
                             <th>Status</th>
                             <th>Leave Type</th>
                             <th>Days</th>
@@ -28,7 +27,6 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td><%# Eval("LeaveRID") %></td>
-                                        <td><%# Eval("EmployeeID") %></td>
                                         <td><%# Eval("Status") %></td>
                                         <td><%# Eval("LeaveType") %></td>
                                         <td><%# Eval("Days") %></td>

@@ -35,7 +35,8 @@ public partial class getLeaveApplication : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT LeaveRID, EmployeeID, Status, LeaveType, Days, StartingDate, EndingDate FROM LeaveRecords WHERE Status = 'Pending'";
+        //com.CommandText = "SELECT LeaveRID, EmployeeID, Status, LeaveType, Days, StartingDate, EndingDate FROM LeaveRecords WHERE Status = 'Pending'";
+        com.CommandText = "SELECT LeaveRecords.LeaveRID, LeaveRecords.EmployeeID, Employee.FirstName, Employee.MiddleName, Employee.LastName, LeaveRecords.Status, LeaveRecords.LeaveType, LeaveRecords.Days, LeaveRecords.StartingDate, LeaveRecords.EndingDate FROM LeaveRecords INNER JOIN Employee ON Employee.EmployeeID = LeaveRecords.EmployeeID WHERE LeaveRecords.Status = 'Pending'";
         SqlDataReader dr = com.ExecuteReader();
         lvLeaveApp.DataSource = dr;
         lvLeaveApp.DataBind();
