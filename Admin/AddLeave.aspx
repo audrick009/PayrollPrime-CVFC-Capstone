@@ -4,37 +4,6 @@
     File Leave
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-    <%-- <form id="form1" class="form-horizontal" runat="server" >
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label class="control-label col-lg-4">Choose Leave Type:</label>
-                <div class="col-lg-8">
-                    <asp:DropDownList ID="ddLeaveType" runat="server" class="form-control" required > 
-                        <asp:ListItem>Vacation</asp:ListItem>
-                        <asp:ListItem>Sick</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-            </div>
-
-
-             <div class="form-group">
-                <label class="control-label col-lg-4">Start Date of Leave:</label>
-                 <div class="col-lg-8">
-                <asp:TextBox ID="startDateTxt" TextMode="Date" runat="server" class="form-control" required  />
-                     </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-lg-4">End Date of Leave:</label>
-                <div class="col-lg-8">
-                    <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" class="form-control" required  />
-                    <center>
-            <asp:Button ID="submitleaveBtn" runat="server" Text="Submit Leave Form" OnClick="Button1_Click" class="btn btn-success" />
-                    </center>      
-                </div>
-            </div>      
-        </div>
-    </form>--%>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
@@ -53,6 +22,18 @@
                                         <asp:ListItem>Sick</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+
+                                <div class="form-group">
+                                <label class="col-sm-2 control-label">Day Type:</label>
+
+                                     <div class="col-sm-10">
+                                <asp:DropDownList ID="ddlDayType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
+                                        <asp:ListItem>Whole</asp:ListItem>
+                                        <asp:ListItem>Half</asp:ListItem>
+                                    </asp:DropDownList>
+                            </div>
+                                     </div>
+
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Start:</label>
@@ -65,7 +46,7 @@
                                 <label class="col-sm-2 control-label">End:</label>
 
                                 <div class="col-sm-10">
-                                   <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" class="form-control" required  />
+                                   <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" cssclass="form-control" required  />
                                 </div>
                             </div>
                         </div>

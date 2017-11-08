@@ -23,6 +23,18 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Day Type:</label>
+
+                                     <div class="col-sm-10">
+                                <asp:DropDownList ID="ddlDayType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
+                                        <asp:ListItem>Whole</asp:ListItem>
+                                        <asp:ListItem>Half</asp:ListItem>
+                                    </asp:DropDownList>
+                            </div>
+                                     </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Start:</label>
 
@@ -34,7 +46,7 @@
                                 <label class="col-sm-2 control-label">End:</label>
 
                                 <div class="col-sm-10">
-                                   <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" class="form-control" required  />
+                                   <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" cssclass="form-control" required  />
                                 </div>
                             </div>
                         </div>

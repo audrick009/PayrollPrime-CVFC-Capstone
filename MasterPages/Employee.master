@@ -295,6 +295,7 @@
         $(function () {
             $('#table').DataTable()
         })
+        document.getElementById("ddlDayType").readOnly = false;
     </script>
 </body>
 </html>
