@@ -4,7 +4,7 @@
     File Leave
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-     <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
                 <div class="box">
@@ -22,42 +22,42 @@
                                         <asp:ListItem>Sick</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
-                                </div>
+                            </div>
 
-                                 <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">Day Type:</label>
 
-                                     <div class="col-sm-10">
-                                <asp:DropDownList ID="ddlDayType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
+                                <div class="col-sm-10">
+                                    <asp:DropDownList ID="ddlDayType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
                                         <asp:ListItem>Whole</asp:ListItem>
                                         <asp:ListItem>Half</asp:ListItem>
                                     </asp:DropDownList>
+                                </div>
                             </div>
-                                     </div>
-                                
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Start:</label>
 
                                 <div class="col-sm-10">
-                                   <asp:TextBox ID="startDateTxt" TextMode="Date" runat="server" class="form-control" required  />
+                                    <asp:TextBox ID="startDateTxt" TextMode="Date" runat="server" class="form-control" required />
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label id="lbEnd" class="col-sm-2 control-label">End:</label>
 
                                 <div class="col-sm-10">
-                                   <asp:TextBox TextMode="Date" ID="endDateTxt"  runat="server" cssclass="form-control"  required  />
+                                    <asp:TextBox TextMode="Date" ID="endDateTxt" runat="server" CssClass="form-control" required />
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                               <asp:Button ID="submitleaveBtn" runat="server" Text="Submit Leave Form" OnClick="Button1_Click" class="btn btn-warning pull-right" />
-                        </div>
-
+                            <asp:Button ID="submitleaveBtn" runat="server" Text="Submit Leave Form" OnClick="Button1_Click" class="btn btn-warning pull-right" />
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
