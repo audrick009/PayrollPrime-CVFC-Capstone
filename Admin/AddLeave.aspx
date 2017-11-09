@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Admin.master" AutoEventWireup="true" CodeFile="addLeave.aspx.cs" Inherits="Leave_AddLeave" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="Server">
-    File Leave
+    Apply Leave
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
     <div class="container">
