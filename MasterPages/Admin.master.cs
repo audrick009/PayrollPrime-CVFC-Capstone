@@ -48,7 +48,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT LeaveRID, LeaveType, Status FROM LeaveRecords WHERE StartingDate >= @DateToday";
+        com.CommandText = "SELECT LeaveRID, LeaveType, Status FROM LeaveRecords WHERE StartingDate >= @DateToday AND EmployeeID=@EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("yyyy-MM-dd"));
         SqlDataAdapter da = new SqlDataAdapter(com);
         SqlDataReader dr = com.ExecuteReader();
@@ -62,7 +63,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT COUNT (*) AS LeaveCount FROM LeaveRecords WHERE StartingDate >= @DateToday";
+        com.CommandText = "SELECT COUNT (*) AS LeaveCount FROM LeaveRecords WHERE StartingDate >= @DateToday AND EmployeeID=@EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("yyyy-MM-dd"));
         SqlDataReader dr = com.ExecuteReader();
         if (dr.HasRows)
@@ -82,7 +84,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT OTRID, Date, Status FROM OvertimeRecords WHERE Date = @DateToday";
+        com.CommandText = "SELECT OTRID, Date, Status FROM OvertimeRecords WHERE Date = @DateToday AND EmployeeID=@EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("yyyy-MM-dd"));
         SqlDataAdapter da = new SqlDataAdapter(com);
         SqlDataReader dr = com.ExecuteReader();
@@ -96,7 +99,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT COUNT (*) AS OvertimeCount FROM OvertimeRecords WHERE Date = @DateToday";
+        com.CommandText = "SELECT COUNT (*) AS OvertimeCount FROM OvertimeRecords WHERE Date = @DateToday AND EmployeeID=@EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("yyyy-MM-dd"));
         SqlDataReader dr = com.ExecuteReader();
         if (dr.HasRows)
@@ -118,7 +122,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT pr.PayslipID FROM PayrollRecords pr INNER JOIN PayTerm pt ON pr.PayTermID = pt.PayTermID INNER JOIN Employee e ON pr.EmployeeID = e.EmployeeID where pt.EndingDate > @DateToday AND pt.EndingDate < @DateTom ";
+        com.CommandText = "SELECT pr.PayslipID FROM PayrollRecords pr INNER JOIN PayTerm pt ON pr.PayTermID = pt.PayTermID INNER JOIN Employee e ON pr.EmployeeID = e.EmployeeID where pt.EndingDate > @DateToday AND pt.EndingDate < @DateTom AND pr.EmployeeID = @EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("MM-dd-yyyy HH:mm:ss"));
         com.Parameters.AddWithValue("@DateTom", DateTom.ToString("MM-dd-yyyy HH:mm:ss"));
         SqlDataAdapter da = new SqlDataAdapter(com);
@@ -134,7 +139,8 @@ public partial class MasterPages_Admin : System.Web.UI.MasterPage
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT Count(*) as PayslipCount FROM PayrollRecords pr INNER JOIN PayTerm pt ON pr.PayTermID = pt.PayTermID INNER JOIN Employee e ON pr.EmployeeID = e.EmployeeID where pt.EndingDate > @DateToday AND pt.EndingDate < @DateTom ";
+        com.CommandText = "SELECT Count(*) as PayslipCount FROM PayrollRecords pr INNER JOIN PayTerm pt ON pr.PayTermID = pt.PayTermID INNER JOIN Employee e ON pr.EmployeeID = e.EmployeeID where pt.EndingDate > @DateToday AND pt.EndingDate < @DateTom AND pr.EmployeeID = @EmployeeID";
+        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         com.Parameters.AddWithValue("@DateToday", DateToday.ToString("MM-dd-yyyy HH:mm:ss"));
         com.Parameters.AddWithValue("@DateTom", DateTom.ToString("MM-dd-yyyy HH:mm:ss"));
         SqlDataAdapter da = new SqlDataAdapter(com);

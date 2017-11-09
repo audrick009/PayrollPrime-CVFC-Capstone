@@ -226,6 +226,18 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
+                                <a href="addLeave.aspx">Apply Leave</a>
+                            </li>
+                            <li>
+                                <a href="addOvertime.aspx">Apply Overtime</a>
+                            </li>
+                             <li>
+                                <a href="getLeaveApplicationHistory.aspx">Leave Application History</a>
+                            </li>
+                             <li>
+                                <a href="getOvertimeHistory.aspx">Overtime History</a>
+                            </li>
+                            <li>
                                 <a href="getOvertimeApplication.aspx">View Pending Overtime Records</a>
                             </li>
                             <li>

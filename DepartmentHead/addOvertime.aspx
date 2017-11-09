@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Admin.master" AutoEventWireup="true" CodeFile="addOvertime.aspx.cs" Inherits="addOvertime" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/DepartmentHead.master" AutoEventWireup="true" CodeFile="addOvertime.aspx.cs" Inherits="addOvertime" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="Server">
     Apply Overtime

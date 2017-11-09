@@ -14,6 +14,7 @@
                             <th>Full Name</th>
                             <th>Position</th>
                             <th>Last Pay</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             <asp:ListView ID="lvEmployeeList" runat="server" OnLoad="Page_Load">
