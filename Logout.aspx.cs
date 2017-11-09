@@ -13,12 +13,15 @@ public partial class Logout : System.Web.UI.Page
     Helper aud = new Helper();
     protected void Page_Load(object sender, EventArgs e)
     {
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        int EmpID = int.Parse(Session["empid"].ToString());
-        Session.Abandon();
-        Session.Clear();
+        if (Session["firstname"] != null) {
+            String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+            int EmpID = int.Parse(Session["empid"].ToString());
+            Session.Abandon();
+            Session.Clear();
 
-        aud.AuditLog(EncryptHelper.Encrypt("Logged Out", Helper.GetSalt()), EmpID, EncryptHelper.Encrypt(name + " logged out", Helper.GetSalt()));
+            aud.AuditLog(EncryptHelper.Encrypt("Logged Out", Helper.GetSalt()), EmpID, EncryptHelper.Encrypt(name + " logged out", Helper.GetSalt()));
+        }
+
         Response.Redirect("Login.aspx");
     }
 }

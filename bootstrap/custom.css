@@ -1,13 +1,40 @@
-﻿      #username{
-          color:white;
-          text-align: center;
-          font-size: 25px;
-      }
-      #username > #desc {
-          color:white;
-          text-align: center;
-          font-size: 12px;
-      }
-      #logout-hov:hover{
-          color: white;
-      }
+﻿#username {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+}
+
+    #username > #desc {
+        color: white;
+        text-align: center;
+        font-size: 12px;
+    }
+
+#logout-hov:hover {
+    color: white;
+}
+
+.taxCat {
+    width: 50px;
+    
+}
+
+.taxDesc {
+    width: 250px;
+}
+
+.taxLow {
+    width: 125px;
+}
+
+.taxHigh {
+    width: 125px;
+}
+
+.taxPercOver {
+    width: 125px;
+}
+
+.taxBase {
+    width: 125px;
+}

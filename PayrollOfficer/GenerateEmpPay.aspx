@@ -23,7 +23,7 @@
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %> <%# Eval("MiddleName") %></td>
                                         <td><%# Eval("Position") %></td>
                                         <td>
-                                            <a href='GenLastPay.aspx?ID<%# Eval("EmployeeID") %>'><i class="fa fa-money">Last Pay</i></a>
+                                            <a href='GenerateLastPay.aspx?ID=<%# Eval("EmployeeID") %>'><i class="fa fa-money">Last Pay</i></a>
                                         </td>
                                     </tr>
                                 </ItemTemplate>
