@@ -38,7 +38,7 @@ public partial class Admin_ViewAttendance : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "Select a.ARID, convert(date, a.TimeIn) as DateTimeIn, convert(varchar(8), convert(time, a.TimeIn)) as TimeIn,convert(date, a.TimeOut) as DateTimeOut, convert(varchar(8), convert(time, a.TimeOut)) as TimeOut, " +
+        mirai.CommandText = "Select a.ARID, convert(date, a.TimeIn) as DateTimeIn, convert(varchar(8), convert(time, a.TimeIn)) as TimeIn,convert(date, a.TimeOut) as DateTimeOut,  convert(varchar(8), convert(time, a.TimeOut)) as TimeOut, " +
             "a.Type, a.Status, e.FirstName, e.LastName, e.Position From AttendanceRecord as a INNER JOIN Employee as e ON a.EmployeeID = e.EmployeeID where a.Status != 'Override'";
         SqlDataAdapter da = new SqlDataAdapter(mirai);
         DataSet ds = new DataSet();

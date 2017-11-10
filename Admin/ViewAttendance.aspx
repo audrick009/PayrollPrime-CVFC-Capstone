@@ -110,8 +110,7 @@
                                         <td><%# Eval("DateTimeIn",  "{0: MMMM dd, yyyy}") %></td>
                                         <td><%# DateTime.Parse(Eval("TimeIn").ToString()).ToString("h:mm tt") %> </td>
                                         <td><%# Eval("DateTimeOut",  "{0: MMMM dd, yyyy}") %> </td>
-                                        <td><%# (String.IsNullOrEmpty(Eval("TimeOut").ToString())) 
-                                                ? "No Date Available" : Eval("TimeOut", "{0:h:mm tt}")%>  </td>
+                                        <td><%# DateTime.Parse(Eval("TimeOut").ToString()).ToString("h:mm tt")%> </td>
                                         <td><%# Eval("Type") %> </td>
                                         <td><%# Eval("Status") %> </td>
                                     </tr>
