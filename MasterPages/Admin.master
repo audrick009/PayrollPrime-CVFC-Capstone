@@ -160,6 +160,9 @@
                                 <li>
                                     <a href="ViewLoanRecords.aspx">Loan Records</a>
                                 </li>
+                                <li>
+                                    <a href="AttendanceOverride.aspx" <%--data-toggle="modal" data-target="#attendance-override"--%>>Attendance Override</a>
+                                </li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="../Logout.aspx"><i class="fa fa-sign-out"></i>Log Out</a>
@@ -204,9 +207,6 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li>
-                                <a href="AttendanceOverride.aspx" <%--data-toggle="modal" data-target="#attendance-override"--%>>Attendance Override</a>
-                            </li>
                             <li>
                                 <a href="ViewAttendance.aspx">View Employee Attendance Record</a>
                             </li>
