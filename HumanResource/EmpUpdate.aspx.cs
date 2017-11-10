@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 public partial class HumanResource_EmpUpdate : System.Web.UI.Page
 {
+    int employeeID = 0;
     Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
@@ -32,10 +33,13 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
 
         if (Session["userid"] != null)
         {
-            int employeeID = int.Parse(Session["empid"].ToString());
-            GetData(employeeID);
-            GetPermAdd(employeeID);
-            GetProvAdd(employeeID);
+            employeeID = int.Parse(Session["empid"].ToString());
+            if (!IsPostBack)
+            {
+                GetData(employeeID);
+                GetPermAdd(employeeID);
+                GetProvAdd(employeeID);
+            }
 
         }
         else
@@ -155,7 +159,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@CivilStatus", ddlCivStat.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@Position", ddlPosition.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@BaseSalary", txtBaseSalary.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }
@@ -170,7 +174,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@Municipality", txtPermMuni.Text);
         mirai.Parameters.AddWithValue("@City", txtPermCity.Text);
         mirai.Parameters.AddWithValue("@ZipCode", txtPermZip.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }
@@ -185,7 +189,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@Municipality", txtProvMuni.Text);
         mirai.Parameters.AddWithValue("@City", txtProvCity.Text);
         mirai.Parameters.AddWithValue("@ZipCode", txtProvZip.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }

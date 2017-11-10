@@ -1,9 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/DepartmentHead.master" AutoEventWireup="true" CodeFile="EmpUpdate.aspx.cs" Inherits="HumanResource_EmpUpdate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/DepartmentHead.master" AutoEventWireup="true" CodeFile="EmpUpdate.aspx.cs" Inherits="DepartmentHead_EmpUpdate" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
     Update Basic Information
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+    <div class="row">
     <form runat="server" class="form-horizontal">
         <div id="updatealert" runat="server" class="alert alert-success col-lg-12" visible="false">
             Details Updated Successfully!
@@ -38,7 +39,10 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Sex</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtSex" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlSex" runat="server" class="form-control" >
+                                <asp:ListItem Text="Female" ></asp:ListItem>
+                                <asp:ListItem Text="Male" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
@@ -47,18 +51,12 @@
                             <asp:TextBox ID="txtSSS" runat="server" type="number" min="0" class="form-control" />
                         </div>
                 </div>
+            </div>
+            <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label col-lg-4">TINno</label>
                         <div class="col-lg-8">
                             <asp:TextBox ID="txtTin" runat="server" type="number" min="0" class="form-control" />
-                        </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-lg-4">BIRno</label>
-                        <div class="col-lg-8">
-                            <asp:TextBox ID="txtBIR" runat="server" type="number" min="0" class="form-control" />
                         </div>
                 </div>
                 <div class="form-group">
@@ -79,16 +77,26 @@
                             <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" />
                         </div>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                     <label class="control-label col-lg-4">CivilStatus</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtCivStat" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlCivStat" runat="server" class="form-control" >
+                                <asp:ListItem Text="Single" ></asp:ListItem>
+                                <asp:ListItem Text="Married" ></asp:ListItem>
+                                <asp:ListItem Text="Widow" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Position</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPosition" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlPosition" runat="server" class="form-control" >
+                                <asp:ListItem Text="Admin" ></asp:ListItem>
+                                <asp:ListItem Text="Department Head" ></asp:ListItem>
+                                <asp:ListItem Text="Employee" ></asp:ListItem>
+                                <asp:ListItem Text="Human Resource" ></asp:ListItem>
+                                <asp:ListItem Text="Payroll Officer" ></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                 </div>
                 <div class="form-group">
@@ -162,5 +170,6 @@
              <asp:Button ID="btnUpdateInfo" runat="server" class="btn btn-success pull-right" Text="Update" OnClick="btnUpdateInfo_Click"/>
         </div>
     </form>
+  </div>
 </asp:Content>
 

@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class HumanResource_EmpUpdate : System.Web.UI.Page
+public partial class DepartmentHead_EmpUpdate : System.Web.UI.Page
 {
+    int employeeID = 0;
     Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
@@ -32,10 +33,13 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
 
         if (Session["userid"] != null)
         {
-            int employeeID = int.Parse(Session["empid"].ToString());
-            GetData(employeeID);
-            GetPermAdd(employeeID);
-            GetProvAdd(employeeID);
+            employeeID = int.Parse(Session["empid"].ToString());
+            if (!IsPostBack)
+            {
+                GetData(employeeID);
+                GetPermAdd(employeeID);
+                GetProvAdd(employeeID);
+            }
 
         }
         else
@@ -49,7 +53,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "Select  FirstName, LastName, MiddleName, BirthDate,  Sex, SSSno, TINno, BIRno, HDMFno, PhoneNo, MobileNo, CivilStatus, Position, BaseSalary From Employee where EmployeeID=@EmployeeID";
+        mirai.CommandText = "Select  FirstName, LastName, MiddleName, BirthDate,  Sex, SSSno, TINno, HDMFno, PhoneNo, MobileNo, CivilStatus, Position, BaseSalary From Employee where EmployeeID=@EmployeeID";
         mirai.Parameters.AddWithValue("@EmployeeID", ID);
         SqlDataReader aki = mirai.ExecuteReader();
         if (aki.HasRows)
@@ -60,15 +64,14 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
                 txtLastName.Text = aki["LastName"].ToString();
                 txtMiddleName.Text = aki["MiddleName"].ToString();
                 txtBDate.Text = aki["BirthDate"].ToString();
-                txtSex.Text = aki["Sex"].ToString();
+                ddlSex.SelectedItem.Text = aki["Sex"].ToString();
                 txtSSS.Text = aki["SSSno"].ToString();
                 txtTin.Text = aki["TINno"].ToString();
-                txtBIR.Text = aki["BIRno"].ToString();
                 txtHDMF.Text = aki["HDMFno"].ToString();
                 txtPhoneNo.Text = aki["PhoneNo"].ToString();
                 txtMobileNo.Text = aki["MobileNo"].ToString();
-                txtCivStat.Text = aki["CivilStatus"].ToString();
-                txtPosition.Text = aki["Position"].ToString();
+                ddlCivStat.SelectedItem.Text = aki["CivilStatus"].ToString();
+                ddlPosition.SelectedItem.Text = aki["Position"].ToString();
                 txtBaseSalary.Text = aki["BaseSalary"].ToString();
             }
             mio.Close();
@@ -140,24 +143,23 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
         mirai.CommandText = "Update Employee SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName," +
-            " BirthDate=@BirthDate, Sex=@Sex, SSSno=@SSSno, TINno=@TINno, BIRno=@BIRno, HDMFno=@HDMFno, PhoneNo=@PhoneNo," +
+            " BirthDate=@BirthDate, Sex=@Sex, SSSno=@SSSno, TINno=@TINno, HDMFno=@HDMFno, PhoneNo=@PhoneNo," +
             " MobileNo=@MobileNo, CivilStatus=@CivilStatus, Position=@Position, BaseSalary=@BaseSalary " +
             " From Employee where EmployeeID=@EmployeeID";
         mirai.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
         mirai.Parameters.AddWithValue("@LastName", txtLastName.Text);
         mirai.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text);
         mirai.Parameters.AddWithValue("@BirthDate", bDate);
-        mirai.Parameters.AddWithValue("@Sex", txtSex.Text);
+        mirai.Parameters.AddWithValue("@Sex", ddlSex.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@SSSno", txtSSS.Text);
         mirai.Parameters.AddWithValue("@TINno", txtTin.Text);
-        mirai.Parameters.AddWithValue("@BIRno", txtBIR.Text);
         mirai.Parameters.AddWithValue("@HDMFno", txtHDMF.Text);
         mirai.Parameters.AddWithValue("@PhoneNo", txtPhoneNo.Text);
         mirai.Parameters.AddWithValue("@MobileNo", txtMobileNo.Text);
-        mirai.Parameters.AddWithValue("@CivilStatus", txtCivStat.Text);
-        mirai.Parameters.AddWithValue("@Position", txtPosition.Text);
+        mirai.Parameters.AddWithValue("@CivilStatus", ddlCivStat.SelectedItem.Text);
+        mirai.Parameters.AddWithValue("@Position", ddlPosition.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@BaseSalary", txtBaseSalary.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }
@@ -172,7 +174,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@Municipality", txtPermMuni.Text);
         mirai.Parameters.AddWithValue("@City", txtPermCity.Text);
         mirai.Parameters.AddWithValue("@ZipCode", txtPermZip.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }
@@ -187,7 +189,7 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@Municipality", txtProvMuni.Text);
         mirai.Parameters.AddWithValue("@City", txtProvCity.Text);
         mirai.Parameters.AddWithValue("@ZipCode", txtProvZip.Text);
-        mirai.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID", employeeID);
         mirai.ExecuteNonQuery();
         mio.Close();
     }
@@ -198,8 +200,8 @@ public partial class HumanResource_EmpUpdate : System.Web.UI.Page
         InsertPermAdd();
         InsertProvAdd();
         Session["update"] = "updated";
-        String name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog(EncryptHelper.Encrypt("Updated Employee Info", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Updated employee ID " + Session["empid"].ToString() + "'s details.", Helper.GetSalt()));
+        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+        aud.AuditLog(EncryptHelper.Encrypt("Update Employee Info", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Updated employee ID " + Session["empid"].ToString() + "'s details.", Helper.GetSalt()));
         Response.Redirect("EmpUpdate.aspx");
     }
 }
