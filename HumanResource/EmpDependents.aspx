@@ -51,10 +51,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Status</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlStatus" runat="server" class="form-control">
-                                <asp:ListItem Text="Deceased"></asp:ListItem>
-                                <asp:ListItem Text="Alive"></asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:TextBox ID="txtBdate" TextMode="Date" runat="server" class="form-control" />
                         </div>
                 </div>
                  <asp:Button ID="btnAddDept" runat="server" class="btn btn-success pull-right" Text="Add" OnClick="btnAddDept_Click"/>

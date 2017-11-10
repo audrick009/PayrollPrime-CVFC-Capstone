@@ -48,18 +48,20 @@ public partial class HumanResource_EmpDependents : System.Web.UI.Page
 
     protected void btnAddDept_Click(object sender, EventArgs e)
     {
+        DateTime bDate = Convert.ToDateTime(txtBdate.Text);
         string name = txtFirstName.Text + ' ' + txtLastName.Text;
         string address = txtStreet.Text + ',' + txtMuni.Text + ',' + txtCity.Text;
         mio.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
-        mirai.CommandText = "Insert Into EmployeeDependents VALUES (@EmployeeID, @Name, @Address, @Relationship, @DateAdded, @Status)";
+        mirai.CommandText = "Insert Into EmployeeDependents VALUES (@EmployeeID, @Name, @Address, @Relationship, @DateAdded, @Birthdate, @Status)";
         mirai.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
         mirai.Parameters.AddWithValue("@Name", name);
         mirai.Parameters.AddWithValue("@Address", address);
         mirai.Parameters.AddWithValue("@Relationship", txtRelation.Text);
         mirai.Parameters.AddWithValue("@DateAdded", DateTime.Today.ToString("yyyy-MM-dd"));
-        mirai.Parameters.AddWithValue("@Status", ddlStatus.SelectedItem.Text);
+        mirai.Parameters.AddWithValue("@Birthdate", bDate);
+        mirai.Parameters.AddWithValue("@Status", "Eligible");
         mirai.ExecuteNonQuery();
         mio.Close();
         string name2 = Session["firstname"].ToString() + " " + Session["lastname"].ToString();

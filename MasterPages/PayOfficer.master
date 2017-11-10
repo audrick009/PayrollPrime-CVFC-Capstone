@@ -301,7 +301,14 @@
     <script src="../bootstrap/dist/js/demo.js"></script>
     <script>
         $(function () {
-            $('#table').DataTable()
+            $('#table').DataTable();
+            $('#tablepage').DataTable({
+                'paging': true,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
         })
     </script>
 </body>

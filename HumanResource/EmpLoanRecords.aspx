@@ -21,8 +21,6 @@
                     <label class="control-label col-lg-4">Loan Rate</label>
                         <div class="col-lg-8">
                             <asp:TextBox ID="txtLRate" runat="server" class="form-control" />
-                            <asp:RegularExpressionValidator id="valtxtLRate" runat="server" ControlToValidate="txtLRate" 
-                                ValidationExpression="" Display="Dynamic" />
                         </div>
                 </div>
                 <div class="form-group">
