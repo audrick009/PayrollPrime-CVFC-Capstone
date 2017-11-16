@@ -555,7 +555,11 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
     {
         var start = DateTime.Today;
         var end = DateTime.Today;
-        decimal lvCount = 0.0m;
+        decimal lvVCount = 0.0m;
+        decimal lvSCount = 0.0m;
+        decimal rvCount = 0.0m;
+        decimal rsCount = 0.0m;
+        decimal totalLeave = 0.0m;
         DateTime Lstart;
         DateTime Lend;
         SqlConnection con = new SqlConnection(Helper.GetCon());
@@ -577,9 +581,9 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         con.Open();
         SqlCommand com2 = new SqlCommand();
         com2.Connection = con;
-        com2.CommandText = "Select StartingDate, EndingDate From LeaveRecords where (EmployeeID =@EmployeeID AND StartingDate > @StartDate AND EndingDate <@EndDate AND Status='Approved')" +
-            " OR (EmployeeID = @EmployeeID AND StartingDate <= @EndDate AND EndingDate >= @EndDate AND Status='Approved') " +
-            "OR (EmployeeID = @EmployeeID AND StartingDate <= @StartDate AND EndingDate >= @StartDate AND Status='Approved')";
+        com2.CommandText = "Select StartingDate, EndingDate From LeaveRecords where (EmployeeID =@EmployeeID AND StartingDate > @StartDate AND EndingDate <@EndDate AND Status='Approved' AND LeaveType = 'Vacation')" +
+            " OR (EmployeeID = @EmployeeID AND StartingDate <= @EndDate AND EndingDate >= @EndDate AND Status='Approved' AND LeaveType = 'Vacation') " +
+            "OR (EmployeeID = @EmployeeID AND StartingDate <= @StartDate AND EndingDate >= @StartDate AND Status='Approved' AND LeaveType = 'Vacation')";
         com2.Parameters.AddWithValue("@StartDate", start);
         com2.Parameters.AddWithValue("@EndDate", end);
         com2.Parameters.AddWithValue("@EmployeeID",EmpID );
@@ -594,30 +598,132 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 if (start >= Lstart && start >= Lend)
                 {
                     TimeSpan ts = Lend - start;
-                    lvCount += ts.Days;
+                    lvVCount += ts.Days;
 
                 } else if(end >= Lstart && end <= Lend)
                 {
                     TimeSpan ts = end - Lstart;
-                    lvCount += ts.Days;
+                    lvVCount += ts.Days;
                 }
                 else if(Lstart > start && Lend < end)
                 {
                     TimeSpan ts = Lstart - Lend;
                     if(ts.Days < 1)
                     {
-                        lvCount += 0.5m;
+                        lvVCount += 0.5m;
                     }
                     else
                     {
-                        lvCount += ts.Days;
+                        lvVCount += ts.Days;
                     }
                 }
             }
         }
         con.Close();
-        return lvCount;
+        con.Open();
+        SqlCommand com3 = new SqlCommand();
+        com3.Connection = con;
+        com3.CommandText = "Select StartingDate, EndingDate From LeaveRecords where (EmployeeID =@EmployeeID AND StartingDate > @StartDate AND EndingDate <@EndDate AND Status='Approved' AND LeaveType = 'Sick')" +
+            " OR (EmployeeID = @EmployeeID AND StartingDate <= @EndDate AND EndingDate >= @EndDate AND Status='Approved' AND LeaveType = 'Sick') " +
+            "OR (EmployeeID = @EmployeeID AND StartingDate <= @StartDate AND EndingDate >= @StartDate AND Status='Approved' AND LeaveType = 'Sick')";
+        com3.Parameters.AddWithValue("@StartDate", start);
+        com3.Parameters.AddWithValue("@EndDate", end);
+        com3.Parameters.AddWithValue("@EmployeeID", EmpID);
+        SqlDataReader hitagi = com3.ExecuteReader();
+        if (hitagi.HasRows)
+        {
+            while (hitagi.Read())
+            {
+                Lstart = DateTime.Parse(hitagi["StartingDate"].ToString());
+                Lend = DateTime.Parse(hitagi["EndingDate"].ToString());
 
+                if (start >= Lstart && start >= Lend)
+                {
+                    TimeSpan ts = Lend - start;
+                    lvSCount += ts.Days;
+
+                }
+                else if (end >= Lstart && end <= Lend)
+                {
+                    TimeSpan ts = end - Lstart;
+                    lvSCount += ts.Days;
+                }
+                else if (Lstart > start && Lend < end)
+                {
+                    TimeSpan ts = Lstart - Lend;
+                    if (ts.Days < 1)
+                    {
+                        lvSCount += 0.5m;
+                    }
+                    else
+                    {
+                        lvSCount += ts.Days;
+                    }
+                }
+            }
+        }
+        con.Close();
+
+        con.Open();
+        SqlCommand com5 = new SqlCommand();
+        com5.Connection = con;
+        com5.CommandText = "Select RSickLeave, RVacLeave From Employee WHERE EmployeeID = @EmployeeID ";
+        com5.Parameters.AddWithValue("@EmployeeID", EmpID);
+        SqlDataReader dr1 = com5.ExecuteReader();
+        if (dr1.HasRows)
+        {
+            while (dr1.Read())
+            {
+                rvCount = int.Parse(dr1["RVacLeave"].ToString());
+                rsCount = int.Parse(dr1["RSickLeave"].ToString());
+            }
+        }
+        if (rvCount < lvVCount) {
+            totalLeave = totalLeave + rvCount;
+        }
+        else{
+            totalLeave = totalLeave + lvVCount;
+        }
+        if (rsCount < lvSCount) {
+            totalLeave = totalLeave + rsCount;
+        }
+        else {
+            totalLeave = totalLeave + lvSCount;
+        }
+
+        deductLeave(EmpID, lvVCount, lvSCount);
+        return totalLeave;
+
+    }
+    public void deductLeave(int EmployeeID, decimal vcount, decimal lcount) {
+        decimal rvl = 0.0m;
+        decimal rsl = 0.0m;
+        SqlConnection con = new SqlConnection(Helper.GetCon());
+        con.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "Select RSickLeave, RVacLeave From Employee WHERE EmployeeID = @EmployeeID ";
+        com.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows) {
+            while (dr.Read()) {
+                rvl = int.Parse(dr["RVacLeave"].ToString());
+                rsl = int.Parse(dr["RSickLeave"].ToString());
+            }
+        }
+        con.Close();
+
+        rvl = rvl - vcount;
+        rsl = rsl - lcount;
+
+        con.Open();
+        com.Parameters.Clear();
+        com.CommandText = "Update Employee SET RSickLeave = @rsl, RVacLeave = @rvl WHERE EmployeeID = @EmployeeID";
+        com.Parameters.AddWithValue("@rvl", rvl);
+        com.Parameters.AddWithValue("@rsl", rsl);
+        com.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+        com.ExecuteNonQuery();
+        con.Close();
     }
     public int BWorkDays(int PayTermID)
     {

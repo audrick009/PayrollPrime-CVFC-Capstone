@@ -49,7 +49,7 @@
                         </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4">Status</label>
+                    <label class="control-label col-lg-4">Birthdate</label>
                         <div class="col-lg-8">
                             <asp:TextBox ID="txtBdate" TextMode="Date" runat="server" class="form-control" />
                         </div>

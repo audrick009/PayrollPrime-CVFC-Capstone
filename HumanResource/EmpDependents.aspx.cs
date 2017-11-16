@@ -55,7 +55,7 @@ public partial class HumanResource_EmpDependents : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
         mirai.CommandText = "Insert Into EmployeeDependents VALUES (@EmployeeID, @Name, @Address, @Relationship, @DateAdded, @Birthdate, @Status)";
-        mirai.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+        mirai.Parameters.AddWithValue("@EmployeeID",Request.QueryString["ID"].ToString());
         mirai.Parameters.AddWithValue("@Name", name);
         mirai.Parameters.AddWithValue("@Address", address);
         mirai.Parameters.AddWithValue("@Relationship", txtRelation.Text);
