@@ -54,19 +54,19 @@
                         <div class="box-body">
                            <div class="form-group">
                                 <label>Employees:</label>
-                                <asp:DropDownList ID="ddlEmployees" runat="server" class="form-control"  />
+                                <asp:DropDownList ID="ddlEmployees" runat="server" class="form-control"  required/>
                            </div>
                             <div class="form-group">
                                 <label>Date:</label>
-                                <asp:TextBox ID="txtDate" runat="server" class="form-control" TextMode="Date" />
+                                <asp:TextBox ID="txtDate" runat="server" class="form-control" TextMode="Date" required/>
                            </div>
                             <div class="form-group">
                                 <label>Time-in:</label>
-                                 <asp:TextBox ID="txtTimeIn" runat="server" class="form-control" TextMode="Time" format="HH:mm:ss" />
+                                 <asp:TextBox ID="txtTimeIn" runat="server" class="form-control" TextMode="Time" format="HH:mm:ss" required/>
                            </div>
                             <div class="form-group">
                                 <label>Time-out:</label>
-                                 <asp:TextBox ID="txtTimeOut" runat="server" class="form-control" TextMode="Time" format="HH:mm:ss" />
+                                 <asp:TextBox ID="txtTimeOut" runat="server" class="form-control" TextMode="Time" format="HH:mm:ss" required/>
                            </div>
                         </div>
                         <div class="box-footer">

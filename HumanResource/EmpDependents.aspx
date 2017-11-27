@@ -13,25 +13,25 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">First Name</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtFirstName" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtFirstName" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Last Name</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtLastName" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtLastName" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Street</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtStreet" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtStreet" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Municipality</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtMuni" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtMuni" runat="server" class="form-control" required />
                         </div>
                 </div>
             </div>
@@ -39,19 +39,19 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">City</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtCity" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtCity" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Relationship</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtRelation" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtRelation" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Birthdate</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBdate" TextMode="Date" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtBdate" TextMode="Date" runat="server" class="form-control" required />
                         </div>
                 </div>
                  <asp:Button ID="btnAddDept" runat="server" class="btn btn-success pull-right" Text="Add" OnClick="btnAddDept_Click"/>

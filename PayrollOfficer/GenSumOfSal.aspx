@@ -9,7 +9,7 @@
             <div class="form-group">
                     <label class="control-label col-lg-4">Start Date</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlPayTerm" runat="server" class="form-control" />
+                            <asp:DropDownList ID="ddlPayTerm" runat="server" class="form-control" required/>
                         </div>
                 </div>
             </div>

@@ -10,31 +10,31 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Event</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtEvent" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtEvent" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Offense No</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtOffenseNo" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtOffenseNo" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Days</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtDays" TextMode="Number" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtDays" TextMode="Number" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Starting Date</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtDateStart" TextMode="Date" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtDateStart" TextMode="Date" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Ending Date</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtDateEnd" TextMode="Date" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtDateEnd" TextMode="Date" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <asp:Button ID="btnAddOffense" runat="server" class="btn btn-success pull-right" Text="Add" OnClick="btnAddOffense_Click" />

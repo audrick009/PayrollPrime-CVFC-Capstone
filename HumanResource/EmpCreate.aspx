@@ -12,31 +12,31 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">First Name</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtFirstName" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtFirstName" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Last Name</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtLastName" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtLastName" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Middle Name</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtMiddleName" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtMiddleName" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Birthdate</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBDate" type="Date" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtBDate" type="Date" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Sex</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlSex" runat="server" class="form-control" >
+                            <asp:DropDownList ID="ddlSex" runat="server" class="form-control" required >
                                 <asp:ListItem Text="Female" ></asp:ListItem>
                                 <asp:ListItem Text="Male" ></asp:ListItem>
                             </asp:DropDownList>
@@ -45,13 +45,13 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">SSSno</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtSSS" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtSSS" runat="server" type="number" min="0" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">TINno</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtTin" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtTin" runat="server" type="number" min="0" class="form-control" required />
                         </div>
                 </div>
             </div>
@@ -60,25 +60,25 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">HDMFno</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtHDMF" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtHDMF" runat="server" type="number" min="0" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">PhoneNo</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">MobileNo</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">CivilStatus</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlCivStat" runat="server" class="form-control" >
+                            <asp:DropDownList ID="ddlCivStat" runat="server" class="form-control" required >
                                 <asp:ListItem Text="Single" ></asp:ListItem>
                                 <asp:ListItem Text="Married" ></asp:ListItem>
                                 <asp:ListItem Text="Widow" ></asp:ListItem>
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Position</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlPosition" runat="server" class="form-control" >
+                            <asp:DropDownList ID="ddlPosition" runat="server" class="form-control" required >
                                 <asp:ListItem Text="Admin" ></asp:ListItem>
                                 <asp:ListItem Text="Department Head" ></asp:ListItem>
                                 <asp:ListItem Text="Employee" ></asp:ListItem>
@@ -100,7 +100,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">BaseSalary  ₱:</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="0.00" step="0.01" class="form-control" />
+                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="0.00" step="0.01" class="form-control" required />
                         </div>
                 </div>
             </div>
@@ -110,25 +110,25 @@
                     <div class="form-group">
                     <label class="control-label col-lg-4">Street</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPermStreet" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtPermStreet" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Municipality</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPermMuni" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtPermMuni" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">City</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPermCity" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtPermCity" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Zip Code</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtPermZip" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtPermZip" runat="server" type="number" min="0" class="form-control" required />
                         </div>
                 </div>
                 </div>
@@ -137,25 +137,25 @@
                     <div class="form-group">
                     <label class="control-label col-lg-4">Street</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtProvStreet" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtProvStreet" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Municipality</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtProvMuni" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtProvMuni" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">City</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtProvCity" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtProvCity" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Zip Code</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtProvZip" runat="server" type="number" min="0" class="form-control" />
+                            <asp:TextBox ID="txtProvZip" runat="server" type="number" min="0" class="form-control" required />
                         </div>
                 </div>
                 </div>

@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Loan Type</label>
                         <div class="col-lg-8">
-                            <asp:DropDownList ID="ddlType" runat="server" class="form-control">
+                            <asp:DropDownList ID="ddlType" runat="server" class="form-control" required >
                                 <asp:Listitem Text="SSS Loan" Value="SSSloan"></asp:Listitem>
                                 <asp:Listitem Text="HDMF Loan" Value="SSSloan"></asp:Listitem>
                                 <asp:Listitem Text="Personal Loan" Value="SSSloan"></asp:Listitem>
@@ -20,13 +20,13 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">Loan Rate</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtLRate" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtLRate" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-4">Total Loan</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtLTotal" runat="server" class="form-control" />
+                            <asp:TextBox ID="txtLTotal" runat="server" class="form-control" required />
                         </div>
                 </div>
                 <asp:Button ID="btnInsertLoan" runat="server" class="btn btn-success pull-right" Text="Add Loan Record" OnClick="btnInsertLoan_Click" />
