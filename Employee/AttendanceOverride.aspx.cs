@@ -15,7 +15,7 @@ public partial class Employee_AttendanceOverride : System.Web.UI.Page
     {
         if (Session["empid"] != null)
         {
-
+            
         }else
         {
             Response.Redirect("../Login.aspx");

@@ -34,7 +34,7 @@ public partial class PayrollOfficer_GenSumOfSal : System.Web.UI.Page
     {
         ReportDocument rpt = new ReportDocument();
         rpt.Load(Server.MapPath("~/Reports/SumOfSalary.rpt"));
-        rpt.SetDatabaseLogon("sa", "lazaro009", "DESKTOP-JQC0U4J", "CVFCPayroll");
+        rpt.SetDatabaseLogon("sa", "dbpass", "DESKTOP-JQC0U4J", "CVFCPayroll");
         rpt.SetParameterValue("PaytermID", ddlPayTerm.SelectedValue);
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Summary of Salary for the Period: " + ddlPayTerm.SelectedItem.Text);
 
