@@ -101,7 +101,7 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         mirai.Connection = mio;
         mirai.CommandText = "INSERT INTO Employee VALUES (@FirstName, @LastName, @MiddleName, @BirthDate, @Sex, @ProvAddressID," +
             "@PermAddressID, @SSSno, @TINno, @HDMFno, @PhoneNo,@MobileNo, @CivilStatus, @Status, @Position, @DateEmployed, " +
-            "@DateCreated, @DateModified, @ModifiedBy, @DateResigned, @RVacLeave, @RSickLeave, @BaseSalary, @FingerPrint) ";
+            "@DateCreated, @DateModified, @ModifiedBy, @DateResigned, @BaseSalary, @RVacLeave, @RSickLeave, @FingerPrint) ";
         mirai.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
         mirai.Parameters.AddWithValue("@LastName", txtLastName.Text);
         mirai.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text);
