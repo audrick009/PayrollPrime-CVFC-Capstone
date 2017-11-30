@@ -88,7 +88,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         return holiday;
     }
 
-    bool checkDhols()
+    bool checkDhols(DateTime start, DateTime end)
     {
         SqlConnection prvcon = new SqlConnection(Helper.GetCon());
         prvcon.Open();
@@ -96,8 +96,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         SqlCommand aiztan = new SqlCommand();
         aiztan.Connection = prvcon;
         aiztan.CommandText = "Select * from Holidays where Date <= @startdate AND Date >= @enddate";
-        aiztan.Parameters.AddWithValue("@startdate", startDateTxt.Text);
-        aiztan.Parameters.AddWithValue("@enddate", endDateTxt.Text);
+        aiztan.Parameters.AddWithValue("@startdate", start);
+        aiztan.Parameters.AddWithValue("@enddate", end);
         SqlDataReader nyan = aiztan.ExecuteReader();
         bool validateholiday;
         validateholiday = nyan.HasRows;
@@ -187,7 +187,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                 bool weekEnd = noWeekends(dt1, dt2);
                 bool holiday = holidays(dt1, dt2);
                 bool overlap = overlaps();
-                bool dholiday = checkDhols();
+                bool dholiday = checkDhols(dt1, dt2);
                 TimeSpan ts = dt2 - dt1;
                 int daysTxt = int.Parse(ts.TotalDays.ToString());
                 DayOfWeek check = dt1.DayOfWeek;
@@ -199,24 +199,24 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                         if (weekEnd)
                         {
                             if (dholiday)
-                            { 
-                            con.Open();
-                            SqlCommand com = new SqlCommand();
-                            com.Connection = con;
-                            com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
-                            com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-                            com.Parameters.AddWithValue("@Status", "Pending");
-                            com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
-                            com.Parameters.AddWithValue("@Days", daysTxt);
-                            com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
-                            com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
-                            com.ExecuteNonQuery();
-                            con.Close();
+                            {
+                                con.Open();
+                                SqlCommand com = new SqlCommand();
+                                com.Connection = con;
+                                com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+                                com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                                com.Parameters.AddWithValue("@Status", "Pending");
+                                com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                                com.Parameters.AddWithValue("@Days", daysTxt);
+                                com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                                com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
+                                com.ExecuteNonQuery();
+                                con.Close();
 
-                            string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-                            aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
+                                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                                aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
 
-                            Response.Redirect("getLeaveApplicationHistory.aspx");
+                                Response.Redirect("getLeaveApplicationHistory.aspx");
                             }
                             else
                             {
@@ -245,24 +245,21 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         }
         else if (ddlDayType.SelectedItem.Text == "Half")
         {
-           
+
             DateTime dt1 = DateTime.Parse(startDateTxt.Text);
-           
-            bool weekEnd = noWeekends(dt1, dt1);            
+
+            bool weekEnd = noWeekends(dt1, dt1);
             bool halfdayoverlap = halfoverlaps();
             bool holiday = holidays(dt1, dt1);
-            bool dholiday = checkDhols();
+            bool dholiday = checkDhols(dt1, dt1);
             DayOfWeek check = dt1.DayOfWeek;
-
-
-
             if (halfdayoverlap)
             {
                 if (holiday)
                 {
-                    if (weekEnd)
+                    if (dholiday)
                     {
-                        if (dholiday)
+                        if (weekEnd)
                         {
                             con.Open();
                             SqlCommand com = new SqlCommand();
@@ -284,12 +281,12 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                         }
                         else
                         {
-                            Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                            Response.Write("<script>alert('The Date should not have weekend');</script>");
                         }
                     }
                     else
                     {
-                        Response.Write("<script>alert('The Date should not have weekend');</script>");
+                        Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
                     }
                 }
                 else
@@ -302,7 +299,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                 Response.Write("<script>alert('The Date is already have covered');</script>");
             }
 
-    }
+
+        }
     }
 
     protected void ddlDayType_SelectedIndexChanged(object sender, EventArgs e)
@@ -316,142 +314,5 @@ public partial class Leave_AddLeave : System.Web.UI.Page
             endDateTxt.Enabled = false;
         }
     }
-
-    //public int overlap()
-    //{
-    //    DateTime dt1 = DateTime.Parse(startDateTxt.Text);
-    //    DateTime dt2 = DateTime.Parse(endDateTxt.Text);
-    //    TimeSpan ts = dt2 - dt1;
-    //    int daysTxt = int.Parse(ts.TotalDays.ToString());
-
-    //    var start = DateTime.Parse(startDateTxt.Text);
-    //    var end = DateTime.Parse(endDateTxt.Text);
-    //    string sDate = DateTime.Now.ToString();
-    //    DateTime date = (Convert.ToDateTime(sDate.ToString()));
-
-    //    string Year = date.Year.ToString();
-    //    var h1 = "01-01-" + Year;
-    //    var h2 = "09-04-" + Year;
-    //    var h3 = "13-04-" + Year;
-    //    var h4 = "14-04-" + Year;
-    //    var h5 = "01-05-" + Year;
-    //    var h6 = "12-06-" + Year;
-    //    var h7 = "28-08-" + Year;
-    //    var h8 = "30-10-" + Year;
-    //    var h9 = "25-12-" + Year;
-    //    var h10 = "30-12-" + Year;
-    //    DateTime holiday1 = DateTime.Parse(h1);
-    //    DateTime holiday2 = DateTime.Parse(h2);
-    //    DateTime holiday3 = DateTime.Parse(h3);
-    //    DateTime holiday4 = DateTime.Parse(h4);
-    //    DateTime holiday5 = DateTime.Parse(h5);
-    //    DateTime holiday6 = DateTime.Parse(h6);
-    //    DateTime holiday7 = DateTime.Parse(h7);
-    //    DateTime holiday8 = DateTime.Parse(h8);
-    //    DateTime holiday9 = DateTime.Parse(h9);
-    //    DateTime holiday10 = DateTime.Parse(h10);
-
-    //    if (start <= holiday1 && end >= holiday1)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday2 && end >= holiday2)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday3 && end >= holiday3)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday4 && end >= holiday4)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday5 && end >= holiday5)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday6 && end >= holiday6)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday7 && end >= holiday7)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday8 && end >= holiday8)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday9 && end >= holiday9)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-    //    if (start <= holiday10 && end >= holiday10)
-    //    {
-    //        Response.Write("<script>alert('the date should not be holiday');</script>");
-    //    }
-
-
-
-
-
-    //    //overlapping
-    //    SqlConnection prvcon = new SqlConnection(Helper.GetCon());
-    //    prvcon.Open();
-
-    //    SqlCommand aiztan = new SqlCommand();
-    //    aiztan.Connection = prvcon;
-    //    aiztan.CommandText = "select EmployeeID, Starting, EndingDate from LeaveRecords where EmployeeID = @empid AND StartingDate < @startdate";
-    //    aiztan.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-    //    aiztan.Parameters.AddWithValue("@startdate", startDateTxt.Text);
-    //    SqlDataReader meguri = aiztan.ExecuteReader();
-    //    bool validatestart;
-    //    validatestart = meguri.HasRows;
-    //    prvcon.Close();
-
-    //    prvcon.Open();
-    //    SqlCommand cmd = new SqlCommand();
-    //    cmd.CommandText = "select EmployeeID, Starting, EndingDate from LeaveRecords where EmployeeID = @empid AND EndingDate > @enddate";
-    //    cmd.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-    //    cmd.Parameters.AddWithValue("@enddate", endDateTxt.Text);
-    //    SqlDataReader meguri2 = cmd.ExecuteReader();
-    //    bool validateend;
-    //    validateend = meguri2.HasRows;
-
-
-    //    if (validatestart && validateend == true)
-    //    {
-    //        Response.Write("<script>alert('the date should overlapped');</script>");
-    //    }
-    //    else
-    //    {
-
-    //        con.Open();
-    //        SqlCommand com = new SqlCommand();
-    //        com.Connection = con;
-    //        com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
-    //        com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-    //        com.Parameters.AddWithValue("@Status", "Pending");
-    //        com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
-    //        com.Parameters.AddWithValue("@Days", daysTxt);
-    //        com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
-    //        com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
-    //        com.ExecuteNonQuery();
-    //        con.Close();
-
-    //        string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-    //        aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
-
-    //        Response.Redirect("getLeaveApplicationHistory.aspx");
-    //    }
-
-    //    prvcon.Close();
-
-
-
-
-
-
 
 }

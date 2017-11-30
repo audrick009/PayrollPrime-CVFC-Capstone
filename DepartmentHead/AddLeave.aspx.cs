@@ -15,7 +15,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
     {
         if (Session["userid"] != null)
         {
-            if (Session["position"].ToString() == "Department Head")
+            if (Session["position"].ToString() == "Employee")
             {
 
             }
@@ -29,6 +29,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
             Response.Redirect("../Login.aspx");
         }
     }
+
+
 
     bool noWeekends(DateTime start, DateTime end)
     {
@@ -86,7 +88,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         return holiday;
     }
 
-    bool checkDhols()
+    bool checkDhols(DateTime start, DateTime end)
     {
         SqlConnection prvcon = new SqlConnection(Helper.GetCon());
         prvcon.Open();
@@ -94,8 +96,8 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         SqlCommand aiztan = new SqlCommand();
         aiztan.Connection = prvcon;
         aiztan.CommandText = "Select * from Holidays where Date <= @startdate AND Date >= @enddate";
-        aiztan.Parameters.AddWithValue("@startdate", startDateTxt.Text);
-        aiztan.Parameters.AddWithValue("@enddate", endDateTxt.Text);
+        aiztan.Parameters.AddWithValue("@startdate", start);
+        aiztan.Parameters.AddWithValue("@enddate", end);
         SqlDataReader nyan = aiztan.ExecuteReader();
         bool validateholiday;
         validateholiday = nyan.HasRows;
@@ -186,7 +188,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                 bool weekEnd = noWeekends(dt1, dt2);
                 bool holiday = holidays(dt1, dt2);
                 bool overlap = overlaps();
-                bool dholiday = checkDhols();
+                bool dholiday = checkDhols(dt1, dt2);
                 TimeSpan ts = dt2 - dt1;
                 int daysTxt = int.Parse(ts.TotalDays.ToString());
                 DayOfWeek check = dt1.DayOfWeek;
@@ -250,18 +252,15 @@ public partial class Leave_AddLeave : System.Web.UI.Page
             bool weekEnd = noWeekends(dt1, dt1);
             bool halfdayoverlap = halfoverlaps();
             bool holiday = holidays(dt1, dt1);
-            bool dholiday = checkDhols();
+            bool dholiday = checkDhols(dt1, dt1);
             DayOfWeek check = dt1.DayOfWeek;
-
-
-
             if (halfdayoverlap)
             {
                 if (holiday)
                 {
-                    if (weekEnd)
+                    if (dholiday)
                     {
-                        if (dholiday)
+                        if (weekEnd)
                         {
                             con.Open();
                             SqlCommand com = new SqlCommand();
@@ -283,12 +282,12 @@ public partial class Leave_AddLeave : System.Web.UI.Page
                         }
                         else
                         {
-                            Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                            Response.Write("<script>alert('The Date should not have weekend');</script>");
                         }
                     }
                     else
                     {
-                        Response.Write("<script>alert('The Date should not have weekend');</script>");
+                        Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
                     }
                 }
                 else
@@ -300,6 +299,7 @@ public partial class Leave_AddLeave : System.Web.UI.Page
             {
                 Response.Write("<script>alert('The Date is already have covered');</script>");
             }
+
 
         }
     }
@@ -315,4 +315,5 @@ public partial class Leave_AddLeave : System.Web.UI.Page
             endDateTxt.Enabled = false;
         }
     }
+
 }
