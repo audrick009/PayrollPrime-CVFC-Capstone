@@ -1,56 +1,63 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/PayOfficer.master" AutoEventWireup="true" CodeFile="AddLeave.aspx.cs" Inherits="Leave_AddLeave" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
-    Apply Overtime
+<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="Server">
+    Apply Leave
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="content" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Overtime Application Form&nbsp<i class="fa fa-clock-o"></i></h3>
+                        <h3 class="box-title">Leave Application Form&nbsp<i class="fa fa-clock-o"></i></h3>
                     </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
                     <form class="form-horizontal" runat="server">
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Date:</label>
+                                <label class="col-sm-2 control-label">Type:</label>
 
                                 <div class="col-sm-10">
-                                    <asp:TextBox ID="dateTXT" TextMode="Date" class="form-control" runat="server" required/>
-                                     <div id="error" runat="server" class="alert alert-danger" visible="false">
-                                        Can only apply overtime once!
-                                    </div>
-                                    <p id="demo" runat="server"></p>
+                                    <asp:DropDownList ID="ddLeaveType" runat="server" class="form-control" required>
+                                        <asp:ListItem>Vacation</asp:ListItem>
+                                        <asp:ListItem>Sick</asp:ListItem>
+                                    </asp:DropDownList>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Hours:</label>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Day Type:</label>
 
                                 <div class="col-sm-10">
-                                    <asp:TextBox ID="hoursTXT" min="1" max="14.5" step="any" TextMode="number" class="form-control" runat="server" required/>
+                                    <asp:DropDownList ID="ddlDayType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
+                                        <asp:ListItem>Whole</asp:ListItem>
+                                        <asp:ListItem>Half</asp:ListItem>
+                                    </asp:DropDownList>
                                 </div>
                             </div>
+
+
                             <div class="form-group">
-                                 <label class="col-sm-2 control-label">Reason:</label>
+                                <label class="col-sm-2 control-label">Start:</label>
 
-            
-
-                                    <div class="col-sm-10">
-                                       <asp:TextBox ID="reasonTXT" TextMode="MultiLine" class="form-control" runat="server" style="resize: none;" required/>
-                                    </div>
+                                <div class="col-sm-10">
+                                    <asp:TextBox ID="startDateTxt" TextMode="Date" runat="server" class="form-control" required />
                                 </div>
                             </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                             <asp:Button ID="addOvertimeBTN" runat="server" Text="Submit Overtime Form" class="btn btn-warning pull-right" OnClick="addOvertimeBTN_Click" />
+
+                            <div class="form-group">
+                                <label id="lbEnd" class="col-sm-2 control-label">End:</label>
+
+                                <div class="col-sm-10">
+                                    <asp:TextBox TextMode="Date" ID="endDateTxt" runat="server" CssClass="form-control" required />
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.box-footer -->
+                        <div class="box-footer">
+                            <asp:Button ID="submitleaveBtn" runat="server" Text="Submit Leave Form" OnClick="Button1_Click" class="btn btn-warning pull-right" />
+                        </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
