@@ -20,6 +20,10 @@
 
                                 <div class="col-sm-10">
                                     <asp:TextBox ID="dateTXT" TextMode="Date" class="form-control" runat="server" required/>
+                                     <div id="error" runat="server" class="alert alert-danger" visible="false">
+                                        Can only apply overtime once!
+                                    </div>
+                                    <p id="demo" runat="server"></p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -27,7 +31,7 @@
 
 
                                 <div class="col-sm-10">
-                                    <asp:TextBox ID="hoursTXT" min="1" TextMode="number" class="form-control" runat="server" required/>
+                                    <asp:TextBox ID="hoursTXT" min="1" max="14.5" step="any" TextMode="number" class="form-control" runat="server" required/>
                                 </div>
                             </div>
                             <div class="form-group">
