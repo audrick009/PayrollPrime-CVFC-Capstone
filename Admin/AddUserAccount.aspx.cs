@@ -37,7 +37,7 @@ public partial class AddUserAccount : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "SELECT e.EmployeeID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName FROM Employee e WHERE Status = 'Employed'" +
+        com.CommandText = "SELECT e.EmployeeID, e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS FullName FROM Employee e WHERE Status != 'Resigned'" +
             "AND NOT EXISTS(SELECT NULL FROM Users u where u.EmployeeID = e.EmployeeID)";
 
         SqlDataReader dr = com.ExecuteReader();

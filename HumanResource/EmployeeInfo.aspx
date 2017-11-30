@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
     <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
+        <div class="container-fluid">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Employee Information</h3>
@@ -14,9 +14,12 @@
                     <table id="table" class="table table-hover table-bordered">
                         <thead>
                             <th>ID no.</th>
-                            <th>Full Name</th>
-                            <th>Date Started</th>
+                            <th>FullName</th>
+                            <th>DateStarted</th>
                             <th>Position</th>
+                            <th>Status</th>
+                            <th>SickLeave</th>
+                            <th>VacationLeave</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -32,6 +35,9 @@
                                         <td><%# Eval("LastName") %>, <%# Eval("FirstName") %> <%# Eval("MiddleName") %></td>
                                         <td><%# Eval("DateEmployed", "{0: MMMM dd, yyyy}") %></td>
                                         <td><%# Eval("Position") %></td>
+                                        <td><%# Eval("Status") %></td>
+                                        <td><%# Eval("RSickLeave") %></td>
+                                        <td><%# Eval("RVacLeave") %></td>
                                         <td>
                                             <a href='EmpDetails.aspx?ID=<%# Eval("EmployeeID") %>' title="View Employee Details"><button class="btn btn-facebook"><i class="fa fa-info"></i></button></a>
                                         </td>

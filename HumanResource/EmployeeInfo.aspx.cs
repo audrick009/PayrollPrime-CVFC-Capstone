@@ -21,7 +21,7 @@ public partial class HumanResource_EmployeeInfo : System.Web.UI.Page
                 SqlCommand mirai = new SqlCommand();
                 mirai.Connection = mio;
 
-                mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position FROM Employee WHERE Status = 'Employed' ";
+                mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position, Status, RSickLeave, RVacLeave FROM Employee WHERE Status != 'Resigned' ";
                 SqlDataAdapter da = new SqlDataAdapter(mirai);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "Employee");

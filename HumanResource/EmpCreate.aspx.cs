@@ -115,15 +115,15 @@ public partial class HumanResource_EmpCreate : System.Web.UI.Page
         mirai.Parameters.AddWithValue("@PhoneNo", txtPhoneNo.Text);
         mirai.Parameters.AddWithValue("@MobileNo", txtMobileNo.Text);
         mirai.Parameters.AddWithValue("@CivilStatus", ddlCivStat.SelectedItem.Text);
-        mirai.Parameters.AddWithValue("@Status", "Employed");
+        mirai.Parameters.AddWithValue("@Status", "Probationary");
         mirai.Parameters.AddWithValue("@Position", ddlPosition.SelectedItem.Text);
         mirai.Parameters.AddWithValue("@DateEmployed", DateTime.Now);
         mirai.Parameters.AddWithValue("@DateCreated", DateTime.Now);
         mirai.Parameters.AddWithValue("@DateModified", DBNull.Value);
         mirai.Parameters.AddWithValue("@ModifiedBy", DBNull.Value);
         mirai.Parameters.AddWithValue("@DateResigned", DBNull.Value);
-        mirai.Parameters.AddWithValue("@RVacLeave", 15);
-        mirai.Parameters.AddWithValue("@RSickLeave",15);
+        mirai.Parameters.AddWithValue("@RVacLeave", 0);
+        mirai.Parameters.AddWithValue("@RSickLeave", 0);
         mirai.Parameters.AddWithValue("@BaseSalary", txtBaseSalary.Text);
         mirai.Parameters.AddWithValue("@FingerPrint", DBNull.Value);
         mirai.ExecuteNonQuery();

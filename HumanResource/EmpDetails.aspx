@@ -4,68 +4,76 @@
     Employee Detailed Information
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-    <div class="container-fluid">
-        <div class="box box-solid">
-            <div class="box-header with-border">
-                <i class="fa fa-user-circle"></i>
+    <form runat="server">
+        <div class="container-fluid">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-user-circle"></i>
 
-                <h3 class="box-title">Details</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="col-lg-6">
-                    <label class="control-label col-lg">Name: </label>
-                    <asp:Literal ID="ltName" runat="server" />
-                    <br />
-                    <label class="control-label">Birthdate: </label>
-                    <asp:Literal ID="ltBirthDate" runat="server" />
-                    <br />
-                    <label class="control-label">Sex: </label>
-                    <asp:Literal ID="ltSex" runat="server" />
-                    <br />
-                    <label class="control-label">SSSno: </label>
-                    <asp:Literal ID="ltSSSno" runat="server" />
-                    <br />
-                    <label class="control-label">TINno: </label>
-                    <asp:Literal ID="ltTINno" runat="server" />
-                    <br />
-                    <label class="control-label">HDMFno: </label>
-                    <asp:Literal ID="ltHDMFno" runat="server" />
-                    <br />
-                    <label class="control-label">Phone No: </label>
-                    <asp:Literal ID="ltPhoneNo" runat="server" />
-                    <br />
-                    <label class="control-label">Mobile No: </label>
-                    <asp:Literal ID="ltMobileNo" runat="server" />
+                    <h3 class="box-title">Details</h3>
                 </div>
-                <div class="col-lg-6">
-                    <label class="control-label">Civil Status: </label>
-                    <asp:Literal ID="ltCivStatus" runat="server" />
-                    <br />
-                    <label class="control-label">Status: </label>
-                    <asp:Literal ID="ltStatus" runat="server" />
-                    <br />
-                    <label class="control-label">Position: </label>
-                    <asp:Literal ID="ltPosition" runat="server" />
-                    <br />
-                    <label class="control-label">Date Employed: </label>
-                    <asp:Literal ID="ltDateEmp" runat="server" />
-                    <br />
-                    <label class="control-label">Date Created: </label>
-                    <asp:Literal ID="ltDateCrt" runat="server" />
-                    <br />
-                    <label class="control-label">Permanent Address: </label>
-                    <asp:Literal ID="ltPermAdd" runat="server" />
-                    <br />
-                    <label class="control-label">Provincial Address: </label>
-                    <asp:Literal ID="ltProvAdd" runat="server" />
-                    <br />
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-lg-6">
+                        <label class="control-label col-lg">Name: </label>
+                        <asp:Literal ID="ltName" runat="server" />
+                        <br />
+                        <label class="control-label">Birthdate: </label>
+                        <asp:Literal ID="ltBirthDate" runat="server" />
+                        <br />
+                        <label class="control-label">Sex: </label>
+                        <asp:Literal ID="ltSex" runat="server" />
+                        <br />
+                        <label class="control-label">SSSno: </label>
+                        <asp:Literal ID="ltSSSno" runat="server" />
+                        <br />
+                        <label class="control-label">TINno: </label>
+                        <asp:Literal ID="ltTINno" runat="server" />
+                        <br />
+                        <label class="control-label">HDMFno: </label>
+                        <asp:Literal ID="ltHDMFno" runat="server" />
+                        <br />
+                        <label class="control-label">Phone No: </label>
+                        <asp:Literal ID="ltPhoneNo" runat="server" />
+                        <br />
+                        <label class="control-label">Mobile No: </label>
+                        <asp:Literal ID="ltMobileNo" runat="server" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="control-label">Civil Status: </label>
+                        <asp:Literal ID="ltCivStatus" runat="server" />
+                        <br />
+                        <label class="control-label">Status: </label>
+                        <asp:Literal ID="ltStatus" runat="server" />
+                        <br />
+                        <label class="control-label">Position: </label>
+                        <asp:Literal ID="ltPosition" runat="server" />
+                        <br />
+                        <label class="control-label">Date Employed: </label>
+                        <asp:Literal ID="ltDateEmp" runat="server" />
+                        <br />
+                        <label class="control-label">Date Created: </label>
+                        <asp:Literal ID="ltDateCrt" runat="server" />
+                        <br />
+                        <label class="control-label">Permanent Address: </label>
+                        <asp:Literal ID="ltPermAdd" runat="server" />
+                        <br />
+                        <label class="control-label">Provincial Address: </label>
+                        <asp:Literal ID="ltProvAdd" runat="server" />
+                        <br />
+                    </div>
                 </div>
-
+                <div class="box-footer">
+                    <div class="col-lg-12 col-lg-offset-6">
+                         <asp:Button ID="btnReg" runat="server" class="btn btn-success"
+                        OnClientClick="return confirm('Are you sure you want to make this employee regular?')" Text="Regularize Employee" OnClick="btnReg_Click" Visible="false" />
+                    </div>
+                   
+                </div>
+                <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
         </div>
-    </div>
+    </form>
     <div class="container-fluid">
         <div class="box box-solid">
             <div class="box-header with-border">
@@ -187,7 +195,7 @@
                                                     <td><%# Eval("Address") %></td>
                                                     <td><%# Eval("Relationship") %></td>
                                                     <td><%# Eval("DateAdded " , "{0: MMMM dd, yyyy}") %></td>
-                                                    <td><%# (DateTime.Now.Year - Convert.ToDateTime(Eval("BirthDate")).Year)%></td>                                                  
+                                                    <td><%# (DateTime.Now.Year - Convert.ToDateTime(Eval("BirthDate")).Year)%></td>
                                                 </tr>
                                             </ItemTemplate>
                                             <EmptyDataTemplate>

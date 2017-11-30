@@ -30,6 +30,14 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
                         GetEmpLoanRec(employeeID);
                         GetEmpDependents(employeeID);
                         EmployeeName();
+                        if (ltStatus.Text == "Probationary")
+                        {
+                            btnReg.Visible = true;
+                        }
+                        else
+                        {
+                            btnReg.Visible = false;
+                        }
                     }
                 }
                 else Response.Redirect("EmployeeInfo.aspx");
@@ -138,5 +146,21 @@ public partial class HumanResource_EmpDetails : System.Web.UI.Page
         mio.Close();
         return fullname;
 
+    }
+
+    protected void btnReg_Click(object sender, EventArgs e)
+    {
+        mio.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = mio;
+        com.CommandText = "UPDATE Employee SET Status=@Status, RSickLeave=@RSickLeave, RVacLeave=@RVacLeave WHERE EmployeeID=@EmployeeID";
+        com.Parameters.AddWithValue("@Status", "Employed");
+        com.Parameters.AddWithValue("@RSickLeave", 15);
+        com.Parameters.AddWithValue("@RVacLeave", 15);
+        com.Parameters.AddWithValue("@EmployeeID", Request.QueryString["ID"].ToString());
+        com.ExecuteNonQuery();
+        mio.Close();
+        Response.Redirect("EmployeeInfo.aspx");
+       
     }
 }
