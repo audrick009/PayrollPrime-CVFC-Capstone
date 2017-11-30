@@ -869,16 +869,15 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
     public decimal EmpPagibigCont(decimal BasePay)
     {
         decimal empCont = 0.0m;
-        if(BasePay > 1500.0m)
+        if(BasePay < 1500.0m)
         {
-            empCont = BasePay * 0.1m;
+            empCont = BasePay * 0.01m;
         }
         else
         {
-           empCont = BasePay * 0.02m;
+           empCont = 100.0m;
         }
-
-        return decimal.Round(empCont, 1);
+        return decimal.Round((empCont / 2), 1);
     }
     public decimal EmpHourlyRate(decimal BasePay)
     {
@@ -886,5 +885,24 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         HourlyRate = ((BasePay * 12.0m) / 52.0m) / 40.0m;
         return decimal.Round(HourlyRate, 2);
         
+    }
+    public decimal thirteenmonth(int EmployeeID) {
+        decimal tthpay = 0.00m;
+        decimal dailyrate = 0.00m;
+        decimal Mpay = 0.00m;
+        decimal semiMpay = 0.00m;
+        SqlConnection tcon = new SqlConnection();
+        tcon.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = tcon;
+        com.CommandText = "Select BaseSalary from Employee Where EmployeeID = @EmployeeID";
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows) {
+            while (dr.Read()) {
+                 semiMpay = decimal.Parse(dr["BaseSalary"].ToString());
+            }
+        }
+        Mpay = semiMpay * 2;
+        return tthpay;
     }
 }

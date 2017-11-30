@@ -100,7 +100,8 @@
                 <div class="form-group">
                     <label class="control-label col-lg-4">BaseSalary  ₱:</label>
                         <div class="col-lg-8">
-                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="0.00" step="0.01" class="form-control" required />
+                            <asp:TextBox ID="txtBaseSalary" runat="server" type="number" min="5665.875" step="0.001" class="form-control" required />
+                            <small>Note: This is Semi-Monthly Salary</small>
                         </div>
                 </div>
             </div>

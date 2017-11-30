@@ -50,7 +50,7 @@ public partial class Login : System.Web.UI.Page
         mirai.Connection = mio;
         //nag dagdag ako ng status para pag na archived di na accessible ung account
         //lagay mo to dyan sa taas kasi di sia kita sa gilid mga 1 hr nako nagtataka bat di ako maka login pota haha
-        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password AND Status='Employed'"; 
+        mirai.CommandText = "Select Users.UserID, Users.Username, Users.Password, Employee.CivilStatus, Employee.EmployeeID, Employee.Position, Employee.LastName, Employee.FirstName, Employee.Sex, Employee.DateEmployed From Users INNER JOIN Employee ON Users.EmployeeID = Employee.EmployeeID Where Username=@username AND Password=@password AND Status='Employed'"; 
         mirai.Parameters.AddWithValue("@username", txtUsername.Text);
         mirai.Parameters.AddWithValue("@password", Helper.CreateSHAHash(txtPassword.Text));
         SqlDataReader aki = mirai.ExecuteReader();
@@ -63,6 +63,9 @@ public partial class Login : System.Web.UI.Page
                 Session["position"] = aki["Position"].ToString();
                 Session["lastname"] = aki["LastName"].ToString();
                 Session["firstname"] = aki["FirstName"].ToString();
+                Session["sex"] = aki["sex"].ToString();
+                Session["DateEmployed"] = aki["DateEmployed"].ToString();
+                Session["CivilStatus"] = aki["CivilStatus"].ToString();
             }
             mio.Close();
             name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();

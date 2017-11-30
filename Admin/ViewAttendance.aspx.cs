@@ -117,6 +117,7 @@ public partial class Admin_ViewAttendance : System.Web.UI.Page
         rpt.SetParameterValue("enddate", txtEnd.Text);
         rpt.SetParameterValue("starttext", start.ToString(" MMMM dd,yyyy "));
         rpt.SetParameterValue("endtext", end.ToString(" MMMM dd,yyyy "));
+        rpt.SetParameterValue("fullname", Session["firstname"].ToString() + " " + Session["lastname"].ToString());
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Employee Audit Log Records as of " + DateTime.Now.ToString());
     }
     void getReportEmp()
@@ -125,6 +126,7 @@ public partial class Admin_ViewAttendance : System.Web.UI.Page
         rpt.Load(Server.MapPath("~/Reports/attendanceReport2.rpt"));
         rpt.SetDatabaseLogon("sa", "dbpass", "DESKTOP-JQC0U4J", "CVFCPayroll");
         rpt.SetParameterValue("EmployeeID", ddlEmployees.SelectedValue);
+        rpt.SetParameterValue("fullname", Session["firstname"].ToString() + " " + Session["lastname"].ToString());
         rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Employee Audit Log Records as of " + DateTime.Now.ToString());
     }
     protected void btnGenRep_Click(object sender, EventArgs e)
@@ -150,7 +152,7 @@ public partial class Admin_ViewAttendance : System.Web.UI.Page
         ddlEmployees.DataValueField = "EmployeeID";
         ddlEmployees.DataBind();
 
-
+    
         mio.Close();
     }
     
