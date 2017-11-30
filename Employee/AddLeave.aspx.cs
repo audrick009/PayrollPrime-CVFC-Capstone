@@ -178,7 +178,6 @@ public partial class Leave_AddLeave : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
 
-
         if (ddlDayType.SelectedItem.Text == "Whole")
         {
             if (DateTime.Parse(startDateTxt.Text) < DateTime.Parse(endDateTxt.Text))
