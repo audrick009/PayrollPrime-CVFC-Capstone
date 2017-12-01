@@ -30,7 +30,8 @@ public partial class PayrollOfficer_AddHoliday : System.Web.UI.Page
         con.Open();
         SqlCommand com = new SqlCommand();
         com.Connection = con;
-        com.CommandText = "INSERT INTO Holidays VALUES (@Name, @Date, @Description)";
+        com.CommandText = "INSERT INTO Holidays VALUES (@Type, @Name, @Date, @Description)";
+        com.Parameters.AddWithValue("@Type", ddlhType.SelectedItem.Text);
         com.Parameters.AddWithValue("@Name", txtNameHD.Text);
         com.Parameters.AddWithValue("@Date", date);
         com.Parameters.AddWithValue("@Description", txtHDDesc.Text);
@@ -40,6 +41,6 @@ public partial class PayrollOfficer_AddHoliday : System.Web.UI.Page
         Response.Redirect("AddHoliday.aspx");
 
         string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-        aud.AuditLog(EncryptHelper.Encrypt("Applied Holiday", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Apply Applied Holiday", Helper.GetSalt()));
+        aud.AuditLog(EncryptHelper.Encrypt("Added Holiday", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + " Apply Applied Holiday", Helper.GetSalt()));
     }
 }

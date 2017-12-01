@@ -15,9 +15,9 @@ public partial class Leave_AddLeave : System.Web.UI.Page
     {
         if (Session["userid"] != null)
         {
-            if (Session["position"].ToString() == "Employee")
+            if (Session["position"].ToString() == "Department Head")
             {
-
+                if (!IsPostBack) { changeddlist(); }
             }
             else
             {
@@ -30,8 +30,337 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         }
     }
 
+    protected void Button1_Click(object sender, EventArgs e)
+    {
 
+        if (ddLeaveType.SelectedItem.Text == "Maternity")
+        {
+            bool overlap = overlaps();
+            if (overlap)
+            {
+                DateTime dt1 = DateTime.Parse(startDateTxt.Text);
+                DateTime dt2 = dt1;
+                if (ddlMatType.SelectedItem.Text == "Normal Delivery/Miscarriage")
+                {
+                    dt2 = dt2.AddDays(60);
+                }
+                else if (ddlMatType.SelectedItem.Text == "Caesarian section delivery")
+                {
+                    dt2 = dt2.AddDays(78);
+                }
 
+                Response.Write(dt2.ToString());
+
+                TimeSpan ts = dt2 - dt1;
+                int days = int.Parse(ts.TotalDays.ToString());
+
+                con.Open();
+                SqlCommand com = new SqlCommand();
+                com.Connection = con;
+                com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+
+                com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                com.Parameters.AddWithValue("@Status", "Pending");
+                com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                com.Parameters.AddWithValue("@Days", days);
+                com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                com.Parameters.AddWithValue("@EndingDate", dt2.ToString("yyyy-MM-dd"));
+                com.ExecuteNonQuery();
+                con.Close();
+
+                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a " + ddLeaveType.SelectedValue + " Leave", Helper.GetSalt()));
+
+                Response.Redirect("getLeaveApplicationHistory.aspx");
+            }
+            else
+            {
+                Response.Write("<script>alert('The date is already covered');</script>");
+            }
+        }
+        else if (ddLeaveType.SelectedItem.Text == "Paternity")
+        {
+            bool overlap = overlaps();
+            if (overlap)
+            {
+                DateTime dt1 = DateTime.Parse(startDateTxt.Text);
+                DateTime dt2 = dt1;
+
+                dt2 = dt2.AddDays(7);
+                TimeSpan ts = dt2 - dt1;
+                int days = int.Parse(ts.TotalDays.ToString());
+
+                con.Open();
+                SqlCommand com = new SqlCommand();
+                com.Connection = con;
+                com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+
+                com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                com.Parameters.AddWithValue("@Status", "Pending");
+                com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                com.Parameters.AddWithValue("@Days", days);
+                com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                com.Parameters.AddWithValue("@EndingDate", dt2.ToString("yyyy-MM-dd"));
+                com.ExecuteNonQuery();
+                con.Close();
+
+                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a " + ddLeaveType.SelectedValue + " Leave", Helper.GetSalt()));
+
+                Response.Redirect("getLeaveApplicationHistory.aspx");
+            }
+            else
+            {
+                Response.Write("<script>alert('The date is already covered');</script>");
+            }
+        }
+        else
+        {
+            if (ddLeaveType.SelectedItem.Text == "Service Incentive")
+            {
+                if (DateTime.Parse(startDateTxt.Text) < DateTime.Parse(endDateTxt.Text))
+                {
+                    DateTime dt1 = DateTime.Parse(startDateTxt.Text);
+                    DateTime dt2 = DateTime.Parse(endDateTxt.Text);
+                    bool weekEnd = noWeekends(dt1, dt2);
+                    bool holiday = holidays(dt1, dt2);
+                    bool overlap = overlaps();
+                    bool dholiday = checkDhols(dt1, dt2);
+                    TimeSpan ts = dt2 - dt1;
+                    int daysTxt = int.Parse(ts.TotalDays.ToString());
+                    DayOfWeek check = dt1.DayOfWeek;
+                    DayOfWeek check2 = dt2.DayOfWeek;
+                    if (overlap)
+                    {
+                        if (holiday)
+                        {
+                            if (weekEnd)
+                            {
+                                if (dholiday)
+                                {
+                                    con.Open();
+                                    SqlCommand com = new SqlCommand();
+                                    com.Connection = con;
+                                    com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+                                    com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                                    com.Parameters.AddWithValue("@Status", "Pending");
+                                    com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                                    com.Parameters.AddWithValue("@Days", daysTxt);
+                                    com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                                    com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
+                                    com.ExecuteNonQuery();
+                                    con.Close();
+
+                                    string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                                    aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
+
+                                    Response.Redirect("getLeaveApplicationHistory.aspx");
+                                }
+                                else
+                                {
+                                    Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                                }
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('the date should not has weekend');</script>");
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('The date is already covered');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('The end date of the leave should always be after the start date');</script>");
+                }
+            }
+            else if (ddlDayType.SelectedItem.Text == "Whole")
+            {
+                if (DateTime.Parse(startDateTxt.Text) < DateTime.Parse(endDateTxt.Text))
+                {
+                    DateTime dt1 = DateTime.Parse(startDateTxt.Text);
+                    DateTime dt2 = DateTime.Parse(endDateTxt.Text);
+                    bool weekEnd = noWeekends(dt1, dt2);
+                    bool holiday = holidays(dt1, dt2);
+                    bool overlap = overlaps();
+                    bool dholiday = checkDhols(dt1, dt2);
+                    TimeSpan ts = dt2 - dt1;
+                    int daysTxt = int.Parse(ts.TotalDays.ToString());
+                    DayOfWeek check = dt1.DayOfWeek;
+                    DayOfWeek check2 = dt2.DayOfWeek;
+                    if (overlap)
+                    {
+                        if (holiday)
+                        {
+                            if (weekEnd)
+                            {
+                                if (dholiday)
+                                {
+                                    con.Open();
+                                    SqlCommand com = new SqlCommand();
+                                    com.Connection = con;
+                                    com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+                                    com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                                    com.Parameters.AddWithValue("@Status", "Pending");
+                                    com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                                    com.Parameters.AddWithValue("@Days", daysTxt);
+                                    com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                                    com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
+                                    com.ExecuteNonQuery();
+                                    con.Close();
+
+                                    string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                                    aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
+
+                                    Response.Redirect("getLeaveApplicationHistory.aspx");
+                                }
+                                else
+                                {
+                                    Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                                }
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('the date should not has weekend');</script>");
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('The date is already covered');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('The end date of the leave should always be after the start date');</script>");
+                }
+            }
+            else if (ddlDayType.SelectedItem.Text == "Half")
+            {
+
+                DateTime dt1 = DateTime.Parse(startDateTxt.Text);
+
+                bool weekEnd = noWeekends(dt1, dt1);
+                bool halfdayoverlap = halfoverlaps();
+                bool holiday = holidays(dt1, dt1);
+                bool dholiday = checkDhols(dt1, dt1);
+                DayOfWeek check = dt1.DayOfWeek;
+                if (halfdayoverlap)
+                {
+                    if (holiday)
+                    {
+                        if (dholiday)
+                        {
+                            if (weekEnd)
+                            {
+                                con.Open();
+                                SqlCommand com = new SqlCommand();
+                                com.Connection = con;
+                                com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
+                                com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
+                                com.Parameters.AddWithValue("@Status", "Pending");
+                                com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
+                                com.Parameters.AddWithValue("@Days", "0.5");
+                                com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
+                                com.Parameters.AddWithValue("@EndingDate", startDateTxt.Text);
+                                com.ExecuteNonQuery();
+                                con.Close();
+
+                                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
+                                aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
+
+                                Response.Redirect("getLeaveApplicationHistory.aspx");
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('The Date should not have weekend');</script>");
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('The Date is already have covered');</script>");
+                }
+            }
+        }
+    }
+
+    protected void ddlDayType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlDayType.SelectedItem.Text == "Whole")
+        {
+            endDateTxt.Enabled = true;
+        }
+        else if (ddlDayType.SelectedItem.Text == "Half")
+        {
+            endDateTxt.Enabled = false;
+        }
+    }
+    protected void ddLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddLeaveType.SelectedItem.Text == "Maternity")
+        {
+            DayType.Style.Add("display", "none");
+            enddate.Style.Add("display", "none");
+            MatType.Style.Add("display", "block");
+        }
+        else if (ddLeaveType.SelectedItem.Text == "Paternity")
+        {
+            DayType.Style.Add("display", "none");
+            enddate.Style.Add("display", "none");
+            MatType.Style.Add("display", "none");
+        }
+        else if (ddLeaveType.SelectedItem.Text == "Service Incentive")
+        {
+            DayType.Style.Add("display", "none");
+            enddate.Style.Add("display", "block");
+            MatType.Style.Add("display", "none");
+        }
+        else
+        {
+            DayType.Style.Add("display", "block");
+            MatType.Style.Add("display", "none");
+            enddate.Style.Add("display", "block");
+        }
+    }
+    void changeddlist()
+    {
+        DateTime startdate = DateTime.Parse(Session["DateEmployed"].ToString());
+        Response.Write(Session["sex"].ToString());
+
+        if (Session["sex"].ToString() == "Female")
+        {
+            ddLeaveType.Items.Add("Maternity");
+        }
+        else if (Session["sex"].ToString() != "Female")
+        {
+            ddLeaveType.Items.Add("Paternity");
+        }
+        if (startdate.AddYears(1) < DateTime.Today)
+        {
+            ddLeaveType.Items.Add("Service Incentive");
+        }
+    }
     bool noWeekends(DateTime start, DateTime end)
     {
         bool weekEnd = true;
@@ -172,147 +501,6 @@ public partial class Leave_AddLeave : System.Web.UI.Page
         else
         {
             return true;
-        }
-    }
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-
-
-        if (ddlDayType.SelectedItem.Text == "Whole")
-        {
-            if (DateTime.Parse(startDateTxt.Text) < DateTime.Parse(endDateTxt.Text))
-            {
-                DateTime dt1 = DateTime.Parse(startDateTxt.Text);
-                DateTime dt2 = DateTime.Parse(endDateTxt.Text);
-                bool weekEnd = noWeekends(dt1, dt2);
-                bool holiday = holidays(dt1, dt2);
-                bool overlap = overlaps();
-                bool dholiday = checkDhols(dt1, dt2);
-                TimeSpan ts = dt2 - dt1;
-                int daysTxt = int.Parse(ts.TotalDays.ToString());
-                DayOfWeek check = dt1.DayOfWeek;
-                DayOfWeek check2 = dt2.DayOfWeek;
-                if (overlap)
-                {
-                    if (holiday)
-                    {
-                        if (weekEnd)
-                        {
-                            if (dholiday)
-                            {
-                                con.Open();
-                                SqlCommand com = new SqlCommand();
-                                com.Connection = con;
-                                com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
-                                com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-                                com.Parameters.AddWithValue("@Status", "Pending");
-                                com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
-                                com.Parameters.AddWithValue("@Days", daysTxt);
-                                com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
-                                com.Parameters.AddWithValue("@EndingDate", endDateTxt.Text);
-                                com.ExecuteNonQuery();
-                                con.Close();
-
-                                string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-                                aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
-
-                                Response.Redirect("getLeaveApplicationHistory.aspx");
-                            }
-                            else
-                            {
-                                Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
-                            }
-                        }
-                        else
-                        {
-                            Response.Write("<script>alert('the date should not has weekend');</script>");
-                        }
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
-                    }
-                }
-                else
-                {
-                    Response.Write("<script>alert('The date is already covered');</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('The end date of the leave should always be after the start date');</script>");
-            }
-        }
-        else if (ddlDayType.SelectedItem.Text == "Half")
-        {
-
-            DateTime dt1 = DateTime.Parse(startDateTxt.Text);
-
-            bool weekEnd = noWeekends(dt1, dt1);
-            bool halfdayoverlap = halfoverlaps();
-            bool holiday = holidays(dt1, dt1);
-            bool dholiday = checkDhols(dt1, dt1);
-            DayOfWeek check = dt1.DayOfWeek;
-            if (halfdayoverlap)
-            {
-                if (holiday)
-                {
-                    if (dholiday)
-                    {
-                        if (weekEnd)
-                        {
-                            con.Open();
-                            SqlCommand com = new SqlCommand();
-                            com.Connection = con;
-                            com.CommandText = "INSERT INTO LeaveRecords VALUES (@EmployeeID, @Status, @LeaveType, @Days, @StartingDate, @EndingDate)";
-                            com.Parameters.AddWithValue("@EmployeeID", Session["empid"].ToString());
-                            com.Parameters.AddWithValue("@Status", "Pending");
-                            com.Parameters.AddWithValue("@LeaveType", ddLeaveType.SelectedValue);
-                            com.Parameters.AddWithValue("@Days", "0.5");
-                            com.Parameters.AddWithValue("@StartingDate", startDateTxt.Text);
-                            com.Parameters.AddWithValue("@EndingDate", startDateTxt.Text);
-                            com.ExecuteNonQuery();
-                            con.Close();
-
-                            string name = Session["firstname"].ToString() + " " + Session["lastname"].ToString();
-                            aud.AuditLog(EncryptHelper.Encrypt("Applied Leave", Helper.GetSalt()), int.Parse(Session["empid"].ToString()), EncryptHelper.Encrypt(name + "Applied for a Leave", Helper.GetSalt()));
-
-                            Response.Redirect("getLeaveApplicationHistory.aspx");
-                        }
-                        else
-                        {
-                            Response.Write("<script>alert('The Date should not have weekend');</script>");
-                        }
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
-                    }
-                }
-                else
-                {
-                    Response.Write("<script>alert('The date you picked is a holiday bes');</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('The Date is already have covered');</script>");
-            }
-
-
-        }
-    }
-
-    protected void ddlDayType_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ddlDayType.SelectedIndex == 0)
-        {
-            endDateTxt.Enabled = true;
-        }
-        else if (ddlDayType.SelectedIndex == 1)
-        {
-            endDateTxt.Enabled = false;
         }
     }
 

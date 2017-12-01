@@ -17,14 +17,14 @@
                                 <label class="col-sm-2 control-label">Type:</label>
 
                                 <div class="col-sm-10">
-                                    <asp:DropDownList ID="ddLeaveType" runat="server" class="form-control" required>
+                                    <asp:DropDownList ID="ddLeaveType" runat="server" class="form-control" OnSelectedIndexChanged="ddLeaveType_SelectedIndexChanged" AutoPostBack="true" required>
                                         <asp:ListItem>Vacation</asp:ListItem>
                                         <asp:ListItem>Sick</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="DayType" runat="server" >
                                 <label class="col-sm-2 control-label">Day Type:</label>
 
                                 <div class="col-sm-10">
@@ -35,6 +35,16 @@
                                 </div>
                             </div>
 
+                            <div class="form-group" id="MatType" runat="server" style="display:none;" >
+                                <label class="col-sm-2 control-label">Maternity Leave Type:</label>
+
+                                <div class="col-sm-10">
+                                    <asp:DropDownList ID="ddlMatType" runat="server" class="form-control" OnSelectedIndexChanged="ddlDayType_SelectedIndexChanged" AutoPostBack="true" required>
+                                        <asp:ListItem>Normal Delivery/Miscarriage</asp:ListItem>
+                                        <asp:ListItem>Caesarian section delivery</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Start:</label>
@@ -43,12 +53,10 @@
                                     <asp:TextBox ID="startDateTxt" TextMode="Date" runat="server" class="form-control" required />
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label id="lbEnd" class="col-sm-2 control-label">End:</label>
-
+                            <div class="form-group" id="enddate" runat="server">
+                                <label class="col-sm-2 control-label">End:</label>
                                 <div class="col-sm-10">
-                                    <asp:TextBox TextMode="Date" ID="endDateTxt" runat="server" CssClass="form-control" required />
+                                    <asp:TextBox TextMode="Date" ID="endDateTxt" runat="server" CssClass="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +65,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

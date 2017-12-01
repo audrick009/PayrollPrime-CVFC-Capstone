@@ -20,6 +20,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-lg-4">Name of Holiday</label>
+                            <div class="col-lg-8">
+                                <asp:DropDownList ID="ddlhType" class="form-control" runat="server" required="required" >
+                                    <asp:ListItem>Regular</asp:ListItem>
+                                    <asp:ListItem>Special</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-lg-4">Date of Holiday</label>
                             <div class="col-lg-8">
                                 <asp:TextBox ID="txtDateHD" TextMode="Date" class="form-control" runat="server" required="required" />

@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
 {
-    Helper aud = new Helper();   
+    Helper aud = new Helper();
     SqlConnection mio = new SqlConnection(Helper.GetCon());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,7 +17,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio;
 
-        mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position FROM Employee WHERE Status = 'Employed' ";
+        mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position FROM Employee WHERE Status != 'resigned' ";
         SqlDataAdapter da = new SqlDataAdapter(mirai);
         DataSet ds = new DataSet();
         da.Fill(ds, "Employee");
@@ -27,7 +27,6 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
     }
     protected void btnGenPay_Click(object sender, EventArgs e)
     {
-
         int EmployeeID = 0;
         int PayTerm = 0;
         int BWD = 0;
@@ -53,12 +52,12 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         Allowance = decimal.Parse(txtAllowance.Text);
         PayTerm = GetPayTermID();
 
-        
+
         SqlConnection mio2 = new SqlConnection(Helper.GetCon());
         mio2.Open();
         SqlCommand mirai = new SqlCommand();
         mirai.Connection = mio2;
-        mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position FROM Employee WHERE Status = 'Employed'";
+        mirai.CommandText = "Select EmployeeID, FirstName, MiddleName, LastName, DateEmployed, Position FROM Employee WHERE Status != 'resigned'";
         SqlDataReader aki = mirai.ExecuteReader();
         if (aki.HasRows)
         {
@@ -71,7 +70,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 SSScont = EmpSSScont(BaseSalary);
                 PhilHCont = EmpPhilHCont(BaseSalary);
                 PagibigCont = EmpPagibigCont(BaseSalary);
-                SSSloan = getLoan(EmployeeID,"SSSLoan");
+                SSSloan = getLoan(EmployeeID, "SSSLoan");
                 HDMFLoan = getLoan(EmployeeID, "HDMFLoan");
                 PLoan = getLoan(EmployeeID, "PersonalLoan");
                 //end 
@@ -85,14 +84,16 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 holidayAtt(EmployeeID, PayTerm);
                 if (BWD > (leaveC + attendance + HCount))
                 {
+
                     LWopayDeduction = ((BWD - (leaveC + attendance)) * 8) * HourlyRate;
                 }
-                else {
+                else
+                {
                     LWopayDeduction = 0.0m;
                 }
-                
+
                 attwpy = HourlyRate * holidayAtt(EmployeeID, PayTerm);
-                OTpay = OvertimePay(EmployeeID, PayTerm);
+                OTpay = OvertimePay(EmployeeID, PayTerm, HourlyRate);
 
                 PayAfterDeduc = (BaseSalary + attwpy + OTpay) - (SSScont + PhilHCont + PagibigCont);
                 grossPay = BaseSalary + attwpy + OTpay - LWopayDeduction;
@@ -113,13 +114,13 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         mio2.Close();
 
     }
-    public void insertPayrollData(int EmpID, int PTID, decimal Wtax, decimal SSScont, decimal PhicCont, decimal HdmfCont, decimal SSSloan, decimal HDMFLoan,decimal Lwopay, decimal otPay, decimal PLoan, decimal netpay, decimal allowance)
+    public void insertPayrollData(int EmpID, int PTID, decimal Wtax, decimal SSScont, decimal PhicCont, decimal HdmfCont, decimal SSSloan, decimal HDMFLoan, decimal Lwopay, decimal otPay, decimal PLoan, decimal netpay, decimal allowance)
     {
         SqlConnection con = new SqlConnection(Helper.GetCon());
         con.Open();
         SqlCommand ruri = new SqlCommand();
         ruri.Connection = con;
-        ruri.CommandText = "Insert Into PayrollRecords Values (@EmployeeID, @PaytermID, @WTax, @SSScont, @PHICCont, @HDMFCont,"+
+        ruri.CommandText = "Insert Into PayrollRecords Values (@EmployeeID, @PaytermID, @WTax, @SSScont, @PHICCont, @HDMFCont," +
             " @SSSLoan, @HDMFLoan, @LWoPay, @OvertimePay, @PersonalLoan, @NetPay, @Allowance)";
         ruri.Parameters.AddWithValue("@EmployeeID", EmpID);
         ruri.Parameters.AddWithValue("@PaytermID", PTID);
@@ -189,7 +190,8 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         if (depC == 0)
         {
             status = "S/ME";
-        } else if (depC == 1)
+        }
+        else if (depC == 1)
         {
             status = "ME1/S1";
         }
@@ -218,7 +220,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         SqlCommand yui = new SqlCommand();
         yui.Connection = prvcon;
         yui.CommandText = " SELECT EmployeeID, LoanRate from EmployeeLoanRecords where TotalLoan != AmountPayed AND EmployeeID =@EmployeeID AND LoanType=@LoanType";
-        yui.Parameters.AddWithValue("@EmployeeID",EmpID);
+        yui.Parameters.AddWithValue("@EmployeeID", EmpID);
         yui.Parameters.AddWithValue("@LoanType", LoanType);
         SqlDataReader momo = yui.ExecuteReader();
         if (momo.HasRows)
@@ -231,12 +233,15 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         prvcon.Close();
         return lRate;
     }
-    public decimal OvertimePay(int EmpID, int PaytermID)
+    public decimal OvertimePay(int EmpID, int PaytermID, decimal hourly)
     {
         var start = DateTime.Today;
         var end = DateTime.Today;
         int otHours = 0;
         int hours = 0;
+        decimal nightdiff = 0.0m;
+        decimal otpay = 0.0m;
+        decimal fhourlypay = 0.0m;
 
         SqlConnection prvcon = new SqlConnection(Helper.GetCon());
         prvcon.Open();
@@ -257,7 +262,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         prvcon.Open();
         SqlCommand karen = new SqlCommand();
         karen.Connection = prvcon;
-        karen.CommandText = "Select Hours, StartTime, EndTime from OvertimeRecords where Date > @StartDate AND Date <= @EndDate AND Status='Approved' AND EmployeeID=@EmployeeID";
+        karen.CommandText = "Select Date, Hours, StartTime, EndTime from OvertimeRecords where Date > @StartDate AND Date <= @EndDate AND Status='Approved' AND EmployeeID=@EmployeeID";
         karen.Parameters.AddWithValue("@StartDate", start.Date);
         karen.Parameters.AddWithValue("@EndDate", end.Date);
         karen.Parameters.AddWithValue("@EmployeeID", EmpID);
@@ -266,12 +271,78 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         {
             while (miyu.Read())
             {
-                otHours = int.Parse(miyu["Hours"].ToString());
-                hours = hours + otHours;
+
+                DateTime ishol = DateTime.Parse(miyu["Date"].ToString());
+                if (isHoliday(ishol))
+                {
+                    otHours = int.Parse(miyu["Hours"].ToString());
+                    if (otHours > 5)
+                    {
+                        int count = 0;
+                        count = otHours - 5;
+                        nightdiff = nightdiff + (count * (hourly * 1.35m));
+                        hours = hours + 5;
+                    }
+                    else
+                    {
+                        hours = hours + otHours;
+                    }
+                    fhourlypay = hours * ((hourly * 2) * 1.30m);
+                }
+                else if (dhol(ishol) == "Regular")
+                {
+                    otHours = int.Parse(miyu["Hours"].ToString());
+                    if (otHours > 5)
+                    {
+                        int count = 0;
+                        count = otHours - 5;
+                        nightdiff = nightdiff + (count * (hourly * 1.35m));
+                        hours = hours + 5;
+                    }
+                    else
+                    {
+                        hours = hours + otHours;
+                    }
+                    fhourlypay = hours * ((hourly * 2) * 1.30m);
+                }
+                else if (dhol(ishol) == "Special")
+                {
+                    otHours = int.Parse(miyu["Hours"].ToString());
+                    if (otHours > 5)
+                    {
+                        int count = 0;
+                        count = otHours - 5;
+                        nightdiff = nightdiff + (count * (hourly * 1.35m));
+                        hours = hours + 5;
+                    }
+                    else
+                    {
+                        hours = hours + otHours;
+                    }
+                    fhourlypay = hours * ((hourly * 1.50m) * 1.30m);
+                }
+                else
+                {
+                    otHours = int.Parse(miyu["Hours"].ToString());
+                    if (otHours > 5)
+                    {
+                        int count = 0;
+                        count = otHours - 5;
+                        nightdiff = nightdiff + (count * (hourly * 1.35m));
+                        hours = hours + 5;
+                    }
+                    else
+                    {
+                        hours = hours + otHours;
+                    }
+                    fhourlypay = hours * (hourly * 1.25m);
+                }
+
             }
         }
+        otpay = nightdiff + fhourlypay;
         prvcon.Close();
-        return hours;
+        return otpay;
     }
     public int checkHolidays(int PaytermID)
     {
@@ -285,14 +356,11 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         string Year = date.Year.ToString();
         var h1 = "01-01-" + Year;
         var h2 = "09-04-" + Year;
-        var h3 = "13-04-" + Year;
-        var h4 = "14-04-" + Year;
-        var h5 = "01-05-" + Year;
-        var h6 = "12-06-" + Year;
-        var h7 = "28-08-" + Year;
-        var h8 = "30-10-" + Year;
-        var h9 = "25-12-" + Year;
-        var h10 = "30-12-" + Year;
+        var h3 = "01-05-" + Year;
+        var h4 = "12-06-" + Year;
+        var h5 = "30-11-" + Year;
+        var h6 = "25-12-" + Year;
+        var h7 = "30-12-" + Year;
         DateTime holiday1 = DateTime.Parse(h1);
         DateTime holiday2 = DateTime.Parse(h2);
         DateTime holiday3 = DateTime.Parse(h3);
@@ -300,9 +368,6 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         DateTime holiday5 = DateTime.Parse(h5);
         DateTime holiday6 = DateTime.Parse(h6);
         DateTime holiday7 = DateTime.Parse(h7);
-        DateTime holiday8 = DateTime.Parse(h8);
-        DateTime holiday9 = DateTime.Parse(h9);
-        DateTime holiday10 = DateTime.Parse(h10);
 
         SqlConnection prvcon = new SqlConnection(Helper.GetCon());
         prvcon.Open();
@@ -332,19 +397,14 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                     count++;
                 if (start <= holiday7 && end >= holiday7)
                     count++;
-                if (start <= holiday8 && end >= holiday8)
-                    count++;
-                if (start <= holiday9 && end >= holiday9)
-                    count++;
-                if (start <= holiday10 && end >= holiday10)
-                    count++;
             }
         }
 
         prvcon.Close();
         return count;
     }
-    public int checkDhols(int PaytermID) {
+    public int checkDhols(int PaytermID)
+    {
         int count = 0;
         DateTime dhol = new DateTime();
 
@@ -356,19 +416,22 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         aiztan.CommandText = "Select * from Holidays where Date > @YearNow AND Date < @YearNow ";
         aiztan.Parameters.AddWithValue("@PaytermID", DateTime.Now.Year);
         SqlDataReader nyan = aiztan.ExecuteReader();
-        if (nyan.HasRows) {
-            while (nyan.Read()) {
+        if (nyan.HasRows)
+        {
+            while (nyan.Read())
+            {
                 DateTime.TryParse(nyan["Date"].ToString(), out dhol);
-                if (ptstart(PaytermID) <= dhol && ptend(PaytermID) >= dhol) {
+                if (ptstart(PaytermID) <= dhol && ptend(PaytermID) >= dhol)
+                {
                     count++;
                 }
-                
             }
         }
         prvcon.Close();
         return count;
     }
-    public DateTime ptstart(int PaytermID) {
+    public DateTime ptstart(int PaytermID)
+    {
 
         DateTime pstart = new DateTime();
         SqlConnection con = new SqlConnection(Helper.GetCon());
@@ -379,15 +442,18 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         com.CommandText = "Select StartingDate From PayTerm where PayTermID = @PayTermID";
         com.Parameters.AddWithValue("@PayTerm", PaytermID);
         SqlDataReader dr = com.ExecuteReader();
-        if (dr.HasRows) {
-            while (dr.Read()) {
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
                 DateTime.TryParse(dr["StartingDate"].ToString(), out pstart);
             }
         }
         con.Close();
         return pstart;
     }
-    public DateTime ptend(int PaytermID) {
+    public DateTime ptend(int PaytermID)
+    {
         DateTime ptend = new DateTime();
         SqlConnection con = new SqlConnection(Helper.GetCon());
         con.Open();
@@ -408,7 +474,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         return ptend;
     }
     //double pay holiday - check attendance
-    public decimal holidayAtt(int EmployeeID,int PayTermID)
+    public decimal holidayAtt(int EmployeeID, int PayTermID)
     {
         var start = DateTime.Today;
         var end = DateTime.Today;
@@ -460,8 +526,8 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         con.Open();
         SqlCommand taiga = new SqlCommand();
         taiga.Connection = con;
-        taiga.CommandText = "Select TimeIn, TimeOut, Status From AttendanceRecord where "+
-            "(EmployeeID = @EmployeeID AND Type='Biometrics' AND TimeIn > @StartDate AND TimeIn < @EndDate) OR"+
+        taiga.CommandText = "Select TimeIn, TimeOut, Status From AttendanceRecord where " +
+            "(EmployeeID = @EmployeeID AND Type='Biometrics' AND TimeIn > @StartDate AND TimeIn < @EndDate) OR" +
             " (EmployeeID = @EmployeeID AND Type='Manual' AND TimeIn > @StartDate AND TimeIn < @EndDate)";
         taiga.Parameters.AddWithValue("@EmployeeID", EmployeeID);
         taiga.Parameters.AddWithValue("@StartDate", start);
@@ -473,12 +539,13 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
             {
                 day = DateTime.Parse(katou["TimeIn"].ToString());
                 status = katou["Status"].ToString();
-                if(day.Date == holiday1.Date || day.Date == holiday2.Date || day.Date == holiday3.Date || day.Date == holiday4.Date || day.Date == holiday5.Date || day.Date == holiday6.Date || day.Date == holiday7.Date || day.Date == holiday8.Date || day.Date == holiday9.Date || day.Date == holiday10.Date)
+                if (day.Date == holiday1.Date || day.Date == holiday2.Date || day.Date == holiday3.Date || day.Date == holiday4.Date || day.Date == holiday5.Date || day.Date == holiday6.Date || day.Date == holiday7.Date || day.Date == holiday8.Date || day.Date == holiday9.Date || day.Date == holiday10.Date)
                 {
-                    if(status == "Fullday")
+                    if (status == "Fullday")
                     {
                         holidayC += 1;
-                    }else if (status == "Halfday")
+                    }
+                    else if (status == "Halfday")
                     {
                         holidayC += 0.5m;
                     }
@@ -586,7 +653,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
             "OR (EmployeeID = @EmployeeID AND StartingDate <= @StartDate AND EndingDate >= @StartDate AND Status='Approved' AND LeaveType = 'Vacation')";
         com2.Parameters.AddWithValue("@StartDate", start);
         com2.Parameters.AddWithValue("@EndDate", end);
-        com2.Parameters.AddWithValue("@EmployeeID",EmpID );
+        com2.Parameters.AddWithValue("@EmployeeID", EmpID);
         SqlDataReader mayoi = com2.ExecuteReader();
         if (mayoi.HasRows)
         {
@@ -600,15 +667,16 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                     TimeSpan ts = Lend - start;
                     lvVCount += ts.Days;
 
-                } else if(end >= Lstart && end <= Lend)
+                }
+                else if (end >= Lstart && end <= Lend)
                 {
                     TimeSpan ts = end - Lstart;
                     lvVCount += ts.Days;
                 }
-                else if(Lstart > start && Lend < end)
+                else if (Lstart > start && Lend < end)
                 {
                     TimeSpan ts = Lstart - Lend;
-                    if(ts.Days < 1)
+                    if (ts.Days < 1)
                     {
                         lvVCount += 0.5m;
                     }
@@ -678,16 +746,20 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
                 rsCount = int.Parse(dr1["RSickLeave"].ToString());
             }
         }
-        if (rvCount < lvVCount) {
+        if (rvCount < lvVCount)
+        {
             totalLeave = totalLeave + rvCount;
         }
-        else{
+        else
+        {
             totalLeave = totalLeave + lvVCount;
         }
-        if (rsCount < lvSCount) {
+        if (rsCount < lvSCount)
+        {
             totalLeave = totalLeave + rsCount;
         }
-        else {
+        else
+        {
             totalLeave = totalLeave + lvSCount;
         }
 
@@ -695,7 +767,8 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         return totalLeave;
 
     }
-    public void deductLeave(int EmployeeID, decimal vcount, decimal lcount) {
+    public void deductLeave(int EmployeeID, decimal vcount, decimal lcount)
+    {
         decimal rvl = 0.0m;
         decimal rsl = 0.0m;
         SqlConnection con = new SqlConnection(Helper.GetCon());
@@ -705,8 +778,10 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         com.CommandText = "Select RSickLeave, RVacLeave From Employee WHERE EmployeeID = @EmployeeID ";
         com.Parameters.AddWithValue("@EmployeeID", EmployeeID);
         SqlDataReader dr = com.ExecuteReader();
-        if (dr.HasRows) {
-            while (dr.Read()) {
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
                 rvl = int.Parse(dr["RVacLeave"].ToString());
                 rsl = int.Parse(dr["RSickLeave"].ToString());
             }
@@ -813,7 +888,7 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
             while (dr.Read())
             {
                 BaseSalary = decimal.Parse(dr["BaseSalary"].ToString());
-                
+
             }
         }
         prvcon.Close();
@@ -863,30 +938,30 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         }
         empCont = total * 0.50m;
         prvcon.Close();
-        return decimal.Round(empCont,1);
-        
+        return decimal.Round(empCont, 1);
+
     }
     public decimal EmpPagibigCont(decimal BasePay)
     {
         decimal empCont = 0.0m;
-        if(BasePay < 1500.0m)
+        if (BasePay < 1500.0m)
         {
             empCont = BasePay * 0.01m;
         }
         else
         {
-           empCont = 100.0m;
+            empCont = 100.0m;
         }
         return decimal.Round((empCont / 2), 1);
     }
     public decimal EmpHourlyRate(decimal BasePay)
     {
         decimal HourlyRate = 0.0m;
-        HourlyRate = ((BasePay * 12.0m) / 52.0m) / 40.0m;
+        HourlyRate = (((BasePay * 2) * 12.0m) / 261.0m) / 8.0m;
         return decimal.Round(HourlyRate, 2);
-        
     }
-    public decimal thirteenmonth(int EmployeeID) {
+    public decimal thirteenmonth(int EmployeeID)
+    {
         decimal tthpay = 0.00m;
         decimal dailyrate = 0.00m;
         decimal Mpay = 0.00m;
@@ -897,12 +972,97 @@ public partial class PayrollOfficer_GenerateEmpPay : System.Web.UI.Page
         com.Connection = tcon;
         com.CommandText = "Select BaseSalary from Employee Where EmployeeID = @EmployeeID";
         SqlDataReader dr = com.ExecuteReader();
-        if (dr.HasRows) {
-            while (dr.Read()) {
-                 semiMpay = decimal.Parse(dr["BaseSalary"].ToString());
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                semiMpay = decimal.Parse(dr["BaseSalary"].ToString());
             }
         }
         Mpay = semiMpay * 2;
         return tthpay;
+    }
+    public bool isHoliday(DateTime date)
+    {
+
+        var start = DateTime.Today;
+        var end = DateTime.Today;
+        var day = DateTime.Today;
+        string sDate = DateTime.Now.ToString();
+        DateTime datenow = (Convert.ToDateTime(sDate.ToString()));
+
+        string Year = datenow.Year.ToString();
+        var h1 = "01-01-" + Year;
+        var h2 = "09-04-" + Year;
+        var h3 = "01-05-" + Year;
+        var h4 = "12-06-" + Year;
+        var h5 = "30-11-" + Year;
+        var h6 = "25-12-" + Year;
+        var h7 = "30-12-" + Year;
+        DateTime holiday1 = DateTime.Parse(h1);
+        DateTime holiday2 = DateTime.Parse(h2);
+        DateTime holiday3 = DateTime.Parse(h3);
+        DateTime holiday4 = DateTime.Parse(h4);
+        DateTime holiday5 = DateTime.Parse(h5);
+        DateTime holiday6 = DateTime.Parse(h6);
+        DateTime holiday7 = DateTime.Parse(h7);
+
+        if (date == holiday1)
+        {
+            return true;
+        }
+        else if (date == holiday2)
+        {
+            return true;
+        }
+        else if (date == holiday3)
+        {
+            return true;
+        }
+        else if (date == holiday4)
+        {
+            return true;
+        }
+        else if (date == holiday5)
+        {
+            return true;
+        }
+        else if (date == holiday6)
+        {
+            return true;
+        }
+        else if (date == holiday7)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    public string dhol(DateTime date)
+    {
+        string type = "";
+        SqlConnection hcon = new SqlConnection(Helper.GetCon());
+        hcon.Open();
+        SqlCommand com = new SqlCommand();
+        com.Connection = hcon;
+        com.CommandText = "Select * From Holidays Where Date = @date";
+        com.Parameters.AddWithValue("@date", date);
+        SqlDataReader dr = com.ExecuteReader();
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                type = dr["hType"].ToString();
+            }
+            return type;
+        }
+        else
+        {
+            return "Not holiday";
+        }
+
     }
 }

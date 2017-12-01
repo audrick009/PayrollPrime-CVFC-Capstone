@@ -110,15 +110,22 @@ public partial class Admin_ViewAttendance : System.Web.UI.Page
     {
         DateTime start = DateTime.Parse(txtStart.Text);
         DateTime end = DateTime.Parse(txtEnd.Text);
-        ReportDocument rpt = new ReportDocument();
-        rpt.Load(Server.MapPath("~/Reports/attendanceReport1.rpt"));
-        rpt.SetDatabaseLogon("sa", "dbpass", "DESKTOP-JQC0U4J", "CVFCPayroll");
-        rpt.SetParameterValue("startdate", txtStart.Text);
-        rpt.SetParameterValue("enddate", txtEnd.Text);
-        rpt.SetParameterValue("starttext", start.ToString(" MMMM dd,yyyy "));
-        rpt.SetParameterValue("endtext", end.ToString(" MMMM dd,yyyy "));
-        rpt.SetParameterValue("fullname", Session["firstname"].ToString() + " " + Session["lastname"].ToString());
-        rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Employee Audit Log Records as of " + DateTime.Now.ToString());
+        if (start < end && start <= DateTime.Today && end <= DateTime.Today)
+        {
+            ReportDocument rpt = new ReportDocument();
+            rpt.Load(Server.MapPath("~/Reports/attendanceReport1.rpt"));
+            rpt.SetDatabaseLogon("sa", "dbpass", "DESKTOP-JQC0U4J", "CVFCPayroll");
+            rpt.SetParameterValue("startdate", txtStart.Text);
+            rpt.SetParameterValue("enddate", txtEnd.Text);
+            rpt.SetParameterValue("starttext", start.ToString(" MMMM dd,yyyy "));
+            rpt.SetParameterValue("endtext", end.ToString(" MMMM dd,yyyy "));
+            rpt.SetParameterValue("fullname", Session["firstname"].ToString() + " " + Session["lastname"].ToString());
+            rpt.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Employee Audit Log Records as of " + DateTime.Now.ToString());
+        }
+        else {
+            Response.Write("<script>alert('The Date is already have covered');</script>");
+        }
+       
     }
     void getReportEmp()
     {
